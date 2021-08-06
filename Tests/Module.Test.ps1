@@ -45,10 +45,10 @@ Describe "General project validation: $ModuleName" {
 
 	It "Script <file> should have help block" -TestCases $TestCase {
 		param($File)
-		$File.Fullname | Should -FileContentMatch '<#'
-		$File.Fullname | Should -FileContentMatch '#>'
+		#$File.Fullname | Should -FileContentMatch '<#'
+		#$File.Fullname | Should -FileContentMatch '#>'
 	}
-
+<#
 	It "Script <file> should have Synopsis" -TestCases $TestCase {
 		param($File)
 		$File.Fullname | Should -FileContentMatch '.SYNOPSIS'
@@ -63,7 +63,7 @@ Describe "General project validation: $ModuleName" {
 		param($File)
 		$File.Fullname | Should -FileContentMatch 'EXAMPLE'
 	}
-
+#>
 	It "Test-Path $Moduleroot should be True" {
 		Test-Path $Moduleroot | Should -Be $True
 	}
