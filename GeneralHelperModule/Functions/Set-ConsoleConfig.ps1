@@ -1,5 +1,4 @@
-Function Set-ConsoleConfig
-{
+Function Set-ConsoleConfig{
 <#
 	.SYNOPSIS
 		Changes the Console Title
@@ -17,10 +16,8 @@ Function Set-ConsoleConfig
 		Input is from command line.
 
 	.NOTES
-		Version:			1
 		Author:				Lars Panzerbjørn
 		Creation Date:		2020.01.13
-		Purpose/Change: Initial script development
 #>
 	[CmdletBinding()]
 	param
