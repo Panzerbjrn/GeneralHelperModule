@@ -13,10 +13,10 @@ Function Get-RandomHexNumber {
 		This is the length of the resulting number in bits.
 
 	.EXAMPLE
-		Create-NewModuleStructure -Path C:\Temp\ -ModuleName Test-Module -Author LarsP -Description "Test PowerShell Module"
+		
 
 	.EXAMPLE
-		Create-NewModuleStructure -ModuleName ServiceNowCMDB -Path C:\Temp -Description "Helper Functions to work with ServiceNow's CMDB"
+		
 
 	.INPUTS
 		A number

@@ -20,17 +20,14 @@ Function Write-LogFile
 	IF (!(Test-Path $LogFilePath)) {New-Item -ItemType File -Path $LogFilePath -Force}
 	
 	DO{
-		Try
-		{
+		Try{
 			Add-Content -Path $LogFilePath -Value $CaptainsLog
 			$Done = $True
 		}
-		Catch
-		{
+		Catch{
 			$Done = $False
 		}
-		Finally
-		{
+		Finally{
 			Start-Sleep -S 1
 		}
 	}
