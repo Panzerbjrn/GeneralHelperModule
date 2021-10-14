@@ -11,7 +11,7 @@
 	RootModule = 'GeneralHelperModule.psm1'
 
 	# Version number of this module.
-	ModuleVersion = '1.0.3'
+	ModuleVersion = '1.0.4'
 
 	# ID used to uniquely identify this module
 	GUID = '2259f27e-adb2-4453-aa6b-c32d840d578a'
