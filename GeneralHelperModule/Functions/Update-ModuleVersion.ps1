@@ -48,7 +48,7 @@ Function Update-ModuleVersion{
 		}
 		ELSE{
 			Write-Verbose "No Fingerprint found, saving current fingerprint"
-			$OldFingerprint = Get-Content $(Join-Path $ModulePath fingerprint)
+			$OldFingerprint = $Fingerprint
 		}
 		IF(Compare-Object -ReferenceObject $OldFingerprint -DifferenceObject $Fingerprint){
 			Write-Output 'Detecting new features'
@@ -62,11 +62,11 @@ Function Update-ModuleVersion{
 			IF ($MajorFeature -ge 1){$VersionType = 'Major'}
 				#ForEach-Object {$VersionType = 'Major'; "  $_"}
 
-			IF($PSCmdlet.ShouldProcess(
-				"Fingerprint will be saved"
-			)){
-				Set-Content -Path $(Join-Path $ModulePath fingerprint) -Value $Fingerprint
-			}
+		}
+		IF($PSCmdlet.ShouldProcess(
+			"Fingerprint will be saved"
+		)){
+			Set-Content -Path $(Join-Path $ModulePath fingerprint) -Value $Fingerprint
 		}
 		
 		IF($Ask){
