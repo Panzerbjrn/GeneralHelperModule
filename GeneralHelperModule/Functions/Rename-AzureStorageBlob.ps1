@@ -61,7 +61,6 @@ Function Rename-AzureStorageBlob{
 
 	$BlobCopyAction = Start-AzStorageBlobCopy @StartAzStorageBlobCopySplat 
 		
-
 	$status = $BlobCopyAction | Get-AzStorageBlobCopyState
 
 	while ($status.Status -ne 'Success'){
