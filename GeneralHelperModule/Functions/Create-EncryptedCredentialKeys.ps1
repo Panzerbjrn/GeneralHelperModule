@@ -45,18 +45,16 @@ Function Create-EncryptedCredentialKeys
 	{
 		$Path = $Path.TrimEnd('\')
 
-		IF (!(Test-Path -Path $Path))
-		{
+		IF (!(Test-Path -Path $Path)){
 			Try{New-Item -ItemType "Directory" -Path $Path -Force}
 			Catch{"$($Path) doesn't exist, and couldn't be created"}
 			Break
 		}
-		IF (!([string]::IsNullOrEmpty($Service)))
-		{
+		
+		IF (!([string]::IsNullOrEmpty($Service))){
 			$Path = ($Path + "\" + $Service + ".")
 		}
-		Else
-		{
+		Else{
 			$Path = ($Path + "\")
 		}
 	}
