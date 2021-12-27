@@ -20,9 +20,10 @@ Function Update-ModuleVersion{
 			$ModulePath = (Get-Item $ModulePath).DirectoryName
 		}
 		$ModuleName = $ModulePath.Trimend('\').Split('\')[-1]
-		IF(Test-Path "$ModulePath\$ModuleName.psd1"){$ManifestPath = "$ModulePath\$ModuleName.psd1"}
-		ELSEIF(Test-Path "$ModulePath\$ModuleName\$ModuleName.psd1"){$ManifestPath = "$ModulePath\$ModuleName\$ModuleName.psd1"}
-		ELSE{THROW "No manifest was found"}
+		$ManifestPath = Get-ChildItem $Path "$ModuleName.psd1" -Recurse | Select -ExpandProperty FullName
+		#IF(Test-Path "$ModulePath\$ModuleName.psd1"){$ManifestPath = "$ModulePath\$ModuleName.psd1"}
+		#ELSEIF(Test-Path "$ModulePath\$ModuleName\$ModuleName.psd1"){$ManifestPath = "$ModulePath\$ModuleName\$ModuleName.psd1"}
+		#ELSE{THROW "No manifest was found"}
 
 		Write-Verbose ("Importing {0}" -f $ModuleName)
 		Import-Module $ManifestPath -Force
@@ -43,32 +44,34 @@ Function Update-ModuleVersion{
 		$MajorFeature = 0
 		$VersionType = $Null
 		IF($Patch){$VersionType = 'Patch'}
-		IF(Test-Path $(Join-Path $ModulePath fingerprint) ){
-			$OldFingerprint = Get-Content $(Join-Path $ModulePath fingerprint)
-		}
-		ELSE{
-			Write-Verbose "No Fingerprint found, saving current fingerprint"
-			$OldFingerprint = $Fingerprint
-		}
-		IF(Compare-Object -ReferenceObject $OldFingerprint -DifferenceObject $Fingerprint){
-			Write-Output 'Detecting new features'
-			$Fingerprint | Where {$_ -notin $OldFingerprint } | 
-				ForEach-Object {$MinorFeature++}
-				#ForEach-Object {$VersionType = 'Minor'; "  $_"}
-			IF ($MinorFeature -ge 1){$VersionType = 'Minor'}
-			Write-Output 'Detecting breaking changes'
-			$OldFingerprint | Where {$_ -notin $Fingerprint } | 
-				ForEach-Object {$MajorFeature++}
-			IF ($MajorFeature -ge 1){$VersionType = 'Major'}
-				#ForEach-Object {$VersionType = 'Major'; "  $_"}
+		IF([string]::IsNullOrEmpty($fingerprint)){$VersionType = 'Patch'}
+		IF(!([string]::IsNullOrEmpty($fingerprint))){
+			IF(Test-Path $(Join-Path $ModulePath fingerprint) ){
+				$OldFingerprint = Get-Content $(Join-Path $ModulePath fingerprint)
+			}
+			ELSE{
+				Write-Verbose "No Fingerprint found, saving current fingerprint"
+				$OldFingerprint = $Fingerprint
+			}
+			IF(Compare-Object -ReferenceObject $OldFingerprint -DifferenceObject $Fingerprint){
+				Write-Output 'Detecting new features'
+				$Fingerprint | Where {$_ -notin $OldFingerprint } | 
+					ForEach-Object {$MinorFeature++}
+					#ForEach-Object {$VersionType = 'Minor'; "  $_"}
+				IF ($MinorFeature -ge 1){$VersionType = 'Minor'}
+				Write-Output 'Detecting breaking changes'
+				$OldFingerprint | Where {$_ -notin $Fingerprint } | 
+					ForEach-Object {$MajorFeature++}
+				IF ($MajorFeature -ge 1){$VersionType = 'Major'}
+					#ForEach-Object {$VersionType = 'Major'; "  $_"}
 
+			}
+			IF($PSCmdlet.ShouldProcess(
+				"Fingerprint will be saved"
+			)){
+				Set-Content -Path $(Join-Path $ModulePath fingerprint) -Value $Fingerprint
+			}
 		}
-		IF($PSCmdlet.ShouldProcess(
-			"Fingerprint will be saved"
-		)){
-			Set-Content -Path $(Join-Path $ModulePath fingerprint) -Value $Fingerprint
-		}
-		
 		IF($Ask){
 			Write-output "$ModulePath\$ModuleName.psd1 would have been updated by $VersionType"
 		}
