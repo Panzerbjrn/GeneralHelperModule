@@ -1,4 +1,4 @@
-Function Create-EncryptedCredentialKeys
+Function New-EncryptedCredentialKeys
 {
 <#
 	.SYNOPSIS
@@ -24,15 +24,16 @@ Function Create-EncryptedCredentialKeys
 		Change 2019.01.31:	Added Examples
 
 	.EXAMPLE
-		Create-EncryptedCredentialKeys -Account "CentralIndustrial\Serv_ServiceAccount" -Path "C:\_Keys\ServAcc" -Passsword "S3kr1tVV0rd"
+		New-EncryptedCredentialKeys -Account "CentralIndustrial\Serv_ServiceAccount" -Path "C:\_Keys\ServAcc" -Passsword "S3kr1tVV0rd"
 
 	.EXAMPLE
-		Create-EncryptedCredentialKeys -Account "Panzerbjrn_L" -Passsword "DenmarkWillTakeBackItsColonies"
+		New-EncryptedCredentialKeys -Account "Panzerbjrn_L" -Passsword "DenmarkWillTakeBackItsColonies"
 
 	.EXAMPLE
-		Create-EncryptedCredentialKeys -Account "Panzerbjrn_L@CentralIndustrial.eu" -$Passssword "DenmarkWillTakeBackItsColonies" -Service Azure
+		New-EncryptedCredentialKeys -Account "Panzerbjrn_L@CentralIndustrial.eu" -$Passssword "DenmarkWillTakeBackItsColonies" -Service Azure
 #>
 	[CmdletBinding(PositionalBinding=$false)]
+	[Alias('Create-EncryptedCredentialKeys')]
 	Param
 	(
 		[Parameter(Mandatory)][string]$Account,
