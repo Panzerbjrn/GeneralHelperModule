@@ -1,7 +1,7 @@
 Function Get-CatFact {
   param(
     [string]$open="It is now time for a cat fact....",
-    [string]$fact=(((Invoke-WebRequest -Uri     https://catfact.ninja/fact).content|ConvertFrom-Json).fact),
+    [string]$fact=(((Invoke-WebRequest -Uri https://catfact.ninja/fact).content|ConvertFrom-Json).fact),
     [int]$rate = 2
   )
     $speak ="$open $fact"
@@ -11,4 +11,3 @@ Function Get-CatFact {
     $v.rate=$rate
     [void]$v.speak($speak)
 }
-#catfact
