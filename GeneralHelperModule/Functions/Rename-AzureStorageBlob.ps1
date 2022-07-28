@@ -59,7 +59,7 @@ Function Rename-AzureStorageBlob{
 		$StartAzStorageBlobCopySplat.Force = $True
 	}
 
-	$BlobCopyAction = Start-AzStorageBlobCopy @StartAzStorageBlobCopySplat 
+	$BlobCopyAction = Start-AzStorageBlobCopy @StartAzStorageBlobCopySplat
 		
 	$status = $BlobCopyAction | Get-AzStorageBlobCopyState
 
