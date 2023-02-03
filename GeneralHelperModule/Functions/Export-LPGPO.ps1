@@ -1,5 +1,5 @@
-Function Export-LPGPO{
+Function Export-GPOReport{
 	Import-Module GroupPolicy
-	Write-Host "Exporting GPO Report to C:\Temp\GPOReport.HTML"
+	Write-Output "Exporting GPO Report to C:\Temp\GPOReport.HTML"
 	Get-GPOReport -All -ReportType HTML C:\Temp\GPOReport.HTML
 }

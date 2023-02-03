@@ -33,7 +33,6 @@ Function Change-ACL
 		Author:				Lars Panzerbjrn
 		Creation Date:		2017.11.01
 		Purpose/Change: 	Initial script development
-		Changed 2019.02.25	LP: Changed function to also Remove permissions; implemented Parameter Sets
 		
 	.EXAMPLE
 		Change-ACL -Directory "\\lonfs1\InfServices\Sec\SecOps" -UserNames Panzerbjrn_L_a -AccessLevel Write -Add
@@ -73,7 +72,7 @@ Function Change-ACL
 	ForEach ($UserName in $UserNames)
 	{
 		$USR = Get-ADUser -Filter {SamAccountName -like $UserName} -Properties *
-		$Usrname = "BDS\"+$USR.SamaccountName
+		$Usrname = "CentralIndustrial\"+$USR.SamaccountName
 		$Inherit = [system.security.accesscontrol.InheritanceFlags]"ContainerInherit, ObjectInherit"
 		$Propagation = [system.security.accesscontrol.PropagationFlags]"None"
 		$AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule($Usrname, $AccessLevel, $Inherit, $Propagation, "Allow")
