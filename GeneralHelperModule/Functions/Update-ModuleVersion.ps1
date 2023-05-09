@@ -80,7 +80,8 @@ Function Update-ModuleVersion{
 				IF($PSCmdlet.ShouldProcess(
 					"$ModulePath\$ModuleName.psd1 will be updated by $VersionType"
 				)){
-					Step-ModuleVersion -Path $ManifestPath -By $VersionType
+					#Step-ModuleVersion -Path $ManifestPath -By $VersionType
+					$Manifest = Import-PowerShellDataFile $ManifestPath
 				}
 			}
 		}
