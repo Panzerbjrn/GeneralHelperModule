@@ -39,12 +39,20 @@ Function Update-ModuleVersion{
 					ForEach-Object { Write-Verbose ('{0}:{1}' -f $Command.name, $_)}
 			}
 		}
+		$Manifest = Import-PowerShellDataFile $ManifestPath
+		[version]$Version = $Manifest.ModuleVersion
 		
 		$MinorFeature = 0
 		$MajorFeature = 0
 		$VersionType = $Null
-		IF($Patch){$VersionType = 'Patch'}
-		IF([string]::IsNullOrEmpty($fingerprint)){$VersionType = 'Patch'}
+		IF($Patch){
+			$VersionType = 'Patch'
+			[version]$NewVersion = "{0}.{1}.{2}" -f $Version.Major, $Version.Minor, ($Version.Build + 1)
+		}
+		IF([string]::IsNullOrEmpty($fingerprint)){
+			$VersionType = 'Patch'
+			[version]$NewVersion = "{0}.{1}.{2}" -f $Version.Major, $Version.Minor, ($Version.Build + 1)
+		}
 		IF(!([string]::IsNullOrEmpty($fingerprint))){
 			IF(Test-Path $(Join-Path $ModulePath fingerprint) ){
 				$OldFingerprint = Get-Content $(Join-Path $ModulePath fingerprint)
@@ -58,11 +66,17 @@ Function Update-ModuleVersion{
 				$Fingerprint | Where {$_ -notin $OldFingerprint } | 
 					ForEach-Object {$MinorFeature++}
 					#ForEach-Object {$VersionType = 'Minor'; "  $_"}
-				IF ($MinorFeature -ge 1){$VersionType = 'Minor'}
+				IF ($MinorFeature -ge 1){
+					$VersionType = 'Minor'
+					[version]$NewVersion = "{0}.{1}.{2}" -f $Version.Major, ($Version.Minor + 1), 0
+				}
 				Write-Output 'Detecting breaking changes'
 				$OldFingerprint | Where {$_ -notin $Fingerprint } | 
 					ForEach-Object {$MajorFeature++}
-				IF ($MajorFeature -ge 1){$VersionType = 'Major'}
+				IF ($MajorFeature -ge 1){
+					$VersionType = 'Major'
+					[version]$NewVersion = "{0}.{1}.{2}" -f ($Version.Major + 1), 0, 0
+				}
 					#ForEach-Object {$VersionType = 'Major'; "  $_"}
 
 			}
@@ -80,8 +94,8 @@ Function Update-ModuleVersion{
 				IF($PSCmdlet.ShouldProcess(
 					"$ModulePath\$ModuleName.psd1 will be updated by $VersionType"
 				)){
-					#Step-ModuleVersion -Path $ManifestPath -By $VersionType
-					$Manifest = Import-PowerShellDataFile $ManifestPath
+					#Step-ModuleVersion -Path $ManifestPath -By $VersionType		#This used to use a function from the Buldheper module.
+					Update-ModuleManifest -Path $ManifestPath -ModuleVersion $NewVersion
 				}
 			}
 		}
