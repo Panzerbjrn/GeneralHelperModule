@@ -1,6 +1,5 @@
 ##From https://docs.microsoft.com/en-us/previous-versions/technet-magazine/hh360993(v=msdn.10)
-Function Do-Something
-{
+Function Do-Something {
 <#
 	.SYNOPSIS
 		Describe the function here
@@ -28,7 +27,7 @@ Function Do-Something
 
 	.NOTES
 		Version:			0.1
-		Author:				Lars Panzerbjørn
+		Author:				Lars Panzerbjï¿½rn
 		Creation Date:		2020.05.12
 		Purpose/Change: Initial script development
 #>

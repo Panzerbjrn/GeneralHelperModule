@@ -1,6 +1,5 @@
 ##From https://docs.microsoft.com/en-us/previous-versions/technet-magazine/hh360993(v=msdn.10)
-Function Verb-Noun
-{
+Function Verb-Noun {
 <#
 	.SYNOPSIS
 
