@@ -39,7 +39,7 @@ Function Create-NewModuleStructure
 	[CmdletBinding(PositionalBinding=$false)]
 	Param
 	(
-		[Parameter(Mandatory=$False)][string]$Author="Lars Panzerbjørn",
+		[Parameter(Mandatory=$False)][string]$Author="Lars Panzerbjï¿½rn",
 		[Parameter(Mandatory=$True)][string]$ModuleName,
 		[Parameter(Mandatory=$False)][string]$Path="C:\Temp",
 		[Parameter(Mandatory=$False)][string]$GitHub="Panzerbjrn",
@@ -58,7 +58,7 @@ $PSMContent = "#region Script Header
 #	AUTHOR: $($Author)
 #	CONTACT: $($Email) / GitHub: $($GitHub) / Twitter: $($Twitter)
 #	DATE: $($Date)
-#	VERSION: 0.1 - $($Date) - Module Created with Create-NewModuleStructure by Lars Panzerbjørn
+#	VERSION: 0.1 - $($Date) - Module Created with Create-NewModuleStructure by Lars Panzerbjï¿½rn
 #
 #	SYNOPSIS:
 #
@@ -72,7 +72,7 @@ $PSMContent = "#region Script Header
 
 #Requires -Version 4.0
 
-[CmdletBinding(PositionalBinding=$false)]
+[CmdletBinding(PositionalBinding=`$false)]
 param()
 
 Write-Verbose `$PSScriptRoot
@@ -82,14 +82,11 @@ Write-Verbose `$PSScriptRoot
 `$Helpers = @( Get-ChildItem -Path `$PSScriptRoot\Helpers\*.ps1 -ErrorAction SilentlyContinue )
 
 #Dot source the files
-ForEach (`$Import in @(`$Functions + `$Helpers))
-{
-	Try
-	{
+ForEach (`$Import in @(`$Functions + `$Helpers)){
+	Try{
 		. `$Import.Fullname
 	}
-	Catch
-	{
+	Catch{
 		Write-Error -Message `"Failed to Import function `$(`$Import.Fullname): `$_`"
 	}
 }
