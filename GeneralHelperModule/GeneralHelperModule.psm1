@@ -29,15 +29,12 @@ $Functions  = @( Get-ChildItem -Path $PSScriptRoot\Functions\*.ps1 -ErrorAction 
 $Helpers = @( Get-ChildItem -Path $PSScriptRoot\Helpers\*.ps1 -ErrorAction SilentlyContinue )
 
 #Dot source the files
-Foreach ($Import in @($Functions + $Helpers))
-{
-	Try
-	{
+Foreach ($Import in @($Functions + $Helpers)){
+	Try{
 		Write-Verbose "Processing $($Import.Fullname)"
 		. $Import.Fullname
 	}
-	Catch
-	{
+	Catch{
 		Write-Error -Message "Failed to Import function $($Import.Fullname): $_"
 	}
 }
