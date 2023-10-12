@@ -20,7 +20,7 @@ Function Update-ModuleVersion{
 			$ModulePath = (Get-Item $ModulePath).DirectoryName
 		}
 		$ModuleName = $ModulePath.Trimend('\').Split('\')[-1]
-		$ManifestPath = Get-ChildItem $Path "$ModuleName.psd1" -Recurse | Select -ExpandProperty FullName
+		$ManifestPath = Get-ChildItem $(Join-Path $Path $ModuleName) "$ModuleName.psd1" -Recurse | Select -ExpandProperty FullName
 		#IF(Test-Path "$ModulePath\$ModuleName.psd1"){$ManifestPath = "$ModulePath\$ModuleName.psd1"}
 		#ELSEIF(Test-Path "$ModulePath\$ModuleName\$ModuleName.psd1"){$ManifestPath = "$ModulePath\$ModuleName\$ModuleName.psd1"}
 		#ELSE{THROW "No manifest was found"}
