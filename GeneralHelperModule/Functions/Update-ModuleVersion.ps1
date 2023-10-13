@@ -87,15 +87,15 @@ Function Update-ModuleVersion{
 			}
 		}
 		IF($Ask){
-			"$(Join-Path $ModulePath "$ModuleName.psd1") would have been updated by $VersionType"
+			Write-output "$(Join-Path $ModulePath "$ModuleName.psd1") would have been updated by $VersionType"
 		}
 		ELSE{
 			IF(!([string]::IsNullOrEmpty($VersionType))){
 				IF($PSCmdlet.ShouldProcess(
-					#Write-output "$ModulePath\$ModuleName.psd1 will be updated by $VersionType"
+					"$ModulePath\$ModuleName.psd1 will be updated by $VersionType"
 				)){
 					#Step-ModuleVersion -Path $ManifestPath -By $VersionType		#This used to use a function from the Buldheper module.
-					#Update-ModuleManifest -Path $ManifestPath -ModuleVersion $NewVersion
+					Update-ModuleManifest -Path $ManifestPath -ModuleVersion $NewVersion
 				}
 			}
 		}
