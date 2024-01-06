@@ -1,5 +1,4 @@
-Function Format-DiskSize
-{
+Function Format-DiskSize{
 	param ($size)
 	Switch ($size)
 	{
