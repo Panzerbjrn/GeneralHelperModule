@@ -115,7 +115,7 @@ SEE ALSO
 
 	PROCESS
 	{
-		$Path="$Path\$ModuleName"
+		$Path= Join-Path $Path $ModuleName
 		Write-Verbose "Creating the module and function directories"
 		IF(!(Test-Path -Path ($Path))) {New-Item ($Path) -ItemType Directory -Force}
 		IF(!(Test-Path -Path ($Path+"\Helpers"))) {New-Item ($Path+"\Helpers") -ItemType Directory -Force} # For private/Helper functions that should not be exposed to end users
