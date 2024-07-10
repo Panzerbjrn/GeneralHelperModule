@@ -254,8 +254,8 @@ Update-ModuleVersion:InformationVariable
 Update-ModuleVersion:OutVariable
 Update-ModuleVersion:OutBuffer
 Update-ModuleVersion:PipelineVariable
-Update-ModuleVersion:WhatIf
 Update-ModuleVersion:Confirm
+Update-ModuleVersion:WhatIf
 Write-LogFile:Message
 Write-LogFile:LogFilePath
 Write-LogFile:Severity
