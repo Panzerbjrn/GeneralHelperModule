@@ -1,6 +1,6 @@
 $ProjectRoot = (Resolve-Path "$PSScriptRoot\..").path
 $ModuleName = Split-Path $ProjectRoot -Leaf
-$ModuleRoot = "$ProjectRoot\$ModuleName.psm1"
+$ModuleRoot = "$ProjectRoot\$ModuleName\$ModuleName.psm1"
 $ModuleRoot = $(gci $ModuleRoot).Fullname
 $ManifestRoot = "$ProjectRoot\$ModuleName.psd1"
 
@@ -18,8 +18,8 @@ BeforeAll {
 	#$Scripts = Get-ChildItem -Include *.ps1 -Exclude *WiP.ps1 -Recurse
 	$ProjectRoot = (Resolve-Path "$PSScriptRoot\..").path
 	$ModuleName = Split-Path $ProjectRoot -Leaf
-	$ModuleRoot = "$ProjectRoot\$ModuleName.psm1"
-	$ManifestRoot = "$ProjectRoot\$ModuleName.psd1"
+	$ModuleRoot = "$ProjectRoot\$ModuleName\$ModuleName.psm1"
+	$ManifestRoot = "$ProjectRoot\$ModuleName\$ModuleName.psd1"
 }
 
 Describe "General project validation: $ModuleName" {
