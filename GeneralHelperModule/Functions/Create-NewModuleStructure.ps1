@@ -1,5 +1,4 @@
-Function Create-NewModuleStructure
-{
+Function Create-NewModuleStructure{
 <#
 	.SYNOPSIS
 		Creates a new Module Tree + Files
@@ -39,13 +38,13 @@ Function Create-NewModuleStructure
 	[CmdletBinding(PositionalBinding=$false)]
 	Param
 	(
-		[Parameter(Mandatory=$False)][string]$Author="Lars Panzerbj�rn",
+		[Parameter()][string]$Author="Lars Panzerbjørn",
 		[Parameter(Mandatory=$True)][string]$ModuleName,
-		[Parameter(Mandatory=$False)][string]$Path="C:\Temp",
-		[Parameter(Mandatory=$False)][string]$GitHub="Panzerbjrn",
-		[Parameter(Mandatory=$False)][string]$Email="lpetersson@hotmail.com",
-		[Parameter(Mandatory=$False)][string]$Twitter="lpetersson",
-		[Parameter(Mandatory=$False)][string]$Description = 'New PowerShell module'
+		[Parameter()][string]$Path="C:\Temp",
+		[Parameter()][string]$GitHub="Panzerbjrn",
+		[Parameter()][string]$Email="",
+		[Parameter()][string]$Twitter="lpetersson",
+		[Parameter()][string]$Description = 'New PowerShell module'
 	)
 
 	BEGIN
