@@ -1,8 +1,14 @@
-$ProjectRoot = (Resolve-Path "$PSScriptRoot\..").path
-$ModuleName = Split-Path $ProjectRoot -Leaf
-$ModuleRoot = "$ProjectRoot\$ModuleName\$ModuleName.psm1"
-$ModuleRoot = $(gci $ModuleRoot).Fullname
-$ManifestRoot = "$ProjectRoot\$ModuleName.psd1"
+	$ProjectRoot = (Resolve-Path "$PSScriptRoot\..").path
+	$ModuleName = Split-Path $ProjectRoot -Leaf
+	$ModuleRoot = "$ProjectRoot\$ModuleName\$ModuleName.psm1"
+	$ManifestRoot = "$ProjectRoot\$ModuleName\$ModuleName.psd1"
+	$Functions = "$ProjectRoot\$ModuleName\Functions"
+	$Helpers = "$ProjectRoot\$ModuleName\Helpers"
+	Write-Output $Functions
+	Get-ChildItem -Path $Functions -Include *.ps1 -Recurse
+	Write-Output $Helpers
+	Get-ChildItem -Path $Helpers -Include *.ps1 -Recurse
+
 
 BeforeAll {
 	Try{
@@ -15,15 +21,18 @@ BeforeAll {
 		Install-Module -Name PSScriptAnalyzer -Force
 	}
 	
-	#$Scripts = Get-ChildItem -Include *.ps1 -Exclude *WiP.ps1 -Recurse
 	$ProjectRoot = (Resolve-Path "$PSScriptRoot\..").path
 	$ModuleName = Split-Path $ProjectRoot -Leaf
 	$ModuleRoot = "$ProjectRoot\$ModuleName\$ModuleName.psm1"
 	$ManifestRoot = "$ProjectRoot\$ModuleName\$ModuleName.psd1"
+	$Functions = "$ProjectRoot\$ModuleName\Functions"
+	$Helpers = "$ProjectRoot\$ModuleName\Helpers"
+	Write-Output $Functions
+	Write-Output $Helpers
 }
 
 Describe "General project validation: $ModuleName" {
-	$Scripts = Get-ChildItem $ProjectRoot -Include *.ps1 -Exclude *WiP.ps1 -Recurse
+	$Scripts = Get-ChildItem -Path $Functions,$Helpers -Include *.ps1 -Recurse
 
 	# TestCases are splatted to the script
 	$TestCase = $Scripts | Foreach-Object {@{file=$_}}
@@ -36,7 +45,6 @@ Describe "General project validation: $ModuleName" {
 		$Errors = $null
 		$null = [System.Management.Automation.PSParser]::Tokenize($Contents, [ref]$Errors)
 		$Errors.Count | Should -Be 0
-		
 	}
 	It "Script <file> should exist" -TestCases $TestCase {
 		param($File)
@@ -45,9 +53,10 @@ Describe "General project validation: $ModuleName" {
 
 	It "Script <file> should have help block" -TestCases $TestCase {
 		param($File)
-		#$File.Fullname | Should -FileContentMatch '<#'
-		#$File.Fullname | Should -FileContentMatch '#>'
+		$File.Fullname | Should -FileContentMatch '<#'
+		$File.Fullname | Should -FileContentMatch '#>'
 	}
+
 	It "Script <file> should have Synopsis" -TestCases $TestCase {
 		param($File)
 		$File.Fullname | Should -FileContentMatch '.SYNOPSIS'

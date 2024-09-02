@@ -1,5 +1,16 @@
 Function Get-AzStorageBlobMD5{
-[CmdletBinding()]
+	<#
+		.SYNOPSIS
+			Describe the function here
+
+		.DESCRIPTION
+			Describe the function in more detail
+
+		.EXAMPLE
+			Give an example of how to use it
+
+	#>
+	[CmdletBinding()]
 	Param(
 		[Parameter(Mandatory, ValueFromPipeline=$true, Position=0)]
 		[Microsoft.WindowsAzure.Commands.Common.Storage.ResourceModel.AzureStorageBlob]$Blob

@@ -1,12 +1,23 @@
-## http://community.idera.com/powershell/powertips/b/tips/posts/demystifying-error-handling
 Function Get-ErrorInfo {
-	param
-	(
+	<#
+		.SYNOPSIS
+			Describe the function here
+
+		.DESCRIPTION
+			Describe the function in more detail
+
+		.EXAMPLE
+			Give an example of how to use it
+
+		.NOTES
+			## http://community.idera.com/powershell/powertips/b/tips/posts/demystifying-error-handling
+	#>
+	[CmdletBinding()]
+	param(
 		[Parameter(ValueFrompipeline)]
 		[Management.Automation.ErrorRecord]$ErrorRecord
 	)
-	process
-	{
+	process{
 		$Info = [PSCustomObject]@{
 		Exception = $ErrorRecord.Exception.Message
 		Testing = $ErrorRecord.Exception.Message

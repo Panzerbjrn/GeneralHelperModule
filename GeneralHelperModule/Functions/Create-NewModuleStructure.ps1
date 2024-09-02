@@ -36,8 +36,7 @@ Function Create-NewModuleStructure{
 		Create-NewModuleStructure -ModuleName ServiceNowCMDB -Path C:\Temp -Description "Helper Functions to work with ServiceNow's CMDB"
 #>
 	[CmdletBinding(PositionalBinding=$false)]
-	Param
-	(
+	Param(
 		[Parameter()][string]$Author="Lars Panzerbjørn",
 		[Parameter(Mandatory=$True)][string]$ModuleName,
 		[Parameter()][string]$Path="C:\Temp",

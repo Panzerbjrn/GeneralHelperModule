@@ -1,5 +1,4 @@
-Function Test-JobLoop
-{
+Function Test-JobLoop{
 	<#
 	.SYNOPSIS
 		This function will loop through a job and return to the console when the job is done.

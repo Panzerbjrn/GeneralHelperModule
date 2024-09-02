@@ -1,4 +1,16 @@
 Function Get-LocalDiskSize{
+	<#
+		.SYNOPSIS
+			Describe the function here
+
+		.DESCRIPTION
+			Describe the function in more detail
+
+		.EXAMPLE
+			Give an example of how to use it
+
+	#>
+
 	#$TempPath = Test-Path "C:\Temp\"
 	#IF ($TempPath -eq $False) {New-Item -ItemType "Directory" -Path C:\TEMP -Force}
 	Write-Output "Getting Disk Sizes"

@@ -1,4 +1,16 @@
 Function Set-Prompt {
+	<#
+		.SYNOPSIS
+			Describe the function here
+
+		.DESCRIPTION
+			Describe the function in more detail
+
+		.EXAMPLE
+			Give an example of how to use it
+
+	#>
+
 	# Determine Admin; set Symbol variable.
 	IF ([bool](([System.Security.Principal.WindowsIdentity]::GetCurrent()).Groups -match 'S-1-5-32-544')) {
 		$Symbol = '#'

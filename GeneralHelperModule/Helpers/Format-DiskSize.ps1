@@ -1,4 +1,16 @@
 Function Format-DiskSize {
+	<#
+		.SYNOPSIS
+			Describe the function here
+
+		.DESCRIPTION
+			Describe the function in more detail
+
+		.EXAMPLE
+			Give an example of how to use it
+
+	#>
+	[CmdletBinding()]
     param ($size)
     switch ($size) {
         {$_ -ge 1PB} { "{0:0.#}PB" -f ($size / 1PB); break }

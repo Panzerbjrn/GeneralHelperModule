@@ -1,5 +1,4 @@
-Function New-EncryptedCredentialKeys
-{
+Function New-EncryptedCredentialKeys{
 <#
 	.SYNOPSIS
 		Creates a new a set of encrypted credential keys

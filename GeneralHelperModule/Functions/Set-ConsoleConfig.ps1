@@ -20,8 +20,7 @@ Function Set-ConsoleConfig{
 		Creation Date:		2020.01.13
 #>
 	[CmdletBinding()]
-	param
-	(
+	param(
 		[Parameter(Mandatory,ParameterSetName="Title")]
 		[string[]]$Title,
 

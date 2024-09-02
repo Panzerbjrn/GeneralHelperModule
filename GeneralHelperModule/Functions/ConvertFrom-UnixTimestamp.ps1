@@ -1,6 +1,5 @@
-Function ConvertFrom-UnixTimestamp
-{
-	<#
+Function ConvertFrom-UnixTimestamp{
+<#
 		.SYNOPSIS
 			Describe the function here
 
@@ -10,7 +9,7 @@ Function ConvertFrom-UnixTimestamp
 		.EXAMPLE
 			Give an example of how to use it
 
-	#>
+#>
 	[CmdletBinding()]
 	param(
 		[Parameter(Mandatory,ParameterSetName="Seconds")]
