@@ -36,6 +36,17 @@ function Update-ModuleVersion {
             $ModuleName = $ModulePath.TrimEnd('\').Split('\')[-1]
             $ManifestPath = Get-ChildItem -Path $ModulePath -Filter "$ModuleName.psd1" -Recurse -ErrorAction Stop | Select-Object -ExpandProperty FullName
 
+            # Check if this function is part of the module being updated
+            $CurrentModule = (Get-Command -Name $MyInvocation.MyCommand.Name).Module.Name
+            if ($CurrentModule -eq $ModuleName) {
+                Write-Verbose "This function is part of the module $ModuleName. Skipping module unloading."
+            } else {
+                Write-Verbose ("Importing {0}" -f $ModuleName)
+                Import-Module -Name $ManifestPath -Force
+                $CommandList = Get-Command -Module $ModuleName
+                Write-Verbose ("Removing {0}" -f $ModuleName)
+                Remove-Module -Name $ModuleName -Force
+            }
             Write-Verbose ("Importing {0}" -f $ModuleName)
             Import-Module -Name $ManifestPath -Force
             $CommandList = Get-Command -Module $ModuleName
