@@ -47,11 +47,6 @@ function Update-ModuleVersion {
                 Write-Verbose ("Removing {0}" -f $ModuleName)
                 Remove-Module -Name $ModuleName -Force
             }
-            Write-Verbose ("Importing {0}" -f $ModuleName)
-            Import-Module -Name $ManifestPath -Force
-            $CommandList = Get-Command -Module $ModuleName
-            Write-Verbose ("Removing {0}" -f $ModuleName)
-            Remove-Module -Name $ModuleName -Force
 
             Write-Output 'Calculating fingerprint'
             $Fingerprint = @()
