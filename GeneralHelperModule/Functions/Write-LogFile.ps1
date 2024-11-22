@@ -1,32 +1,38 @@
 Function Write-LogFile{
 	<#
 		.SYNOPSIS
-			Describe the function here
+			Writes to a log file
 
 		.DESCRIPTION
-			Describe the function in more detail
+			Writes to a log file
 
 		.EXAMPLE
-			Give an example of how to use it
+			Write-LogFile
 
 	#>
 	[CmdletBinding()]
 	param(
-		[Parameter()]
+		[Parameter(Mandatory)]
 		[ValidateNotNullOrEmpty()]
 		[string]$Message,
 
 		[Parameter()]
-		[ValidateNotNullOrEmpty()]
 		[string]$LogFilePath,
 
 		[Parameter()]
-		[ValidateNotNullOrEmpty()]
 		[ValidateSet('Information','Warning','Error')]
 		[string]$Severity = 'Information'
 	)
 
 	$CaptainsLog = "$(Get-Date -UFormat "%Y.%m.%d_%R") - $($Severity): $Message"
+    if ( -not $PSBoundParameters.ContainsKey('LogFilePath') )
+      {
+		[string]$CallingFunction = $((Get-PSCallStack)[2].Command) #Going up 2 to capture the right command
+        $Path = 'C:\Temp'
+        $Filename = "$(Get-Date -Format 'yyyy-MM-dd HH')xx - $CallingFunction - ERROR.log"
+        $LogFilePath = Join-Path "$Path" "$Filename"
+      }
+
 	IF (!(Test-Path $LogFilePath)) {New-Item -ItemType File -Path $LogFilePath -Force}
 	
 	DO{
@@ -38,7 +44,7 @@ Function Write-LogFile{
 			$Done = $False
 		}
 		Finally{
-			Start-Sleep -S 1
+			Start-Sleep -Milliseconds 250
 		}
 	}
 	While ($Done -ne $True)
