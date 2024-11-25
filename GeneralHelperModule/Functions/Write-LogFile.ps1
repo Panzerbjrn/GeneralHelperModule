@@ -13,7 +13,6 @@ Function Write-LogFile{
 	[CmdletBinding()]
 	param(
 		[Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
 		[string]$Message,
 
 		[Parameter()]
@@ -34,9 +33,10 @@ Function Write-LogFile{
       }
 
 	IF (!(Test-Path $LogFilePath)) {New-Item -ItemType File -Path $LogFilePath -Force}
-	
+
 	DO{
 		Try{
+			Write-Verbose $CaptainsLog
 			Add-Content -Path $LogFilePath -Value $CaptainsLog
 			$Done = $True
 		}
