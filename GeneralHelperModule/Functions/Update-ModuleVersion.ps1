@@ -61,12 +61,12 @@ function Update-ModuleVersion {
                 }
             }
 
-            Calculate fingerprint for .txt files
+            # #Calculate fingerprint for .txt files
             $TextFiles = Get-ChildItem -Path $ModulePath -Filter '*.txt' -Recurse -File -ErrorAction Continue
             foreach ($File in $TextFiles) {
                 $FileContent = Get-Content -Path $File.FullName -Raw
                 $FileHash = [System.BitConverter]::ToString((New-Object System.Security.Cryptography.SHA256Managed).ComputeHash([System.Text.Encoding]::UTF8.GetBytes($FileContent))).Replace("-", "")
-                $Fingerprint += '{0}:{1}' -f $File.Name, $FileHash
+                $txtFingerprint += '{0}:{1}' -f $File.Name, $FileHash
             }
 
             $Manifest = Import-PowerShellDataFile -Path $ManifestPath
