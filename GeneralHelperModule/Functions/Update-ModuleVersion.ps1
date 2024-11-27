@@ -61,8 +61,8 @@ function Update-ModuleVersion {
                 }
             }
 
-            # Calculate fingerprint for .txt files
-            $TextFiles = Get-ChildItem -Path $ModulePath -Filter '*' -Recurse -File -ErrorAction Continue
+            Calculate fingerprint for .txt files
+            $TextFiles = Get-ChildItem -Path $ModulePath -Filter '*.txt' -Recurse -File -ErrorAction Continue
             foreach ($File in $TextFiles) {
                 $FileContent = Get-Content -Path $File.FullName -Raw
                 $FileHash = [System.BitConverter]::ToString((New-Object System.Security.Cryptography.SHA256Managed).ComputeHash([System.Text.Encoding]::UTF8.GetBytes($FileContent))).Replace("-", "")
@@ -83,9 +83,8 @@ function Update-ModuleVersion {
                 $VersionType = 'Patch'
                 [version]$NewVersion = "{0}.{1}.{2}" -f $Version.Major, $Version.Minor, ($Version.Build + 1)
             } else {
-                $OldFingerprint = if (Test-Path -Path (Join-Path $ModulePath 'fingerprint')) {
-                    Get-Content -Path (Join-Path $ModulePath 'fingerprint')
-                } else {
+                $OldFingerprint = if (Test-Path -Path (Join-Path $ModulePath 'fingerprint')) {Get-Content -Path (Join-Path $ModulePath 'fingerprint')}
+                else {
                     Write-Verbose "No Fingerprint found, saving current fingerprint"
                     $Fingerprint
                 }
