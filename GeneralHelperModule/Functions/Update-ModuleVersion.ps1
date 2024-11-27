@@ -66,7 +66,7 @@ function Update-ModuleVersion {
             foreach ($File in $TextFiles) {
                 $FileContent = Get-Content -Path $File.FullName -Raw
                 $FileHash = [System.BitConverter]::ToString((New-Object System.Security.Cryptography.SHA256Managed).ComputeHash([System.Text.Encoding]::UTF8.GetBytes($FileContent))).Replace("-", "")
-                $Fingerprint += '{0}:{1}' -f $File.FullName, $FileHash
+                $Fingerprint += '{0}:{1}' -f $File.Name, $FileHash
             }
 
             $Manifest = Import-PowerShellDataFile -Path $ManifestPath
