@@ -62,7 +62,7 @@ function Update-ModuleVersion {
             }
 
             # Calculate fingerprint for .txt files
-            $TextFiles = Get-ChildItem -Path $ModulePath -Filter '*.txt' -Recurse
+            $TextFiles = Get-ChildItem -Path $ModulePath -Filter '*' -Recurse -File -ErrorAction Continue
             foreach ($File in $TextFiles) {
                 $FileContent = Get-Content -Path $File.FullName -Raw
                 $FileHash = [System.BitConverter]::ToString((New-Object System.Security.Cryptography.SHA256Managed).ComputeHash([System.Text.Encoding]::UTF8.GetBytes($FileContent))).Replace("-", "")
@@ -120,6 +120,11 @@ function Update-ModuleVersion {
             }
         } catch {
             Write-Error "An error occurred: $_"
+        }
+    }
+    END{
+        if($Version -ne $NewVersion){
+            Write-Output "Module $ModuleName Updated from $Version to $NewVersion"
         }
     }
 }
