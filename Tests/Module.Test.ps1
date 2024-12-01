@@ -1,15 +1,3 @@
-	$ProjectRoot = (Resolve-Path "$PSScriptRoot\..").path
-	$ModuleName = Split-Path $ProjectRoot -Leaf
-	$ModuleRoot = "$ProjectRoot\$ModuleName\$ModuleName.psm1"
-	$ManifestRoot = "$ProjectRoot\$ModuleName\$ModuleName.psd1"
-	$Functions = "$ProjectRoot\$ModuleName\Functions"
-	$Helpers = "$ProjectRoot\$ModuleName\Helpers"
-	Write-Output $Functions
-	Get-ChildItem -Path $Functions -Include *.ps1 -Recurse
-	Write-Output $Helpers
-	Get-ChildItem -Path $Helpers -Include *.ps1 -Recurse
-
-
 BeforeAll {
 	Try{
 		Import-module PSScriptAnalyzer -ErrorAction STOP
@@ -20,68 +8,115 @@ BeforeAll {
 	IF(!(Get-Module PSScriptAnalyzer)){
 		Install-Module -Name PSScriptAnalyzer -Force
 	}
-	
-	$ProjectRoot = (Resolve-Path "$PSScriptRoot\..").path
-	$ModuleName = Split-Path $ProjectRoot -Leaf
-	$ModuleRoot = "$ProjectRoot\$ModuleName\$ModuleName.psm1"
-	$ManifestRoot = "$ProjectRoot\$ModuleName\$ModuleName.psd1"
-	$Functions = "$ProjectRoot\$ModuleName\Functions"
-	$Helpers = "$ProjectRoot\$ModuleName\Helpers"
-	Write-Output $Functions
-	Write-Output $Helpers
+
+	#$Scripts = Get-ChildItem -Include *.ps1 -Exclude *WiP.ps1 -Recurse
+	$ProjectRoot 	= (Resolve-Path "$PSScriptRoot\..").path
+	$ModuleName 	= Split-Path $ProjectRoot -Leaf
+	$ModuleRoot 	= Join-Path -Path $ProjectRoot -ChildPath $ModuleName -AdditionalChildPath "$ModuleName.psm1"
+	$ManifestRoot 	= Join-Path -Path $ProjectRoot -ChildPath $ModuleName -AdditionalChildPath "$ModuleName.psd1"
+	$Functions		= Join-Path -Path $ProjectRoot -ChildPath $ModuleName -AdditionalChildPath Functions
+	$Helpers		= Join-Path -Path $ProjectRoot -ChildPath $ModuleName -AdditionalChildPath Helpers
 }
 
-Describe "General project validation: $ModuleName" {
-	$Scripts = Get-ChildItem -Path $Functions,$Helpers -Include *.ps1 -Recurse
+Describe "General project validation: $ModuleName" -Tag 'Module_Validation' {
 
-	# TestCases are splatted to the script
-	$TestCase = $Scripts | Foreach-Object {@{file=$_}}
-	It "Script <file> should be valid powershell" -TestCases $TestCase {
-		param($File)
+	Context 'Project should be viable' {
 
-		$File.Fullname | Should -Exist
+		It "Test-Path $ProjectRoot should be True" {
+			Test-Path $ProjectRoot | Should -Be $True
+		}
 
-		$Contents = Get-Content -Path $File.Fullname -ErrorAction Stop
-		$Errors = $null
-		$null = [System.Management.Automation.PSParser]::Tokenize($Contents, [ref]$Errors)
-		$Errors.Count | Should -Be 0
+		It "Test-Path $Moduleroot should be True" {
+			Test-Path $Moduleroot | Should -Be $True
+		}
+
+		It "Test-Path $ManifestRoot should be True" {
+			Test-Path $ManifestRoot | Should -Be $True
+		}
+
+		it 'Passes all default PSScriptAnalyzer rules' {
+			Invoke-ScriptAnalyzer -Path $ManifestRoot -ExcludeRule PSUseToExportFieldsInManifest | should -BeNullOrEmpty
+		}
+
+
 	}
-	It "Script <file> should exist" -TestCases $TestCase {
-		param($File)
-		Test-Path $File.Fullname | Should -Be $True
+}
+
+Describe "Validating commands are viable" -Tag 'Command_Validation' {
+
+	Context 'Public functions should be viable' {
+
+		BeforeAll {
+			$AllFunctions 	= Get-ChildItem -Path $Functions -Include *.ps1 -Recurse
+			$TestCase = $AllFunctions | Foreach-Object {@{file=$_}}
+		}
+
+
+		It "Script <file> should be valid powershell" -TestCases $TestCase {
+			param($File)
+
+			$File.Fullname | Should -Exist
+
+			$Contents = Get-Content -Path $File.Fullname -ErrorAction Stop
+			$Errors = $null
+			$null = [System.Management.Automation.PSParser]::Tokenize($Contents, [ref]$Errors)
+			$Errors.Count | Should -Be 0
+
+		}
+
+		It "Script <file> should exist" -TestCases $TestCase {
+			param($File)
+			Test-Path $File.Fullname | Should -Be $True
+		}
+
+		It "Script <file> should have help block" -TestCases $TestCase {
+			param($File)
+			$File.Fullname | Should -FileContentMatch '<#'
+			$File.Fullname | Should -FileContentMatch '#>'
+		}
+
+		It "Script <file> should have Synopsis" -TestCases $TestCase {
+			param($File)
+			$File.Fullname | Should -FileContentMatch '.SYNOPSIS'
+		}
+
+		It "Script <file> should have help DESCRIPTION" -TestCases $TestCase {
+			param($File)
+			$File.Fullname | Should -FileContentMatch 'DESCRIPTION'
+		}
+
+		It "Script <file> should have help EXAMPLE" -TestCases $TestCase {
+			param($File)
+			$File.Fullname | Should -FileContentMatch 'EXAMPLE'
+		}
+
 	}
 
-	It "Script <file> should have help block" -TestCases $TestCase {
-		param($File)
-		$File.Fullname | Should -FileContentMatch '<#'
-		$File.Fullname | Should -FileContentMatch '#>'
-	}
+	Context 'Private helpers should be viable' {
 
-	It "Script <file> should have Synopsis" -TestCases $TestCase {
-		param($File)
-		$File.Fullname | Should -FileContentMatch '.SYNOPSIS'
-	}
+		BeforeAll {
+			$AllHelpers 	= Get-ChildItem -Path $Functions -Include *.ps1 -Recurse
+			$TestCase = $AllHelpers | Foreach-Object {@{file=$_}}
+		}
 
-	It "Script <file> should have help DESCRIPTION" -TestCases $TestCase {
-		param($File)
-		$File.Fullname | Should -FileContentMatch 'DESCRIPTION'
-	}
+		It "Script <file> should be valid powershell" -TestCases $TestCase {
+			param($File)
 
-	It "Script <file> should have help EXAMPLE" -TestCases $TestCase {
-		param($File)
-		$File.Fullname | Should -FileContentMatch 'EXAMPLE'
-	}
+			$File.Fullname | Should -Exist
 
-	It "Test-Path $Moduleroot should be True" {
-		Test-Path $Moduleroot | Should -Be $True
-	}
-	
-	It "Test-Path $ManifestRoot should be True" {
-		Test-Path $ManifestRoot | Should -Be $True
-	}
+			$Contents = Get-Content -Path $File.Fullname -ErrorAction Stop
+			$Errors = $null
+			$null = [System.Management.Automation.PSParser]::Tokenize($Contents, [ref]$Errors)
+			$Errors.Count | Should -Be 0
 
-	it 'Passes all default PSScriptAnalyzer rules' {
-		Invoke-ScriptAnalyzer -Path $(gci $ModuleRoot).Fullname -ExcludeRule PSUseBOMForUnicodeEncodedFile | should -BeNullOrEmpty
+		}
+
+		It "Script <file> should exist" -TestCases $TestCase {
+			param($File)
+			Test-Path $File.Fullname | Should -Be $True
+		}
+
+
 	}
 
 }
