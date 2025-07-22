@@ -33,7 +33,7 @@ Function Change-ACL
 		Author:				Lars Panzerbjrn
 		Creation Date:		2017.11.01
 		Purpose/Change: 	Initial script development
-		
+
 	.EXAMPLE
 		Change-ACL -Directory "\\lonfs1\InfServices\Sec\SecOps" -UserNames Panzerbjrn_L_a -AccessLevel Write -Add
 
@@ -49,26 +49,26 @@ Function Change-ACL
 		[Parameter(Mandatory=$True,ParameterSetName="Add")]
 		[Parameter(Mandatory=$True,ParameterSetName="Remove")]
 		[string[]]$UserNames,
-		
+
 		[Parameter(Mandatory=$True,ParameterSetName="Add")]
 		[Parameter(Mandatory=$True,ParameterSetName="Remove")]
 		[string]$Directory,
-		
+
 		[Parameter(Mandatory=$True,ParameterSetName="Add")]
 		[ValidateSet("ListDirectory","ReadData","WriteData","CreateFiles","CreateDirectories","AppendData","ReadExtendedAttributes","WriteExtendedAttributes","Traverse","ExecuteFile","DeleteSubdirectoriesAndFiles","ReadAttributes,WriteAttributes","Write","Delete","ReadPermissions","Read","ReadAndExecute","Modify","ChangePermissions","TakeOwnership","Synchronize","FullControl")]
 		[String[]]$AccessLevel,
-		
-		[Parameter(Mandatory=$False,ParameterSetName="Add")]	
+
+		[Parameter(ParameterSetName="Add")]
 		[switch]$Add,
-		
-		[Parameter(Mandatory=$False,ParameterSetName="Remove")]
+
+		[Parameter(ParameterSetName="Remove")]
 		[switch]$Remove
 		)
 	$Path = $Directory
 	$TestedPath = Test-Path $Path
 	IF($TestedPath -eq $False) {Write-Verbose "$($Path) Doesn't exist; thank you please come again";break}
 	$ACL = (Get-Item $Path).GetAccessControl('Access')
-	
+
 	ForEach ($UserName in $UserNames)
 	{
 		$USR = Get-ADUser -Filter {SamAccountName -like $UserName} -Properties *

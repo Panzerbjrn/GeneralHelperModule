@@ -12,18 +12,18 @@ Function Get-RandomString{
 	#>
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory=$False,ParameterSetName="Hex",Position=0)]
-		[Parameter(Mandatory=$False,ParameterSetName="Dec",Position=0)]
-		[Parameter(Mandatory=$False,ParameterSetName="AlphaNum",Position=0)]
+		[Parameter(ParameterSetName="Hex",Position=0)]
+		[Parameter(ParameterSetName="Dec",Position=0)]
+		[Parameter(ParameterSetName="AlphaNum",Position=0)]
 		[int]$NumberOfCharacters="3",
 
-		[Parameter(Mandatory=$False,ParameterSetName="Hex",Position=1)]
+		[Parameter(ParameterSetName="Hex",Position=1)]
 		[switch]$Hexidecimal,
 
-		[Parameter(Mandatory=$False,ParameterSetName="Dec",Position=1)]
+		[Parameter(ParameterSetName="Dec",Position=1)]
 		[switch]$Decimal,
 
-		[Parameter(Mandatory=$False,ParameterSetName="AlphaNum",Position=1)]
+		[Parameter(ParameterSetName="AlphaNum",Position=1)]
 		[switch]$AlphaNumeric
 	)
 	$PSCmdlet.ParameterSetName
