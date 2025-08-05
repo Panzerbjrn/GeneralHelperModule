@@ -41,8 +41,6 @@ Function Create-NewModuleStructure{
 		[Parameter(Mandatory=$True)][string]$ModuleName,
 		[Parameter()][string]$Path="C:\Temp",
 		[Parameter()][string]$GitHub="Panzerbjrn",
-		[Parameter()][string]$Email="",
-		[Parameter()][string]$Twitter="lpetersson",
 		[Parameter()][string]$Description = 'New PowerShell module'
 	)
 
@@ -51,12 +49,11 @@ Function Create-NewModuleStructure{
 		$Date = Get-Date -f yyyy.MM.dd
 		Write-Verbose "Path is $Path"
 $PSMContent = "#region Script Header
-#	Thought for the day:
 #	NAME: $($ModuleName).psm1
 #	AUTHOR: $($Author)
-#	CONTACT: $($Email) / GitHub: $($GitHub) / Twitter: $($Twitter)
+#	GitHub: $($GitHub)
 #	DATE: $($Date)
-#	VERSION: 0.1 - $($Date) - Module Created with Create-NewModuleStructure by Lars Panzerbj�rn
+#	VERSION: 0.1 - $($Date) - Module Created with Create-NewModuleStructure by Lars Panzerbjørn
 #
 #	SYNOPSIS:
 #

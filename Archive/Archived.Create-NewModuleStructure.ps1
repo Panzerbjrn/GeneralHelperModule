@@ -39,12 +39,10 @@ Function Create-NewModuleStructure
 	[CmdletBinding(PositionalBinding=$false)]
 	Param
 	(
-		[Parameter(Mandatory=$False)][string]$Author="Lars Panzerbjørn",
+		[Parameter(Mandatory=$False)][string]$Author="Lars PanzerbjÃ¸rn",
 		[Parameter(Mandatory=$True)][string]$ModuleName,
 		[Parameter(Mandatory=$False)][string]$Path="C:\Temp",
 		[Parameter(Mandatory=$False)][string]$GitHub="Panzerbjrn",
-		[Parameter(Mandatory=$False)][string]$Email="lpetersson@hotmail.com",
-		[Parameter(Mandatory=$False)][string]$Twitter="lpetersson",
 		[Parameter(Mandatory=$False)][string]$Description = 'New PowerShell module'
 	)
 
@@ -56,9 +54,9 @@ $PSMContent = "#region Script Header
 #	Thought for the day:
 #	NAME: $($ModuleName).psm1
 #	AUTHOR: $($Author)
-#	CONTACT: $($Email) / GitHub: $($GitHub) / Twitter: $($Twitter)
+#	GitHub: $($GitHub)
 #	DATE: $($Date)
-#	VERSION: 0.1 - $($Date) - Module Created with Create-NewModuleStructure by Lars Panzerbjørn
+#	VERSION: 0.1 - $($Date) - Module Created with Create-NewModuleStructure by Lars Panzerbjï¿½rn
 #
 #	SYNOPSIS:
 #
