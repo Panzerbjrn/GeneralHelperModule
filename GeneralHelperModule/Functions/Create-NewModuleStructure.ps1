@@ -65,7 +65,7 @@ $PSMContent = "#region Script Header
 #
 #endregion Script Header
 
-#Requires -Version 4.0
+#Requires -Version 5.0
 
 [CmdletBinding(PositionalBinding=`$false)]
 param()

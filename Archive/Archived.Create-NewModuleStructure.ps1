@@ -56,7 +56,7 @@ $PSMContent = "#region Script Header
 #	AUTHOR: $($Author)
 #	GitHub: $($GitHub)
 #	DATE: $($Date)
-#	VERSION: 0.1 - $($Date) - Module Created with Create-NewModuleStructure by Lars Panzerbj�rn
+#	VERSION: 0.1 - $($Date) - Module Created with Create-NewModuleStructure by Lars Panzerbjørn
 #
 #	SYNOPSIS:
 #
@@ -68,7 +68,7 @@ $PSMContent = "#region Script Header
 #
 #endregion Script Header
 
-#Requires -Version 4.0
+#Requires -Version 5.0
 
 [CmdletBinding(PositionalBinding=$false)]
 param()

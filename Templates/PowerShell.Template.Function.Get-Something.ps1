@@ -26,7 +26,7 @@ Function Get-Something {
 
 	.NOTES
 		Version:			0.1
-		Author:				Lars Panzerbj�rn
+		Author:				Lars Panzerbjørn
 		Creation Date:		2020.05.12
 		Purpose/Change: Initial script development
 #>
