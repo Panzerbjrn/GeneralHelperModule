@@ -5,7 +5,7 @@ describe 'Test-ConnectivityStatus' {
 			Test-ConnectivityStatus -ComputerName GMPR-WIKAPP01 | should be $true
 	}
 
-	it 'should	return $false when the computer is offline' {
+	it 'should	return $False when the computer is offline' {
 		mock 'Test-ConnectivityStatus' -MockWith {	$False }
 			Test-ConnectivityStatus -ComputerName GMPR-WIKAPP011234 | should be $true
 	}

@@ -11,10 +11,10 @@ function Get-Parameters {
     # Process each parameter
     $parameters = foreach ($key in $command.Parameters.Keys) {
         $parameter = $command.Parameters[$key]
-        $mandatoryAttribute = $parameter.Attributes | Where-Object { $_ -is [System.Management.Automation.ParameterAttribute] }
+        $MandatoryAttribute = $parameter.Attributes | Where-Object { $_ -is [System.Management.Automation.ParameterAttribute] }
         [PSCustomObject]@{
             Name      = $key
-            Mandatory = $mandatoryAttribute.Mandatory
+            Mandatory = $MandatoryAttribute.Mandatory
         }
     }
 

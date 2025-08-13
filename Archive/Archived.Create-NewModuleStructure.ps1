@@ -36,7 +36,7 @@ Function Create-NewModuleStructure
 	.EXAMPLE
 		Create-NewModuleStructure -ModuleName ServiceNowCMDB -Path C:\Temp -Description "Helper Functions to work with ServiceNow's CMDB"
 #>
-	[CmdletBinding(PositionalBinding=$false)]
+	[CmdletBinding(PositionalBinding=$False)]
 	Param
 	(
 		[Parameter(Mandatory=$False)][string]$Author="Lars Panzerbjørn",
@@ -70,7 +70,7 @@ $PSMContent = "#region Script Header
 
 #Requires -Version 5.0
 
-[CmdletBinding(PositionalBinding=$false)]
+[CmdletBinding(PositionalBinding=$False)]
 param()
 
 Write-Verbose `$PSScriptRoot

@@ -10,7 +10,7 @@ Function Get-DaysSinceToday {
 			Give an example of how to use it
 	#>
 
-	[CmdletBinding(PositionalBinding=$false)]
+	[CmdletBinding(PositionalBinding=$False)]
 	Param(
 			[Parameter(Mandatory=$True)][string]$Year,
 			[Parameter(Mandatory=$True)][string]$Month,

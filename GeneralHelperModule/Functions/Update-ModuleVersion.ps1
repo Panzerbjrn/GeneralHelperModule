@@ -75,7 +75,7 @@ function Update-ModuleVersion {
 
             $MinorFeature = 0
             $MajorFeature = 0
-            $VersionType = $null
+            $VersionType = $Null
 
             if ($Patch) {
                 $VersionType = 'Patch'

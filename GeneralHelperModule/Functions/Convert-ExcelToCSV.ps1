@@ -18,8 +18,8 @@ Function Convert-ExcelToCSV ($Path,$ExcelFileName,$CSVLoc){
 	[CmdletBinding()]
     $ExcelFile = Join-Path -Path $Path -ChildPath $ExcelFileName
     $E = New-Object -ComObject Excel.Application
-    $E.Visible = $false
-    $E.DisplayAlerts = $false
+    $E.Visible = $False
+    $E.DisplayAlerts = $False
     $WB = $E.Workbooks.Open($ExcelFile)
     ForEach ($WS in $WB.Worksheets)
     {

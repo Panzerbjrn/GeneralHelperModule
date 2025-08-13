@@ -8,11 +8,11 @@ Function Get-LastReboot{
 		The name of the computer  you wish to interrogate. Default is your local machine.
 	.EXAMPLE
 		Get-LastReboot DC1
-		
+
 		This will return the last reboot time of DC1
 	.EXAMPLE
 		Get-ChildItem AD:"OU=Servers,OU=Computers,DC=CentralIndustrial,DC=EU" | Select Name | Get-LastReboot
-		
+
 		This outputs the last reboot for all machines in the Servers OU.
 	.OUTPUTS
 		Object: System.Management.Automation.PSCustomObject
@@ -90,7 +90,7 @@ Function Get-LastReboot{
 						"LastBoot" = $LastRebootTime
 						"Message" = $Event.Message
 						"UpTime" = $UpTime
-						"CleanBoot" = $false
+						"CleanBoot" = $False
 					})
 				}
 			}

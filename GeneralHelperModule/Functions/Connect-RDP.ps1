@@ -10,7 +10,7 @@ Function Connect-RDP {
 			Give an example of how to use it
 
 	#>
-	[CmdletBinding(PositionalBinding=$false)]
+	[CmdletBinding(PositionalBinding=$False)]
 	Param(
 		[Parameter(Mandatory=$True)][string]$Server
 	)

@@ -20,8 +20,8 @@ Function Get-AzStorageBlobMD5{
 	}
 	Process {
         #$Blob.ICloudBlob.Properties.ContentMD5
-        $md5sum = [convert]::FromBase64String($Blob.ICloudBlob.Properties.ContentMD5)
-        $hdhash = [BitConverter]::ToString($md5sum).Replace('-','')
+        $MD5Sum = [convert]::FromBase64String($Blob.ICloudBlob.Properties.ContentMD5)
+        $hdhash = [BitConverter]::ToString($MD5Sum).Replace('-','')
     }
     End{
         $hdhash

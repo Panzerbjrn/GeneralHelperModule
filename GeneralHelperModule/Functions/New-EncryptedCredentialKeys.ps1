@@ -31,7 +31,7 @@ Function New-EncryptedCredentialKeys{
 	.EXAMPLE
 		New-EncryptedCredentialKeys -Account "Panzerbjrn_L@CentralIndustrial.eu" -$Passssword "DenmarkWillTakeBackItsColonies" -Service Azure
 #>
-	[CmdletBinding(PositionalBinding=$false)]
+	[CmdletBinding(PositionalBinding=$False)]
 	[Alias('Create-EncryptedCredentialKeys')]
 	Param
 	(
@@ -50,7 +50,7 @@ Function New-EncryptedCredentialKeys{
 			Catch{"$($Path) doesn't exist, and couldn't be created"}
 			Break
 		}
-		
+
 		IF (!([string]::IsNullOrEmpty($Service))){
 			$Path = ($Path + "\" + $Service + ".")
 		}

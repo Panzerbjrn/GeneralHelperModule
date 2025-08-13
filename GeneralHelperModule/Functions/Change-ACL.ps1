@@ -44,7 +44,7 @@ Function Change-ACL
 
 		This will remove the user Panzerbjrn_L_a from the ACL for the directory.
 #>
-	[CmdletBinding(PositionalBinding=$false)]
+	[CmdletBinding(PositionalBinding=$False)]
 	Param(
 		[Parameter(Mandatory=$True,ParameterSetName="Add")]
 		[Parameter(Mandatory=$True,ParameterSetName="Remove")]
