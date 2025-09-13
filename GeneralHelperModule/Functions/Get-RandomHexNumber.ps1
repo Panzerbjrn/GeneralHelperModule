@@ -13,10 +13,10 @@ Function Get-RandomHexNumber {
 		This is the length of the resulting number in bits.
 
 	.EXAMPLE
-		
+
 
 	.EXAMPLE
-		
+
 
 	.INPUTS
 		A number
@@ -28,10 +28,8 @@ Function Get-RandomHexNumber {
 		Version:			1.0
 		Author:			Lars Panzerbjrn
 		Creation Date:	2019.08.10
-		Purpose/Change: Initial script development
-		
 #>
-    param( 
+    param(
         [int] $length = 20,
         [string] $chars = "0123456789ABCDEF"
     )
@@ -42,7 +40,7 @@ Function Get-RandomHexNumber {
 			$rnd.GetBytes($bytes)
 			$result = ""
 			1..$length | foreach-object{
-				$result += $chars[ $bytes[$_] % $chars.Length ]	
+				$result += $chars[ $bytes[$_] % $chars.Length ]
 			}
 				$result
 		#}
