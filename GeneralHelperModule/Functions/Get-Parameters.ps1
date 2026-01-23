@@ -1,7 +1,7 @@
 function Get-Parameters {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory)]
         [string]$CommandName
     )
 
