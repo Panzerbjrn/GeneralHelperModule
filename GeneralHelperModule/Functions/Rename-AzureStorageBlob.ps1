@@ -1,5 +1,5 @@
-Function Rename-AzureStorageBlob{
-<#
+function Rename-AzureStorageBlob {
+    <#
 	.SYNOPSIS
 		This will "rename" azure blobs.
 
@@ -29,45 +29,46 @@ Function Rename-AzureStorageBlob{
 	.LINK
 		https://github.com/Panzerbjrn/
 #>
-[CmdletBinding(SupportsShouldProcess,ConfirmImpact='Medium')]
-	Param(
-		[Parameter(Mandatory, ValueFromPipeline=$true, Position=0)]
-		[Microsoft.WindowsAzure.Commands.Common.Storage.ResourceModel.AzureStorageBlob]$Blob,
+    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
+    param(
+        [Parameter(Mandatory, ValueFromPipeline = $true, Position = 0)]
+        [Microsoft.WindowsAzure.Commands.Common.Storage.ResourceModel.AzureStorageBlob]$Blob,
 
-		[Parameter(Mandatory, Position=1)]
-		[string]$NewName
-	)
+        [Parameter(Mandatory, Position = 1)]
+        [string]$NewName
+    )
 
-	Begin {
-		Write-Verbose "Beginning $($MyInvocation.Mycommand)"
-		if (-not $PSBoundParameters.ContainsKey('Confirm')){
-			$ConfirmPreference = $PSCmdlet.SessionState.PSVariable.GetValue('ConfirmPreference')
-		}
-		if (-not $PSBoundParameters.ContainsKey('WhatIf')){
-			$WhatIfPreference = $PSCmdlet.SessionState.PSVariable.GetValue('WhatIfPreference')
-		}
-	}
+    begin {
+        Write-Verbose "Beginning $($MyInvocation.Mycommand)"
+        if (-not $PSBoundParameters.ContainsKey('Confirm')) {
+            $ConfirmPreference = $PSCmdlet.SessionState.PSVariable.GetValue('ConfirmPreference')
+        }
+        if (-not $PSBoundParameters.ContainsKey('WhatIf')) {
+            $WhatIfPreference = $PSCmdlet.SessionState.PSVariable.GetValue('WhatIfPreference')
+        }
+    }
 
-	Process {
-	  $StartAzStorageBlobCopySplat = @{
-		ICloudBlob = $Blob.ICloudBlob
-		DestBlob = $NewName
-		Context = $Blob.Context
-		DestContainer = $Blob.ICloudBlob.Container.Name
-	}
-	if ($PSBoundParameters.ContainsKey('Force')){
-		$StartAzStorageBlobCopySplat.Force = $True
-	}
+    process {
+        $StartAzStorageBlobCopySplat = @{
+            ICloudBlob    = $Blob.ICloudBlob
+            DestBlob      = $NewName
+            Context       = $Blob.Context
+            DestContainer = $Blob.ICloudBlob.Container.Name
+        }
+        if ($PSBoundParameters.ContainsKey('Force')) {
+            $StartAzStorageBlobCopySplat.Force = $True
+        }
 
-	$BlobCopyAction = Start-AzStorageBlobCopy @StartAzStorageBlobCopySplat
+        $BlobCopyAction = Start-AzStorageBlobCopy @StartAzStorageBlobCopySplat
 		
-	$status = $BlobCopyAction | Get-AzStorageBlobCopyState
+        $status = $BlobCopyAction | Get-AzStorageBlobCopyState
 
-	while ($status.Status -ne 'Success'){
-		$status = $blobCopyAction | Get-AzStorageBlobCopyState
-		Start-Sleep -Milliseconds 50
-	}
+        while ($status.Status -ne 'Success') {
+            $status = $blobCopyAction | Get-AzStorageBlobCopyState
+            Start-Sleep -Milliseconds 50
+        }
 
-	$Blob | Remove-AzStorageBlob -Force
-  }
+        $Blob | Remove-AzStorageBlob -Force
+    }
 }
+

@@ -1,5 +1,5 @@
-Function Get-PSVersion{
-	<#
+function Get-PSVersion {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -11,7 +11,7 @@ Function Get-PSVersion{
 
 	#>
 
-	$PSVersionTable
-	$PSVersionTable.PSVersion
-	(Get-WmiObject -class Win32_OperatingSystem).Caption
+    $PSVersionTable
+    $PSVersionTable.PSVersion
+    (Get-WmiObject -class Win32_OperatingSystem).Caption
 }

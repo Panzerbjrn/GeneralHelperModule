@@ -1,5 +1,5 @@
-Function Test-EventLogSource{
-	<#
+function Test-EventLogSource {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -10,15 +10,15 @@ Function Test-EventLogSource{
 			Give an example of how to use it
 
 	#>
-	[CmdletBinding()]
-    Param(
-        [Parameter(Mandatory=$True)]
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $True)]
         [string]$LogName
     )
-	IF($True -eq (Test-IsAdministrator)){
-		[System.Diagnostics.EventLog]::SourceExists($LogName)
-	}
-	ELSE{
-		Write-Error "You need elevated privileges to run this command"
-	}
+    if ($True -eq (Test-IsAdministrator)) {
+        [System.Diagnostics.EventLog]::SourceExists($LogName)
+    }
+    else {
+        Write-Error "You need elevated privileges to run this command"
+    }
 }

@@ -21,3 +21,4 @@ function Get-Parameters {
     # Return the result
     $parameters
 }
+

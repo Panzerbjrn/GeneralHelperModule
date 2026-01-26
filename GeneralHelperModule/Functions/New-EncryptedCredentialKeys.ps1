@@ -1,5 +1,5 @@
-Function New-EncryptedCredentialKeys{
-<#
+function New-EncryptedCredentialKeys {
+    <#
 	.SYNOPSIS
 		Creates a new a set of encrypted credential keys
 
@@ -31,58 +31,55 @@ Function New-EncryptedCredentialKeys{
 	.EXAMPLE
 		New-EncryptedCredentialKeys -Account "Panzerbjrn_L@CentralIndustrial.eu" -$Passssword "DenmarkWillTakeBackItsColonies" -Service Azure
 #>
-	[CmdletBinding(PositionalBinding=$False)]
-	[Alias('Create-EncryptedCredentialKeys')]
-	Param
-	(
-		[Parameter(Mandatory)][string]$Account,
-		[Parameter()][string]$Path="C:\Temp",
-		[Parameter(Mandatory)][string]$Password,
-		[Parameter()][string]$Service
-	)
+    [CmdletBinding(PositionalBinding = $False)]
+    [Alias('Create-EncryptedCredentialKeys')]
+    param
+    (
+        [Parameter(Mandatory)][string]$Account,
+        [Parameter()][string]$Path = "C:\Temp",
+        [Parameter(Mandatory)][string]$Password,
+        [Parameter()][string]$Service
+    )
 
-	BEGIN
-	{
-		$Path = $Path.TrimEnd('\')
+    begin {
+        $Path = $Path.TrimEnd('\')
 
-		IF (!(Test-Path -Path $Path)){
-			Try{New-Item -ItemType "Directory" -Path $Path -Force}
-			Catch{"$($Path) doesn't exist, and couldn't be created"}
-			Break
-		}
+        if (!(Test-Path -Path $Path)) {
+            try { New-Item -ItemType "Directory" -Path $Path -Force }
+            catch { "$($Path) doesn't exist, and couldn't be created" }
+            break
+        }
 
-		IF (!([string]::IsNullOrEmpty($Service))){
-			$Path = ($Path + "\" + $Service + ".")
-		}
-		Else{
-			$Path = ($Path + "\")
-		}
-	}
-	PROCESS
-	{
-		#Creating Key File:
-		$KeyFile = $Path + "AES.key"
-		$Key = New-Object Byte[] 32
-		[Security.Cryptography.RNGCryptoServiceProvider]::Create().GetBytes($Key)
-		$Key | out-file $KeyFile
+        if (!([string]::IsNullOrEmpty($Service))) {
+            $Path = ($Path + "\" + $Service + ".")
+        }
+        else {
+            $Path = ($Path + "\")
+        }
+    }
+    process {
+        #Creating Key File:
+        $KeyFile = $Path + "AES.key"
+        $Key = New-Object Byte[] 32
+        [Security.Cryptography.RNGCryptoServiceProvider]::Create().GetBytes($Key)
+        $Key | Out-File $KeyFile
 
-		#Creating Password File:
-		$PWDFile = $Path + "Password.txt"
-		$ConvertedPassword = $Password | ConvertTo-SecureString -AsPlainText -Force
-		$ConvertedPassword | ConvertFrom-SecureString -key $Key | Out-File $PWDFile
+        #Creating Password File:
+        $PWDFile = $Path + "Password.txt"
+        $ConvertedPassword = $Password | ConvertTo-SecureString -AsPlainText -Force
+        $ConvertedPassword | ConvertFrom-SecureString -Key $Key | Out-File $PWDFile
 
-		#Creating Username File:
-		$USRNameFile = $Path + "Username.txt"
-		$Account | Out-File $USRNameFile
-		Write-Verbose "Keys created."
-	}
-	END
-	{
-		Write-Verbose "
+        #Creating Username File:
+        $USRNameFile = $Path + "Username.txt"
+        $Account | Out-File $USRNameFile
+        Write-Verbose "Keys created."
+    }
+    end {
+        Write-Verbose "
 		Files created:
 		$($PWDFile)
 		$($USRNameFile)
 		$($Keyfile)
 		"
-	}
+    }
 }

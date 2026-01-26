@@ -1,5 +1,5 @@
-Function Get-ServerInfo{
-	<#
+function Get-ServerInfo {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -11,10 +11,10 @@ Function Get-ServerInfo{
 
 	#>
 
-	Get-PSVersion
-	Get-LPInstalledRoles
-	Get-RunningServices
-	Get-LocalDiskSize
-	$IPC = ipconfig
-	$IPC[8]
+    Get-PSVersion
+    Get-LPInstalledRoles
+    Get-RunningServices
+    Get-LocalDiskSize
+    $IPC = ipconfig
+    $IPC[8]
 }

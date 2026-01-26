@@ -1,5 +1,5 @@
-Function New-TempDir {
-	<#
+function New-TempDir {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -10,10 +10,10 @@ Function New-TempDir {
 			Give an example of how to use it
 
 	#>
-	[CmdletBinding()]
+    [CmdletBinding()]
 
-	[Alias('Create-TempDir')]
-	Param()
+    [Alias('Create-TempDir')]
+    param()
 
-	IF	(!(Test-Path -Path C:\Temp)) {New-Item -ItemType "Directory" -Path C:\Temp -Force}
+    if	(!(Test-Path -Path C:\Temp)) { New-Item -ItemType "Directory" -Path C:\Temp -Force }
 }

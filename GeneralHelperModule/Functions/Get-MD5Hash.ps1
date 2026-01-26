@@ -1,5 +1,5 @@
-Function Get-MD5Hash {
-	<#
+function Get-MD5Hash {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -10,21 +10,23 @@ Function Get-MD5Hash {
 			Give an example of how to use it
 
 	#>
-	[CmdletBinding()]
-    Param (
-        [Parameter(Mandatory=$true)][String]$Path
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)][String]$Path
     )
 
-    If (Test-Path -Path $Path) {
+    if (Test-Path -Path $Path) {
         try {
             # Create the hasher and get the content
             $crypto = [System.Security.Cryptography.MD5]::Create()
             $content = Get-Content -Path $Path -Encoding byte
             $hash = [System.Convert]::ToBase64String($crypto.ComputeHash($content))
-        } catch {
+        }
+        catch {
             $hash = $Null
         }
-    } Else {
+    }
+    else {
         # File doesn't exist, can't calculate hash
         $hash = $Null
     }

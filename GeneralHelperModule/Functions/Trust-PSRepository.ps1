@@ -1,5 +1,5 @@
-Function Trust-PSRepository{
-	<#
+function Trust-PSRepository {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -11,6 +11,6 @@ Function Trust-PSRepository{
 
 	#>
 
-	$Repo = Get-PSRepository
-	Set-PSRepository -InstallationPolicy Trusted -Name $Repo.Name -SourceLocation $Repo.SourceLocation
+    $Repo = Get-PSRepository
+    Set-PSRepository -InstallationPolicy Trusted -Name $Repo.Name -SourceLocation $Repo.SourceLocation
 }

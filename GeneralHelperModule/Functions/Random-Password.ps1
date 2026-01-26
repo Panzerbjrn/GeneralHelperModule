@@ -1,5 +1,5 @@
-Function Random-Password ($Length = 15){
-	<#
+function Random-Password ($Length = 15) {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -10,13 +10,13 @@ Function Random-Password ($Length = 15){
 			Give an example of how to use it
 
 	#>
-		$Punc = 46..46
-		$Digits = 48..57
-		$Letters = 65..90 + 97..122
-		$password = Get-Random -count $Length `
-				-input ($Punc + $Digits + $Letters) |
-						% -begin { $aa = $Null } `
-						-process {$aa += [char]$_} `
-						-end {$aa}
-		return $password
+    $Punc = 46..46
+    $Digits = 48..57
+    $Letters = 65..90 + 97..122
+    $password = Get-Random -Count $Length `
+        -input ($Punc + $Digits + $Letters) |
+        % -Begin { $aa = $Null } `
+            -Process { $aa += [char]$_ } `
+            -End { $aa }
+    return $password
 }

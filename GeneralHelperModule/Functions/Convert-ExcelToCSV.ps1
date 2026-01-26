@@ -1,5 +1,5 @@
-Function Convert-ExcelToCSV ($Path,$ExcelFileName,$CSVLoc){
-	<#
+function Convert-ExcelToCSV ($Path, $ExcelFileName, $CSVLoc) {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -15,17 +15,17 @@ Function Convert-ExcelToCSV ($Path,$ExcelFileName,$CSVLoc){
             #mkdir C:\Windows\System32\config\systemprofile\Desktop
 
 	#>
-	[CmdletBinding()]
+    [CmdletBinding()]
     $ExcelFile = Join-Path -Path $Path -ChildPath $ExcelFileName
     $E = New-Object -ComObject Excel.Application
     $E.Visible = $False
     $E.DisplayAlerts = $False
     $WB = $E.Workbooks.Open($ExcelFile)
-    ForEach ($WS in $WB.Worksheets)
-    {
-        $N = $ExcelFileName.Replace('.xlsx','').Replace('.xls','') + "_" + $WS.Name
-		$SaveAs = $(Join-Path -Path $csvLoc -ChildPath $N) + ".csv"
+    foreach ($WS in $WB.Worksheets) {
+        $N = $ExcelFileName.Replace('.xlsx', '').Replace('.xls', '') + "_" + $WS.Name
+        $SaveAs = $(Join-Path -Path $csvLoc -ChildPath $N) + ".csv"
         $WS.SaveAs($SaveAs, 6)
     }
     $E.Quit()
 }
+

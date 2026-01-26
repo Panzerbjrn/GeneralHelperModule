@@ -1,5 +1,5 @@
-Function Set-Prompt {
-	<#
+function Set-Prompt {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -11,19 +11,22 @@ Function Set-Prompt {
 
 	#>
 
-	# Determine Admin; set Symbol variable.
-	IF ([bool](([System.Security.Principal.WindowsIdentity]::GetCurrent()).Groups -match 'S-1-5-32-544')) {
-		$Symbol = '#'
-	} Else {
-		$Symbol = '$'
-	}
+    # Determine Admin; set Symbol variable.
+    if ([bool](([System.Security.Principal.WindowsIdentity]::GetCurrent()).Groups -match 'S-1-5-32-544')) {
+        $Symbol = '#'
+    }
+    else {
+        $Symbol = '$'
+    }
 
-	IF ((Get-Location).Path -eq $env:USERPROFILE) {
-		$Path = '~'
-	} Else {
-		$Path = (Get-Location).Path
-	}
+    if ((Get-Location).Path -eq $env:USERPROFILE) {
+        $Path = '~'
+    }
+    else {
+        $Path = (Get-Location).Path
+    }
 
-	# Create prompt.
-	"[$($env:USERNAME.ToLower())@$($env:COMPUTERNAME.ToLower()) $Path]$Symbol "
+    # Create prompt.
+    "[$($env:USERNAME.ToLower())@$($env:COMPUTERNAME.ToLower()) $Path]$Symbol "
 } # End Function: prompt.
+

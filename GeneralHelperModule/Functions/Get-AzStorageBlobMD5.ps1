@@ -1,5 +1,5 @@
-Function Get-AzStorageBlobMD5{
-	<#
+function Get-AzStorageBlobMD5 {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -10,20 +10,20 @@ Function Get-AzStorageBlobMD5{
 			Give an example of how to use it
 
 	#>
-	[CmdletBinding()]
-	Param(
-		[Parameter(Mandatory, ValueFromPipeline=$true, Position=0)]
-		[Microsoft.WindowsAzure.Commands.Common.Storage.ResourceModel.AzureStorageBlob]$Blob
-	)
-	Begin {
-		Write-Verbose "Beginning $($MyInvocation.Mycommand)"
-	}
-	Process {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory, ValueFromPipeline = $true, Position = 0)]
+        [Microsoft.WindowsAzure.Commands.Common.Storage.ResourceModel.AzureStorageBlob]$Blob
+    )
+    begin {
+        Write-Verbose "Beginning $($MyInvocation.Mycommand)"
+    }
+    process {
         #$Blob.ICloudBlob.Properties.ContentMD5
         $MD5Sum = [convert]::FromBase64String($Blob.ICloudBlob.Properties.ContentMD5)
-        $hdhash = [BitConverter]::ToString($MD5Sum).Replace('-','')
+        $hdhash = [BitConverter]::ToString($MD5Sum).Replace('-', '')
     }
-    End{
+    end {
         $hdhash
     }
 }

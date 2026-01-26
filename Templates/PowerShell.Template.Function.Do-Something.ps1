@@ -1,6 +1,6 @@
 ##From https://docs.microsoft.com/en-us/previous-versions/technet-magazine/hh360993(v=msdn.10)
-Function Do-Something {
-<#
+function Do-Something {
+    <#
 	.SYNOPSIS
 		Describe the function here
 
@@ -31,40 +31,38 @@ Function Do-Something {
 		Creation Date:		2020.05.12
 		Purpose/Change: Initial script development
 #>
-	[CmdletBinding(SupportsShouldProcess=$True,ConfirmImpact='Low')]
-	param
-	(
-		[Parameter(Mandatory,
-			ValueFromPipeline=$True,
-			ValueFromPipelineByPropertyName=$True,
-			HelpMessage='What Computer name would you like to target?')]
-		[Alias('host')]
-		[ValidateLength(3,30)]
-		[string[]]$ComputerName,
+    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = 'Low')]
+    param
+    (
+        [Parameter(Mandatory,
+            ValueFromPipeline = $True,
+            ValueFromPipelineByPropertyName = $True,
+            HelpMessage = 'What Computer name would you like to target?')]
+        [Alias('host')]
+        [ValidateLength(3, 30)]
+        [string[]]$ComputerName,
 
-		[string]$Logname = 'errors.txt'
-	)
+        [string]$Logname = 'errors.txt'
+    )
 
-	BEGIN
-	{
-		Write-Verbose "Beginning $($MyInvocation.Mycommand)"
-		Write-Verbose "Deleting $Logname"
-		Remove-Item $LogName -ErrorActionSilentlyContinue
-	}
+    begin {
+        Write-Verbose "Beginning $($MyInvocation.Mycommand)"
+        Write-Verbose "Deleting $Logname"
+        Remove-Item $LogName -ErrorActionSilentlyContinue
+    }
 
-	PROCESS
-	{
-		Write-Verbose "Processing $($MyInvocation.Mycommand)"
+    process {
+        Write-Verbose "Processing $($MyInvocation.Mycommand)"
 
-		ForEach ($Computer in $ComputerName) {
-			Write-Verbose "Processing $Computer"
-			IF ($pscmdlet.ShouldProcess($Computer)) {
-				# use $Computer here
-			}
-		}
-	}
-	END
-	{
-		Write-Verbose "Ending $($MyInvocation.Mycommand)"
-	}
+        foreach ($Computer in $ComputerName) {
+            Write-Verbose "Processing $Computer"
+            if ($pscmdlet.ShouldProcess($Computer)) {
+                # use $Computer here
+            }
+        }
+    }
+    end {
+        Write-Verbose "Ending $($MyInvocation.Mycommand)"
+    }
 }
+

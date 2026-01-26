@@ -1,5 +1,5 @@
-Function Get-DataTypeName {
-	<#
+function Get-DataTypeName {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -10,9 +10,10 @@ Function Get-DataTypeName {
 			Give an example of how to use it
 
 	#>
-	[CmdletBinding()]
-	param(
-		[Parameter(Mandatory)]$Value
-	)
-	return ($value.getType()).name
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]$Value
+    )
+    return ($value.getType()).name
 }
+

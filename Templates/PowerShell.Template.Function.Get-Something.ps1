@@ -1,5 +1,5 @@
-Function Get-Something {
-<#
+function Get-Something {
+    <#
 	.SYNOPSIS
 		Describe the function here
 
@@ -30,47 +30,45 @@ Function Get-Something {
 		Creation Date:		2020.05.12
 		Purpose/Change: Initial script development
 #>
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory,
-			ValueFromPipeline=$True,
-			ValueFromPipelineByPropertyName=$True,
-			HelpMessage='What Computer name would you like to target?')]
-		[Alias('host')]
-		[ValidateLength(3,30)]
-		[string[]]$ComputerName,
+    [CmdletBinding()]
+    param
+    (
+        [Parameter(Mandatory,
+            ValueFromPipeline = $True,
+            ValueFromPipelineByPropertyName = $True,
+            HelpMessage = 'What Computer name would you like to target?')]
+        [Alias('host')]
+        [ValidateLength(3, 30)]
+        [string[]]$ComputerName,
 
-		[string]$LogName='Errors.txt'
-	)
+        [string]$LogName = 'Errors.txt'
+    )
 
-	BEGIN
-	{
-		Write-Verbose "Beginning $($MyInvocation.Mycommand)"
-		Write-Verbose "Deleting $LogName"
-		Remove-Item $LogName -ErrorActionSilentlyContinue
-	}
+    begin {
+        Write-Verbose "Beginning $($MyInvocation.Mycommand)"
+        Write-Verbose "Deleting $LogName"
+        Remove-Item $LogName -ErrorActionSilentlyContinue
+    }
 
-	PROCESS
-	{
-		Write-Verbose "Processing $($MyInvocation.Mycommand)"
+    process {
+        Write-Verbose "Processing $($MyInvocation.Mycommand)"
 
-		ForEach ($Computer in $ComputerName) {
-			Write-Verbose "Processing $Computer"
-			# use $Computer to target a single Computer
+        foreach ($Computer in $ComputerName) {
+            Write-Verbose "Processing $Computer"
+            # use $Computer to target a single Computer
 
-			# create a hashtable with your output info
-			$Info = @{
-				'info1'=$value1;
-				'info2'=$value2;
-				'info3'=$value3;
-				'info4'=$value4
-			}
-			Write-Output (New-Object -Typename PSObject -Property $Info)
-		}
-	}
-	END
-	{
-		Write-Verbose "Ending $($MyInvocation.Mycommand)"
-	}
+            # create a hashtable with your output info
+            $Info = @{
+                'info1' =$value1;
+                'info2' =$value2;
+                'info3' =$value3;
+                'info4' =$value4
+            }
+            Write-Output (New-Object -TypeName PSObject -Property $Info)
+        }
+    }
+    end {
+        Write-Verbose "Ending $($MyInvocation.Mycommand)"
+    }
 }
+

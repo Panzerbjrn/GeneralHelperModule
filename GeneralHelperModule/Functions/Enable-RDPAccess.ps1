@@ -1,5 +1,5 @@
-Function Enable-RDPAccess{
-	<#
+function Enable-RDPAccess {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -10,7 +10,7 @@ Function Enable-RDPAccess{
 			Give an example of how to use it
 
 	#>
-	set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0;
-	Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
-	set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+    Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-Name "fDenyTSConnections" -Value 0;
+    Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+    Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 1
 }

@@ -1,5 +1,5 @@
-Function Get-RandomHexNumber {
-<#
+function Get-RandomHexNumber {
+    <#
 	.SYNOPSIS
 		This will generate a random Hex number. Either based on length or bits
 
@@ -33,15 +33,15 @@ Function Get-RandomHexNumber {
         [int] $length = 20,
         [string] $chars = "0123456789ABCDEF"
     )
-		#IF ("Length" -eq $PSCmdlet.ParameterSetName)
-		#{
-			$bytes = new-object "System.Byte[]" $length
-			$rnd = new-object System.Security.Cryptography.RNGCryptoServiceProvider
-			$rnd.GetBytes($bytes)
-			$result = ""
-			1..$length | foreach-object{
-				$result += $chars[ $bytes[$_] % $chars.Length ]
-			}
+    #IF ("Length" -eq $PSCmdlet.ParameterSetName)
+    #{
+    $bytes = New-Object "System.Byte[]" $length
+    $rnd = New-Object System.Security.Cryptography.RNGCryptoServiceProvider
+    $rnd.GetBytes($bytes)
+    $result = ""
+    1..$length | ForEach-Object {
+        $result += $chars[ $bytes[$_] % $chars.Length ]
+    }
 				$result
-		#}
+    #}
 }
