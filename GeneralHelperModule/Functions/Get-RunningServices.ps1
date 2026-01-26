@@ -18,3 +18,4 @@ function Get-RunningService {
     Get-Service | Where-Object { $_.Status -eq "Running" } | Sort-Object DisplayName | Select-Object Name, Displayname, status | Export-Csv C:\TEMP\Services.Running.csv -NoTypeInformation -Delimiter "`t"
     notepad C:\temp\Services.CSV
 }
+

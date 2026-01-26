@@ -18,9 +18,10 @@ function Get-CatFact {
     )
     $speak = "$open $Fact"
     $v = New-Object -com SAPI.SpVoice
-    $voice = $v.getvoices() | where { $_.id -like "*ZIRA*" }
+    $voice = $v.getvoices() | where-object { $_.id -like "*ZIRA*" }
     $v.voice = $voice
     $v.rate = $rate
     [void]$v.speak($speak)
 }
+
 

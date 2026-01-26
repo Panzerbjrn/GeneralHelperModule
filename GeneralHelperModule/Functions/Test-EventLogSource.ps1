@@ -22,3 +22,4 @@ function Test-EventLogSource {
         Write-Error "You need elevated privileges to run this command"
     }
 }
+

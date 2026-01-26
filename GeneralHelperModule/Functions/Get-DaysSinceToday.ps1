@@ -18,3 +18,4 @@ function Get-DaysSinceToday {
     )
     (Get-Date).Date.Subtract((New-Object DateTime($Year, $Month, $Day))).Days
 }
+

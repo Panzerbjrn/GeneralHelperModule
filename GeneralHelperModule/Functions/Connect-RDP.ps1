@@ -16,3 +16,4 @@ function Connect-RDP {
     )
     MSTSC /v:$Server /ADMIN /F
 }
+

@@ -15,3 +15,4 @@ function Convert-ArrayToHash($a) {
     ($a | Get-Member | Where-Object { $_.Membertype -eq "NoteProperty" }).name | ForEach-Object { $Hash.$($_) = $A.$($_) }
     $hash
 }
+

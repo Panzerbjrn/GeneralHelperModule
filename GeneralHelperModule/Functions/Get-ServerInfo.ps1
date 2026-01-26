@@ -18,3 +18,4 @@ function Get-ServerInfo {
     $IPC = ipconfig
     $IPC[8]
 }
+

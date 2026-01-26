@@ -14,3 +14,4 @@ function Enable-RDPAccess {
     Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
     Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 1
 }
+

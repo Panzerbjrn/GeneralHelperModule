@@ -31,3 +31,4 @@ function Add-ToWindowsPath {
         throw "Path $Path not found. Please check and try again"
     }
 }
+

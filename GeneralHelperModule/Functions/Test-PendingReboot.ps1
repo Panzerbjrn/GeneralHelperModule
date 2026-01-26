@@ -23,3 +23,4 @@ function Test-PendingReboot {
     catch { Write-Error "" }
     return $False
 }
+

@@ -1,5 +1,6 @@
-function Get-Parameters {
+function Get-Parameter {
     [CmdletBinding()]
+    [Alias('Get-Parameters')]
     param (
         [Parameter(Mandatory)]
         [string]$CommandName
@@ -21,4 +22,5 @@ function Get-Parameters {
     # Return the result
     $parameters
 }
+
 

@@ -1,4 +1,4 @@
-function Change-ACL {
+function Set-FolderACL {
     <#
 	.SYNOPSIS
 		This function will add or remove an ACE to the ACL for a directory.
@@ -43,7 +43,8 @@ function Change-ACL {
 
 		This will remove the user Panzerbjrn_L_a from the ACL for the directory.
 #>
-    [CmdletBinding(PositionalBinding = $False)]
+    [CmdletBinding(PositionalBinding = $False, SupportsShouldProcess = $true)]
+    [Alias('Change-ACL')]
     param(
         [Parameter(Mandatory = $True, ParameterSetName = "Add")]
         [Parameter(Mandatory = $True, ParameterSetName = "Remove")]
@@ -63,20 +64,27 @@ function Change-ACL {
         [Parameter(ParameterSetName = "Remove")]
         [switch]$Remove
     )
-    $Path = $Directory
-    $TestedPath = Test-Path $Path
-    if ($TestedPath -eq $False) { Write-Verbose "$($Path) Doesn't exist; thank you please come again"; break }
-    $ACL = (Get-Item $Path).GetAccessControl('Access')
+    begin {}
+    process {
+        if ($pscmdlet.ShouldProcess("directory:$Directory by $(if($add){"adding"}else{"removing"}) $($AccessLevel -join ',') permission(s) for $($Usernames -join ',') user(s)")) {
+            $Path = $Directory
+            $TestedPath = Test-Path $Path
+            if ($TestedPath -eq $False) { Write-Verbose "$($Path) Doesn't exist; thank you please come again"; break }
+            $ACL = (Get-Item $Path).GetAccessControl('Access')
 
-    foreach ($UserName in $UserNames) {
-        $USR = Get-ADUser -Filter { SamAccountName -like $UserName } -Properties *
-        $Usrname = "CentralIndustrial\" + $USR.SamaccountName
-        $Inherit = [system.security.accesscontrol.InheritanceFlags]"ContainerInherit, ObjectInherit"
-        $Propagation = [system.security.accesscontrol.PropagationFlags]"None"
-        $AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule($Usrname, $AccessLevel, $Inherit, $Propagation, "Allow")
-        if ($Add) { $ACL.AddAccessRule($AccessRule) }
-        if ($Remove) { $ACL.RemoveAccessRuleAll($AccessRule) }
+            foreach ($UserName in $UserNames) {
+                $USR = Get-ADUser -Filter { SamAccountName -like $UserName } -Properties *
+                $Usrname = "CentralIndustrial\" + $USR.SamaccountName
+                $Inherit = [system.security.accesscontrol.InheritanceFlags]"ContainerInherit, ObjectInherit"
+                $Propagation = [system.security.accesscontrol.PropagationFlags]"None"
+                $AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule($Usrname, $AccessLevel, $Inherit, $Propagation, "Allow")
+                if ($Add) { $ACL.AddAccessRule($AccessRule) }
+                if ($Remove) { $ACL.RemoveAccessRuleAll($AccessRule) }
+            }
+            if (($Add) -or ($Remove)) { Set-Acl -path $Path -AclObject $Acl }
+            else { Write-Verbose "No Add or Remove action was specified" }
+        }
     }
-    if (($Add) -or ($Remove)) { Set-Acl -path $Path -AclObject $Acl }
-    else { Write-Verbose "No Add or Remove action was specified" }
+    end {}
 }
+

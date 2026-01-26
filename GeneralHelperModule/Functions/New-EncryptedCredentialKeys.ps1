@@ -1,4 +1,4 @@
-function New-EncryptedCredentialKeys {
+function New-EncryptedCredentialKey {
     <#
 	.SYNOPSIS
 		Creates a new a set of encrypted credential keys
@@ -31,8 +31,8 @@ function New-EncryptedCredentialKeys {
 	.EXAMPLE
 		New-EncryptedCredentialKeys -Account "Panzerbjrn_L@CentralIndustrial.eu" -$Passssword "DenmarkWillTakeBackItsColonies" -Service Azure
 #>
-    [CmdletBinding(PositionalBinding = $False)]
-    [Alias('Create-EncryptedCredentialKeys')]
+    [CmdletBinding(PositionalBinding = $False, SupportsShouldProcess = $true)]
+    [Alias('Create-EncryptedCredentialKeys', 'New-EncryptedCredentialKeys')]
     param
     (
         [Parameter(Mandatory)][string]$Account,
@@ -57,22 +57,24 @@ function New-EncryptedCredentialKeys {
             $Path = ($Path + "\")
         }
     }
-    process {
-        #Creating Key File:
-        $KeyFile = $Path + "AES.key"
-        $Key = New-Object Byte[] 32
-        [Security.Cryptography.RNGCryptoServiceProvider]::Create().GetBytes($Key)
-        $Key | Out-File $KeyFile
+    process { 
+        if ($pscmdlet.ShouldProcess("system")) {        
+            #Creating Key File:
+            $KeyFile = $Path + "AES.key"
+            $Key = New-Object Byte[] 32
+            [Security.Cryptography.RNGCryptoServiceProvider]::Create().GetBytes($Key)
+            $Key | Out-File $KeyFile
 
-        #Creating Password File:
-        $PWDFile = $Path + "Password.txt"
-        $ConvertedPassword = $Password | ConvertTo-SecureString -AsPlainText -Force
-        $ConvertedPassword | ConvertFrom-SecureString -Key $Key | Out-File $PWDFile
+            #Creating Password File:
+            $PWDFile = $Path + "Password.txt"
+            $ConvertedPassword = $Password | ConvertTo-SecureString -AsPlainText -Force
+            $ConvertedPassword | ConvertFrom-SecureString -Key $Key | Out-File $PWDFile
 
-        #Creating Username File:
-        $USRNameFile = $Path + "Username.txt"
-        $Account | Out-File $USRNameFile
-        Write-Verbose "Keys created."
+            #Creating Username File:
+            $USRNameFile = $Path + "Username.txt"
+            $Account | Out-File $USRNameFile
+            Write-Verbose "Keys created."
+        }
     }
     end {
         Write-Verbose "
@@ -83,3 +85,4 @@ function New-EncryptedCredentialKeys {
 		"
     }
 }
+

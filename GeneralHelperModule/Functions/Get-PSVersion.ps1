@@ -15,3 +15,4 @@ function Get-PSVersion {
     $PSVersionTable.PSVersion
     (Get-WmiObject -class Win32_OperatingSystem).Caption
 }
+

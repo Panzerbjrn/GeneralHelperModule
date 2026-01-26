@@ -14,3 +14,4 @@ function Export-GPOReport {
     Write-Output "Exporting GPO Report to C:\Temp\GPOReport.HTML"
     Get-GPOReport -All -ReportType HTML C:\Temp\GPOReport.HTML
 }
+

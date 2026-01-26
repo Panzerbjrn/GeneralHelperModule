@@ -27,3 +27,4 @@ function Get-AzStorageBlobMD5 {
         $hdhash
     }
 }
+

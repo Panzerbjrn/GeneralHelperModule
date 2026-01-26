@@ -34,3 +34,4 @@ function Get-MD5Hash {
     # Return the Base64 encoded MD5 hash
     return $hash
 }
+
