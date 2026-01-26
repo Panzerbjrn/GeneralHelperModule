@@ -98,7 +98,7 @@ PrivateData = @{
         Tags = 'Utility','Generic','Panzerbjrn'
 
         # A URL to the license for this module.
-        # LicenseUri = ''
+        LicenseUri = 'https://raw.githubusercontent.com/Panzerbjrn/GeneralHelperModule/refs/heads/main/LICENSE'
 
         # A URL to the main website for this project.
         ProjectUri = 'https://github.com/Panzerbjrn/GeneralHelperModule'
