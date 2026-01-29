@@ -1,4 +1,4 @@
-function Get-ServerInfo {
+Function Get-ServerInfo {
     <#
 		.SYNOPSIS
 			Describe the function here

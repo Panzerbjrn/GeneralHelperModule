@@ -1,4 +1,4 @@
-function Get-RandomHexNumber {
+Function Get-RandomHexNumber {
     <#
 	.SYNOPSIS
 		This will generate a random Hex number. Either based on length or bits
@@ -25,7 +25,6 @@ function Get-RandomHexNumber {
 		A Hex number
 
 	.NOTES
-		Version:			1.0
 		Author:			Lars Panzerbjrn
 		Creation Date:	2019.08.10
 #>

@@ -1,4 +1,4 @@
-function Convert-ExcelToCSV ($Path, $ExcelFileName, $CSVLoc) {
+Function Convert-ExcelToCSV ($Path, $ExcelFileName, $CSVLoc) {
     <#
 		.SYNOPSIS
 			Describe the function here

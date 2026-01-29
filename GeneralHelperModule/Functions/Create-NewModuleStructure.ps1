@@ -25,12 +25,8 @@ function Add-NewModuleStructure {
 		None
 
 	.NOTES
-		Version:			1.0
 		Author:			Lars Panzerbjrn
 		Creation Date:	2018.11.08
-		Purpose/Change: Initial script development
-		2018.12.03 - Update:	Added Content of PSM1 file
-		2019.02.07 - Update:	Added Content of About_help file. Tidied up some code.
 
 	.EXAMPLE
 		Create-NewModuleStructure -ModuleName ServiceNowCMDB -Path C:\Temp -Description "Helper Functions to work with ServiceNow's CMDB"
@@ -45,7 +41,7 @@ function Add-NewModuleStructure {
         [Parameter()][string]$Description = 'New PowerShell module'
     )
 
-    begin {
+    BEGIN {
         $Date = Get-Date -f yyyy.MM.dd
         Write-Verbose "Path is $Path"
         $PSMContent = "#region Script Header
@@ -108,7 +104,7 @@ SEE ALSO
 "
     }
 
-    process {
+    PROCESS {
         $Path = Join-Path $Path $ModuleName
         Write-Verbose "Creating the module and function directories"
         if (!(Test-Path -Path ($Path))) { New-Item ($Path) -ItemType Directory -Force }

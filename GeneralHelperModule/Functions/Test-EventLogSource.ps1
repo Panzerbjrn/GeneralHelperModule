@@ -1,4 +1,4 @@
-function Test-EventLogSource {
+Function Test-EventLogSource {
     <#
 		.SYNOPSIS
 			Describe the function here

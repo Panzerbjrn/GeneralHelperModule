@@ -1,7 +1,7 @@
 Describe "Write-LogFile Test" {
     $logFilePath = (Join-Path $TestDrive 'File.txt')
-    
-    # Test if the function creates the file
+
+    # Test if the Function Creates the file
     It "Creates the log file if it doesn't exist" {
         Remove-Item -Path $logFilePath -Force -ErrorAction SilentlyContinue
         Write-LogFile -Message "Test message" -LogFilePath $logFilePath
@@ -16,7 +16,7 @@ Describe "Write-LogFile Test" {
         $expectedPattern = "\d{4}\.\d{2}\.\d{2}_\d{2}:\d{2} - Information: Test message"
         $logContent | Should -Match $expectedPattern
     }
-    
+
     # Test if the correct severity level is logged
     It "Logs the correct severity level" {
         Remove-Item -Path $logFilePath -Force -ErrorAction SilentlyContinue

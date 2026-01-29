@@ -1,4 +1,4 @@
-function Format-DiskSize {
+Function Format-DiskSize {
     <#
 		.SYNOPSIS
 			Describe the function here

@@ -1,4 +1,4 @@
-function Get-InstalledRole {
+Function Get-InstalledRole {
     <#
 		.SYNOPSIS
 			Describe the function here

@@ -1,4 +1,4 @@
-function Set-ConsoleConfig {
+Function Set-ConsoleConfig {
     <#
 	.SYNOPSIS
 		Changes the Console Title
@@ -28,8 +28,8 @@ function Set-ConsoleConfig {
         [Parameter()]
         [switch]$AdminCheck
     )
-    begin {}
-    process {
+    BEGIN {}
+    PROCESS {
         if ($pscmdlet.ShouldProcess("PowerShell Console")) {
             if ($PSCmdlet.ParameterSetName -eq "Title") {
                 $Host.UI.RawUI.WindowTitle = "$Title"
@@ -45,6 +45,6 @@ function Set-ConsoleConfig {
             }
         }
     }
-    end {}
+    END {}
 }
 

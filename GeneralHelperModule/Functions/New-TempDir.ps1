@@ -1,4 +1,4 @@
-function New-TempDir {
+Function New-TempDir {
     <#
 		.SYNOPSIS
 			Describe the function here
@@ -13,12 +13,12 @@ function New-TempDir {
     [CmdletBinding(SupportsShouldProcess = $true)]
     [Alias('Create-TempDir')]
     param()
-    begin {}
-    process {
+    BEGIN {}
+    PROCESS {
         if ($pscmdlet.ShouldProcess("location C:\Temp")) {
             if (!(Test-Path -Path C:\Temp)) { New-Item -ItemType "Directory" -Path C:\Temp -Force }
         }
     }
-    end {}
+    END {}
 }
 

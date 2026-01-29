@@ -45,13 +45,13 @@ function Do-Something {
         [string]$Logname = 'errors.txt'
     )
 
-    begin {
+    BEGIN {
         Write-Verbose "Beginning $($MyInvocation.Mycommand)"
         Write-Verbose "Deleting $Logname"
         Remove-Item $LogName -ErrorActionSilentlyContinue
     }
 
-    process {
+    PROCESS {
         Write-Verbose "Processing $($MyInvocation.Mycommand)"
 
         foreach ($Computer in $ComputerName) {
@@ -61,7 +61,7 @@ function Do-Something {
             }
         }
     }
-    end {
+    END {
         Write-Verbose "Ending $($MyInvocation.Mycommand)"
     }
 }

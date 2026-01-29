@@ -1,4 +1,4 @@
-function Get-MD5Hash {
+Function Get-MD5Hash {
     <#
 		.SYNOPSIS
 			Describe the function here

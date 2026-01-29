@@ -1,4 +1,4 @@
-function Get-PS6 {
+Function Get-PS6 {
     if ($PSV.Major -ne "6") {
         [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
         $DirectURL = (Invoke-WebRequest 'https://github.com/PowerShell/PowerShell/releases/latest' -UseBasicParsing).links | Where-Object { $_.href -like "*win*x64*.msi" } | ForEach-Object HREF | Select-Object -First 1

@@ -1,4 +1,4 @@
-function Get-Parameter {
+Function Get-Parameter {
     [CmdletBinding()]
     [Alias('Get-Parameters')]
     param (

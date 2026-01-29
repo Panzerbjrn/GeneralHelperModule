@@ -1,4 +1,4 @@
-function Export-WorkSheetToCSV ($Path, $ExcelFileName, $CSVLoc) {
+Ffunction Export-WorkSheetToCSV ($Path, $ExcelFileName, $CSVLoc) {
     <#
 		.SYNOPSIS
 			Describe the function here

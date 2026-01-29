@@ -1,4 +1,4 @@
-function Get-RemoteDisk {
+Function Get-RemoteDisk {
     <#
 		.SYNOPSIS
 			Describe the function here

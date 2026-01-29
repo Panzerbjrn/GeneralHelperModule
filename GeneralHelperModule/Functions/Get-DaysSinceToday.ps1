@@ -1,4 +1,4 @@
-function Get-DaysSinceToday {
+Function Get-DaysSinceToday {
     <#
 		.SYNOPSIS
 			Describe the function here

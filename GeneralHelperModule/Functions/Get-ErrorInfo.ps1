@@ -1,4 +1,4 @@
-function Get-ErrorInfo {
+Function Get-ErrorInfo {
     <#
 		.SYNOPSIS
 			Describe the function here
@@ -17,7 +17,7 @@ function Get-ErrorInfo {
         [Parameter(ValueFrompipeline)]
         [Management.Automation.ErrorRecord]$ErrorRecord
     )
-    process {
+    PROCESS {
         $Info = [PSCustomObject]@{
             Exception = $ErrorRecord.Exception.Message
             Testing   = $ErrorRecord.Exception.Message

@@ -1,4 +1,4 @@
-function Set-PSRepositoryTrust {
+Function Set-PSRepositoryTrust {
     <#
 		.SYNOPSIS
 			Describe the function here
@@ -13,13 +13,13 @@ function Set-PSRepositoryTrust {
     [CmdletBinding(SupportsShouldProcess = $true)]
     [Alias('Trust-PSRepository')]
     param()
-    begin {}
-    process {
+    BEGIN {}
+    PROCESS {
         if ($pscmdlet.ShouldProcess("repositories registered in the system")) {
             $Repo = Get-PSRepository
             Set-PSRepository -InstallationPolicy Trusted -Name $Repo.Name -SourceLocation $Repo.SourceLocation
         }
     }
-    end {}
+    END {}
 }
 

@@ -1,4 +1,4 @@
-function Get-PSVersion {
+Function Get-PSVersion {
     <#
 		.SYNOPSIS
 			Describe the function here

@@ -1,4 +1,4 @@
-function Set-FolderACL {
+Function Set-FolderACL {
     <#
 	.SYNOPSIS
 		This function will add or remove an ACE to the ACL for a directory.
@@ -28,10 +28,7 @@ function Set-FolderACL {
 		None
 
 	.NOTES
-		Version:			1.2
 		Author:				Lars Panzerbjrn
-		Creation Date:		2017.11.01
-		Purpose/Change: 	Initial script development
 
 	.EXAMPLE
 		Change-ACL -Directory "\\lonfs1\InfServices\Sec\SecOps" -UserNames Panzerbjrn_L_a -AccessLevel Write -Add
@@ -64,8 +61,8 @@ function Set-FolderACL {
         [Parameter(ParameterSetName = "Remove")]
         [switch]$Remove
     )
-    begin {}
-    process {
+    BEGIN {}
+    PROCESS {
         if ($pscmdlet.ShouldProcess("directory:$Directory by $(if($add){"adding"}else{"removing"}) $($AccessLevel -join ',') permission(s) for $($Usernames -join ',') user(s)")) {
             $Path = $Directory
             $TestedPath = Test-Path $Path
@@ -85,6 +82,6 @@ function Set-FolderACL {
             else { Write-Verbose "No Add or Remove action was specified" }
         }
     }
-    end {}
+    END {}
 }
 

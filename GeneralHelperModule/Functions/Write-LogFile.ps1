@@ -1,4 +1,4 @@
-function Write-LogFile {
+Function Write-LogFile {
     <#
 		.SYNOPSIS
 			Writes to a log file

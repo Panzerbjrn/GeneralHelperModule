@@ -1,4 +1,4 @@
-function Export-GPOReport {
+Ffunction Export-GPOReport {
     <#
 		.SYNOPSIS
 			Describe the function here

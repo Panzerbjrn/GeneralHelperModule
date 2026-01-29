@@ -1,4 +1,4 @@
-function Connect-RDP {
+Function Connect-RDP {
     <#
 		.SYNOPSIS
 			Describe the function here

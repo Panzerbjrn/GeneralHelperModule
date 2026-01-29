@@ -1,4 +1,4 @@
-function New-EncryptedCredentialKey {
+Function New-EncryptedCredentialKey {
     <#
 	.SYNOPSIS
 		Creates a new a set of encrypted credential keys
@@ -19,8 +19,6 @@ function New-EncryptedCredentialKey {
 		Version:			1.0
 		Author:				Lars Panzerbjrn
 		Creation Date:		2019.01.30
-		Purpose/Change: 	Initial script development
-		Change 2019.01.31:	Added Examples
 
 	.EXAMPLE
 		New-EncryptedCredentialKeys -Account "CentralIndustrial\Serv_ServiceAccount" -Path "C:\_Keys\ServAcc" -Passsword "S3kr1tVV0rd"
@@ -41,7 +39,7 @@ function New-EncryptedCredentialKey {
         [Parameter()][string]$Service
     )
 
-    begin {
+    BEGIN {
         $Path = $Path.TrimEnd('\')
 
         if (!(Test-Path -Path $Path)) {
@@ -57,8 +55,8 @@ function New-EncryptedCredentialKey {
             $Path = ($Path + "\")
         }
     }
-    process { 
-        if ($pscmdlet.ShouldProcess("system")) {        
+    PROCESS {
+        if ($pscmdlet.ShouldProcess("system")) {
             #Creating Key File:
             $KeyFile = $Path + "AES.key"
             $Key = New-Object Byte[] 32
@@ -76,7 +74,7 @@ function New-EncryptedCredentialKey {
             Write-Verbose "Keys created."
         }
     }
-    end {
+    END {
         Write-Verbose "
 		Files created:
 		$($PWDFile)

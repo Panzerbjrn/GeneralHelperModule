@@ -1,4 +1,4 @@
-function Add-ToWindowsPath {
+Function Add-ToWindowsPath {
     <#
 		.SYNOPSIS
 			Describe the function here
@@ -15,7 +15,7 @@ function Add-ToWindowsPath {
         [Parameter(Mandatory)]
         [string]$Path
     )
-	
+
     if (Test-Path $Path) {
         if (-not (Test-IsAdministrator)) {
             return "You are not root. Root permissions are needed."

@@ -1,4 +1,4 @@
-function Get-RandomString {
+Function Get-RandomString {
     <#
 		.SYNOPSIS
 			Describe the function here

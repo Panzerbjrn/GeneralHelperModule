@@ -1,4 +1,4 @@
-function Get-DataTypeName {
+Function Get-DataTypeName {
     <#
 		.SYNOPSIS
 			Describe the function here

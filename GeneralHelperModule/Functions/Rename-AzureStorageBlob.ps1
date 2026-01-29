@@ -1,4 +1,4 @@
-function Rename-AzureStorageBlob {
+Function Rename-AzureStorageBlob {
     <#
 	.SYNOPSIS
 		This will "rename" azure blobs.
@@ -38,7 +38,7 @@ function Rename-AzureStorageBlob {
         [string]$NewName
     )
 
-    begin {
+    BEGIN {
         Write-Verbose "Beginning $($MyInvocation.Mycommand)"
         if (-not $PSBoundParameters.ContainsKey('Confirm')) {
             $ConfirmPreference = $PSCmdlet.SessionState.PSVariable.GetValue('ConfirmPreference')
@@ -48,7 +48,7 @@ function Rename-AzureStorageBlob {
         }
     }
 
-    process {
+    PROCESS {
         $StartAzStorageBlobCopySplat = @{
             ICloudBlob    = $Blob.ICloudBlob
             DestBlob      = $NewName
@@ -60,7 +60,7 @@ function Rename-AzureStorageBlob {
         }
 
         $BlobCopyAction = Start-AzStorageBlobCopy @StartAzStorageBlobCopySplat
-		
+
         $status = $BlobCopyAction | Get-AzStorageBlobCopyState
 
         while ($status.Status -ne 'Success') {

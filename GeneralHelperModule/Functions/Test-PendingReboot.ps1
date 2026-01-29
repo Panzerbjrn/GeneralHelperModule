@@ -1,4 +1,4 @@
-function Test-PendingReboot {
+Function Test-PendingReboot {
     <#
 		.SYNOPSIS
 			Describe the function here

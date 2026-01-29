@@ -1,4 +1,4 @@
-function ConvertFrom-UnixTimestamp {
+Function ConvertFrom-UnixTimestamp {
     <#
 		.SYNOPSIS
 			Describe the function here

@@ -1,4 +1,4 @@
-function ConvertFrom-ArrayToHash($a) {
+Function ConvertFrom-ArrayToHash($a) {
     <#
 		.SYNOPSIS
 			Describe the function here

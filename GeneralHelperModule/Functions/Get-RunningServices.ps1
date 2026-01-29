@@ -1,4 +1,4 @@
-function Get-RunningService {
+Function Get-RunningService {
     <#
 		.SYNOPSIS
 			Describe the function here

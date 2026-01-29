@@ -1,4 +1,4 @@
-function Enable-RDPAccess {
+Ffunction Enable-RDPAccess {
     <#
 		.SYNOPSIS
 			Describe the function here

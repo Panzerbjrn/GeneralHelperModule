@@ -1,4 +1,4 @@
-function Get-LocalDiskSize {
+Function Get-LocalDiskSize {
     <#
 		.SYNOPSIS
 			Describe the function here
@@ -18,7 +18,7 @@ function Get-LocalDiskSize {
     #Get-WmiObject Win32_LogicalDisk -filter "DriveType=3" -computer $ENV:Computername | Select-Object SystemName,DeviceID,VolumeName,@{Name="Size";Expression={"{0:N1}" -f($_.size/1gb)}}
 
     #| Export-Csv C:\TEMP\DiskSize.CSV -NoTypeInformation -Delimiter "`t"
-	
+
     #notepad C:\temp\DiskSize.CSV
 }
 

@@ -1,4 +1,4 @@
-function Get-CatFact {
+Function Get-CatFact {
     <#
 		.SYNOPSIS
 			Describe the function here

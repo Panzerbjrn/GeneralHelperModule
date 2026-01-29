@@ -1,4 +1,4 @@
-function Get-LastReboot {
+Function Get-LastReboot {
     <#
 	.SYNOPSIS
 		Get-LastReboot is designed to return the last reboot time of a windows computer.
@@ -42,10 +42,10 @@ function Get-LastReboot {
         [alias("Name", "ComputerName")]
         [string[]]$Computer = @($env:ComputerName)
     )
-    begin {
+    BEGIN {
         $Result = @()
     }
-    process {
+    PROCESS {
         foreach ($Machine in $Computer) {
             if (-not (Test-Connection -ComputerName $Machine -Count 1 -Quiet)) {
                 #Make sure we can connect to it...
@@ -98,7 +98,7 @@ function Get-LastReboot {
             }
         }
     }
-    end {
+    END {
         $Result
     }
 }

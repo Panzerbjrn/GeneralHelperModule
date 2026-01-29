@@ -28,14 +28,14 @@ function Verb-Noun {
         [string[]]$ComputerName
     )
 
-    begin {
+    BEGIN {
         Write-Verbose "Beginning $($MyInvocation.Mycommand)"
     }
 
-    process {
+    PROCESS {
         Write-Verbose "Processing $($MyInvocation.Mycommand)"
     }
-    end {
+    END {
         Write-Verbose "Ending $($MyInvocation.Mycommand)"
     }
 }

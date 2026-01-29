@@ -1,4 +1,4 @@
-function Test-IsAdministrator {
+Function Test-IsAdministrator {
     <#
 	.SYNOPSIS
 	Tests if the user is an administrator

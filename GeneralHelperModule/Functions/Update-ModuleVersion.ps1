@@ -1,4 +1,4 @@
-function Update-ModuleVersion {
+Function Update-ModuleVersion {
     <#
 		.SYNOPSIS
 			Describe the function here
@@ -21,13 +21,13 @@ function Update-ModuleVersion {
         [Switch]$Patch
     )
 
-    begin {
+    BEGIN {
         Write-Verbose "#################################################################"
         Write-Verbose "Beginning $($MyInvocation.MyCommand.Name) on $($ENV:ComputerName) @ $(Get-Date -Format 'yyyy.MM.dd HH:mm:ss')"
         Write-Verbose "#################################################################"
     }
 
-    process {
+    PROCESS {
         try {
             # Ensure ModulePath is a directory
             if ((Get-Item $ModulePath).PSIsContainer -ne $True) {
@@ -127,7 +127,7 @@ function Update-ModuleVersion {
             Write-Error "An error occurred: $_"
         }
     }
-    end {
+    END {
         if ($Version -ne $NewVersion) {
             Write-Output "Module $ModuleName Updated from $Version to $NewVersion"
         }

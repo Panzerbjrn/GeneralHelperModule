@@ -1,4 +1,4 @@
-function Create-NewModuleStructure {
+Function Create-NewModuleStructure {
     <#
 	.SYNOPSIS
 		Creates a new Module Tree + Files
@@ -45,7 +45,7 @@ function Create-NewModuleStructure {
         [Parameter(Mandatory = $False)][string]$Description = 'New PowerShell module'
     )
 
-    begin {
+    BEGIN {
         $Date = Get-Date -f yyyy.MM.dd
         Write-Verbose "Path is $Path"
         $PSMContent = "#region Script Header
@@ -112,7 +112,7 @@ SEE ALSO
 "
     }
 
-    process {
+    PROCESS {
         $Path = "$Path\$ModuleName"
         Write-Verbose "Creating the module and function directories"
         if (!(Test-Path -Path ($Path))) { New-Item ($Path) -ItemType Directory -Force }
