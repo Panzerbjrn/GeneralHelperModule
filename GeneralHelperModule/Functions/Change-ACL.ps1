@@ -1,45 +1,47 @@
 Function Set-FolderACL {
     <#
-	.SYNOPSIS
-		This function will add or remove an ACE to the ACL for a directory.
+		.SYNOPSIS
+			Adds or removes an ACE to the ACL for a directory
 
-	.DESCRIPTION
-		This function will add or remov e an ACE to the ACL for a directory.
+		.DESCRIPTION
+			This function will add or remove an ACE (Access Control Entry) to the ACL for a directory.
+			It can grant or revoke permissions for specified users on a target directory.
 
-	.PARAMETER Directory
-		This is the directory you will add/remove an ACE for.
+		.PARAMETER Directory
+			The directory path for which you will add/remove an ACE
 
-	.PARAMETER UserNames
-		These are the UserNames of the user(s) you want to change permissions for.
+		.PARAMETER UserNames
+			The UserNames of the user(s) you want to change permissions for
 
-	.PARAMETER AccessLevel
-		This is the level of accesss you want to grant for the user(s). If you are removing perissions, all inherited levels are removed
+		.PARAMETER AccessLevel
+			The level of access you want to grant for the user(s). If you are removing permissions, all inherited levels are removed
 
-	.PARAMETER Add
-		This switch specifies whether to add the permissions specified in the AccessLevel Parameter
+		.PARAMETER Add
+			This switch specifies whether to add the permissions specified in the AccessLevel parameter
 
-	.PARAMETER Remove
-		This switch specifies whether to remove the user's permissions
+		.PARAMETER Remove
+			This switch specifies whether to remove the user's permissions
 
-	.INPUTS
-		None
+		.INPUTS
+			None
 
-	.OUTPUTS
-		None
+		.OUTPUTS
+			None
 
-	.NOTES
-		Author:				Lars Panzerbjrn
+		.NOTES
+			Author:	Lars Panzerbjrn
 
-	.EXAMPLE
-		Change-ACL -Directory "\\lonfs1\InfServices\Sec\SecOps" -UserNames Panzerbjrn_L_a -AccessLevel Write -Add
+		.EXAMPLE
+			Change-ACL -Directory "\\lonfs1\InfServices\Sec\SecOps" -UserNames Panzerbjrn_L_a -AccessLevel Write -Add
 
-		This will give the user Panzerbjrn_L_a access to write to the directory.
+			This will give the user Panzerbjrn_L_a access to write to the directory
 
-	.EXAMPLE
-		Change-ACL -Directory "\\lonfs1\InfServices\Sec\SecOps" -UserNames Panzerbjrn_L_a -Remove
+		.EXAMPLE
+			Change-ACL -Directory "\\lonfs1\InfServices\Sec\SecOps" -UserNames Panzerbjrn_L_a -Remove
 
-		This will remove the user Panzerbjrn_L_a from the ACL for the directory.
-#>
+			This will remove the user Panzerbjrn_L_a from the ACL for the directory
+
+	#>
     [CmdletBinding(PositionalBinding = $False, SupportsShouldProcess = $true)]
     [Alias('Change-ACL')]
     param(

@@ -1,13 +1,21 @@
 Function New-TempDir {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Creates the C:\Temp directory if it doesn't exist
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function checks for the existence of C:\Temp and creates it if it's not present.
+			Supports ShouldProcess for -WhatIf and -Confirm functionality.
 
 		.EXAMPLE
-			Give an example of how to use it
+			New-TempDir
+
+			Creates C:\Temp if it doesn't already exist
+
+		.EXAMPLE
+			New-TempDir -WhatIf
+
+			Shows what would happen without actually creating the directory
 
 	#>
     [CmdletBinding(SupportsShouldProcess = $true)]

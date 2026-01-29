@@ -1,13 +1,21 @@
 Function Set-PSRepositoryTrust {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Sets all registered PowerShell repositories to Trusted
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function retrieves all registered PowerShell repositories and sets their installation policy to Trusted.
+			This eliminates prompts when installing modules from these repositories.
 
 		.EXAMPLE
-			Give an example of how to use it
+			Set-PSRepositoryTrust
+
+			Sets all registered repositories to Trusted installation policy
+
+		.EXAMPLE
+			Trust-PSRepository
+
+			Using the alias to trust all repositories
 
 	#>
     [CmdletBinding(SupportsShouldProcess = $true)]

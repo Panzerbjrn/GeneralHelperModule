@@ -1,13 +1,16 @@
 Function Get-RunningService {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Exports running Windows services to a CSV file
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function retrieves all running Windows services and exports them to C:\Temp\Services.Running.csv.
+			The CSV file includes service name, display name, and status, sorted by display name.
 
 		.EXAMPLE
-			Give an example of how to use it
+			Get-RunningService
+
+			Exports all running services to C:\Temp\Services.Running.csv and opens it in Notepad
 
 	#>
     [Alias('Get-RunningServices')]

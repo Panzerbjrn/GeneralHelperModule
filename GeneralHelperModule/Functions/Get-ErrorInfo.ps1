@@ -1,16 +1,28 @@
 Function Get-ErrorInfo {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Extracts detailed information from PowerShell error records
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function parses ErrorRecord objects and returns structured information including exception message, reason, target, script location, and user context.
+			Useful for error logging and debugging.
+
+		.PARAMETER ErrorRecord
+			The ErrorRecord object to parse. Accepts pipeline input
 
 		.EXAMPLE
-			Give an example of how to use it
+			Get-ErrorInfo -ErrorRecord $Error[0]
+
+			Extracts detailed information from the most recent error
+
+		.EXAMPLE
+			try { Get-Item "C:\NonExistent" } catch { $_ | Get-ErrorInfo }
+
+			Captures and parses error information from a try-catch block
 
 		.NOTES
-			## http://community.idera.com/powershell/powertips/b/tips/posts/demystifying-error-handling
+			Based on techniques from http://community.idera.com/powershell/powertips/b/tips/posts/demystifying-error-handling
+
 	#>
     [CmdletBinding()]
     param(

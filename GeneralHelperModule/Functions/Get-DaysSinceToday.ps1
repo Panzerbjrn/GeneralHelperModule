@@ -1,13 +1,31 @@
 Function Get-DaysSinceToday {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Calculates the number of days between today and a specified date
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function calculates how many days have elapsed between the current date and a specified past date.
+			Returns a positive number for dates in the past and negative for dates in the future.
+
+		.PARAMETER Year
+			The year component of the date
+
+		.PARAMETER Month
+			The month component of the date (1-12)
+
+		.PARAMETER Day
+			The day component of the date (1-31)
 
 		.EXAMPLE
-			Give an example of how to use it
+			Get-DaysSinceToday -Year 2020 -Month 1 -Day 1
+
+			Returns the number of days since January 1, 2020
+
+		.EXAMPLE
+			Get-DaysSinceToday -Year 2024 -Month 12 -Day 25
+
+			Calculates days since December 25, 2024
+
 	#>
 
     [CmdletBinding(PositionalBinding = $False)]

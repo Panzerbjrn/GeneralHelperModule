@@ -1,18 +1,32 @@
 Function Convert-ExcelToCSV ($Path, $ExcelFileName, $CSVLoc) {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Converts Excel worksheets to CSV files
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function opens an Excel file and exports each worksheet as a separate CSV file.
+			Each CSV file is named using the Excel filename and worksheet name.
+
+		.PARAMETER Path
+			The directory path where the Excel file is located
+
+		.PARAMETER ExcelFileName
+			The name of the Excel file to convert (including .xlsx or .xls extension)
+
+		.PARAMETER CSVLoc
+			The directory path where the CSV files should be saved
 
 		.EXAMPLE
-			Give an example of how to use it
-        .NOTES
-            #https://docs.microsoft.com/en-us/office/vba/api/excel.xlfileformat
-            #Must exist if run non-interactively:
-            #mkdir C:\Windows\SysWOW64\config\systemprofile\Desktop
-            #mkdir C:\Windows\System32\config\systemprofile\Desktop
+			Convert-ExcelToCSV -Path "C:\Data" -ExcelFileName "Report.xlsx" -CSVLoc "C:\Export"
+
+			Converts all worksheets in Report.xlsx to separate CSV files in C:\Export
+
+		.NOTES
+			Requires Excel to be installed
+			If run non-interactively, these directories must exist:
+			- C:\Windows\SysWOW64\config\systemprofile\Desktop
+			- C:\Windows\System32\config\systemprofile\Desktop
+			Reference: https://docs.microsoft.com/en-us/office/vba/api/excel.xlfileformat
 
 	#>
     [CmdletBinding()]

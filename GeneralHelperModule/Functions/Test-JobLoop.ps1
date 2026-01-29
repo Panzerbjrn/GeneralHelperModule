@@ -1,29 +1,36 @@
 Function Test-JobLoop {
     <#
-	.SYNOPSIS
-		This function will loop through a job and return to the console when the job is done.
+		.SYNOPSIS
+			Monitors a PowerShell job and waits for completion
 
-	.DESCRIPTION
-		This function will loop through a job and return to the console when the job is done.
+		.DESCRIPTION
+			This function will loop through a PowerShell job and monitor its status, returning to the console when the job is done.
+			It checks the job status every 5 seconds and provides feedback during execution.
 
-	.PARAMETER JobID
-		This should be the ID of the job to monitor.
+		.PARAMETER JobID
+			The ID of the PowerShell job to monitor (accepts pipeline input)
 
-	.INPUTS
-		None
+		.EXAMPLE
+			Test-JobLoop -JobID 3
 
-	.OUTPUTS
-		This Outputs a simple Done when it is done.
+			Monitors job with ID 3 until completion
 
-	.NOTES
-		Author:			Lars Petersson
-		Creation Date:	2019.02.27
+		.EXAMPLE
+			$job = Start-Job -ScriptBlock { Start-Sleep 30 }
+			Test-JobLoop -JobID $job.id
 
-	.EXAMPLE
-		Test-JobLoop -JobID 3
+			Starts a background job and monitors it until completion
 
-	.EXAMPLE
-		Test-JobLoop -JobID $StartJob.id
+		.INPUTS
+			String (Job ID)
+
+		.OUTPUTS
+			Outputs "Cogitating" during execution and "Done" when complete, followed by the job object
+
+		.NOTES
+			Author:			Lars Petersson
+			Creation Date:	2019.02.27
+
 	#>
     [CmdletBinding()]
     param(

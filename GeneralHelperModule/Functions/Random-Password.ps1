@@ -1,13 +1,29 @@
 Function New-RandomPassword {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Generates a random password
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function creates a cryptographically random password containing letters (uppercase and lowercase), digits, and periods.
+			Uses Get-Random with a character set to generate secure passwords.
+
+		.PARAMETER Length
+			The length of the password to generate. Default is 15 characters
 
 		.EXAMPLE
-			Give an example of how to use it
+			New-RandomPassword
+
+			Generates a 15-character random password
+
+		.EXAMPLE
+			New-RandomPassword -Length 20
+
+			Generates a 20-character random password
+
+		.EXAMPLE
+			Random-Password -Length 12
+
+			Using the alias to generate a 12-character password
 
 	#>
     [CmdletBinding(SupportsShouldProcess = $true)]

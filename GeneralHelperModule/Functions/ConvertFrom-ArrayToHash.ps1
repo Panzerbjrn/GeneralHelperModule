@@ -1,13 +1,19 @@
 Function ConvertFrom-ArrayToHash($a) {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Converts an object's properties to a hashtable
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function takes an object and converts all of its NoteProperty members into a hashtable where property names become keys and property values become hashtable values.
+
+		.PARAMETER a
+			The object to convert to a hashtable
 
 		.EXAMPLE
-			Give an example of how to use it
+			$obj = [PSCustomObject]@{Name="John"; Age=30}
+			ConvertFrom-ArrayToHash -a $obj
+
+			Converts the custom object to a hashtable with keys "Name" and "Age"
 
 	#>
     [CmdletBinding()]

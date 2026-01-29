@@ -1,13 +1,19 @@
 Function Add-ToWindowsPath {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Adds a directory to the Windows system PATH environment variable
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function adds a specified directory path to the system-wide PATH environment variable in the Windows registry.
+			Requires administrator privileges to modify the system PATH.
+
+		.PARAMETER Path
+			The full path to the directory to add to the system PATH
 
 		.EXAMPLE
-			Give an example of how to use it
+			Add-ToWindowsPath -Path "C:\MyApp\bin"
+
+			Adds C:\MyApp\bin to the system PATH environment variable
 
 	#>
     [CmdletBinding()]

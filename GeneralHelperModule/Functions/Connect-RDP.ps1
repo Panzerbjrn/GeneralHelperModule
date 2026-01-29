@@ -1,13 +1,23 @@
 Function Connect-RDP {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Connects to a remote server using Remote Desktop Protocol (RDP)
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function launches a Remote Desktop (mstsc) connection to a specified server in full-screen administrator mode.
+
+		.PARAMETER Server
+			The name or IP address of the server to connect to
 
 		.EXAMPLE
-			Give an example of how to use it
+			Connect-RDP -Server "SQLSERVER01"
+
+			Connects to SQLSERVER01 via RDP in full-screen administrator mode
+
+		.EXAMPLE
+			Connect-RDP -Server "192.168.1.100"
+
+			Connects to the server at IP 192.168.1.100 via RDP
 
 	#>
     [CmdletBinding(PositionalBinding = $False)]

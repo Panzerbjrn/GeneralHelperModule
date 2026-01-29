@@ -1,25 +1,26 @@
 Function Test-IsAdministrator {
     <#
-	.SYNOPSIS
-	Tests if the user is an administrator
+		.SYNOPSIS
+			Tests if the user is an administrator
 
-	.Description
-	Returns true if a user is an administrator, false if the user is not an administrator
+		.DESCRIPTION
+			Returns true if a user is an administrator, false if the user is not an administrator
 
-	.Example
-	Test-IsAdministrator
+		.EXAMPLE
+			Test-IsAdministrator
 
-	.Notes
-	NAME: Test-IsAdministrator
-	AUTHOR: Ed Wilson
-	LASTEDIT: 5/20/2009
-	KEYWORDS:
+			Returns $true if running as administrator, $false otherwise
 
-	.Link
-	Http://www.ScriptingGuys.com
+		.NOTES
+			NAME: Test-IsAdministrator
+			AUTHOR: Ed Wilson
+			LASTEDIT: 5/20/2009
+			KEYWORDS:
 
-	#Requires -Version 2.0
-#>
+		.LINK
+			Http://www.ScriptingGuys.com
+
+	#>
     param()
     $currentUser = [Security.Principal.WindowsIdentity]::GetCurrent()
     (New-Object Security.Principal.WindowsPrincipal $currentUser).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)

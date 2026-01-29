@@ -1,13 +1,16 @@
 Function Get-InstalledRole {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Exports installed Windows Features and Roles to a CSV file
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function retrieves all installed Windows Features and Roles using the ServerManager module and exports them to C:\Temp\Roles.CSV.
+			The CSV file opens automatically in Notepad after creation.
 
 		.EXAMPLE
-			Give an example of how to use it
+			Get-InstalledRole
+
+			Exports all installed roles and features to C:\Temp\Roles.CSV and opens it in Notepad
 
 	#>
     [Alias('Get-InstalledRoles')]

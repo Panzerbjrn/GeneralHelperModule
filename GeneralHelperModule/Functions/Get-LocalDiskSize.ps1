@@ -1,13 +1,15 @@
 Function Get-LocalDiskSize {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Gets disk size information for local drives
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function retrieves disk size, free space, and percentage free for all local fixed drives on the current computer using CIM instances.
 
 		.EXAMPLE
-			Give an example of how to use it
+			Get-LocalDiskSize
+
+			Displays disk information for all local fixed drives including system name, device ID, volume name, size, free space, and percentage free
 
 	#>
 

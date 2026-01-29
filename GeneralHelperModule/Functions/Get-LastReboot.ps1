@@ -1,42 +1,49 @@
 Function Get-LastReboot {
     <#
-	.SYNOPSIS
-		Get-LastReboot is designed to return the last reboot time of a windows computer.
-	.DESCRIPTION
-		Get-LastReboot filters the system event logs looking for the last reboot event (or shutdown) and returns all the information related to the reboot.
-	.PARAMETER Computer
-		The name of the computer  you wish to interrogate. Default is your local machine.
-	.EXAMPLE
-		Get-LastReboot DC1
+		.SYNOPSIS
+			Returns the last reboot time of a Windows computer
 
-		This will return the last reboot time of DC1
-	.EXAMPLE
-		Get-ChildItem AD:"OU=Servers,OU=Computers,DC=CentralIndustrial,DC=EU" | Select Name | Get-LastReboot
+		.DESCRIPTION
+			Get-LastReboot filters the system event logs looking for the last reboot event (or shutdown) and returns all the information related to the reboot.
+			It checks for both successful (event ID 1074) and unsuccessful (event ID 41) reboots.
 
-		This outputs the last reboot for all machines in the Servers OU.
-	.OUTPUTS
-		Object: System.Management.Automation.PSCustomObject
-		IF it was a clean boot:
-			Contains:
-				Cleanboot		[Bool]
-				Code			[String]
-				Comment			[String]
-				ComputerName	[String]
-				LastBoot		[DateTime]
-				Message			[String]
-				Process			[String]
-				Reason			[String]
-				Type			[String]
-				UpTime			[TimeSpan]
-				User			[String]
-		Else
-			Contains:
-				Cleanboot		[Bool]
-				ComputerName	[String]
-				LastBoot		[DateTime]
-				Message			[String]
-				UpTime			[TimeSpan]
-#>
+		.PARAMETER Computer
+			The name of the computer you wish to interrogate. Default is your local machine
+
+		.EXAMPLE
+			Get-LastReboot DC1
+
+			This will return the last reboot time of DC1
+
+		.EXAMPLE
+			Get-ChildItem AD:"OU=Servers,OU=Computers,DC=CentralIndustrial,DC=EU" | Select Name | Get-LastReboot
+
+			This outputs the last reboot for all machines in the Servers OU
+
+		.OUTPUTS
+			Object: System.Management.Automation.PSCustomObject
+			IF it was a clean boot:
+				Contains:
+					Cleanboot		[Bool]
+					Code			[String]
+					Comment			[String]
+					ComputerName	[String]
+					LastBoot		[DateTime]
+					Message			[String]
+					Process			[String]
+					Reason			[String]
+					Type			[String]
+					UpTime			[TimeSpan]
+					User			[String]
+			Else:
+				Contains:
+					Cleanboot		[Bool]
+					ComputerName	[String]
+					LastBoot		[DateTime]
+					Message			[String]
+					UpTime			[TimeSpan]
+
+	#>
     param(
         [Parameter(ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [alias("Name", "ComputerName")]
@@ -70,7 +77,7 @@ Function Get-LastReboot {
                 }
                 $Event = if ($SuccessfullReboot.TimeWritten -gt $UnSuccessfullReboot.Timewritten) { $SuccessfullReboot; $Cleanboot = $True }else { $UnSuccessfullReboot }
                 $LastRebootTime = $Event.TimeGenerated
-                $UpTime = New-TimeSpan -Start $LastReboot T ime -End $(Get-Date)
+                $UpTime = New-TimeSpan -Start $LastRebootTime -End $(Get-Date)
                 if ($CleanBoot) {
                     $Result = $Result + (New-Object PSObject -Property @{ #Build the object for return
                             "Code"         = $Event.ReplacementStrings[3]

@@ -1,13 +1,35 @@
 Function Write-LogFile {
     <#
 		.SYNOPSIS
-			Writes to a log file
+			Writes timestamped messages to a log file
 
 		.DESCRIPTION
-			Writes to a log file
+			This function writes timestamped log messages to a specified file with severity levels (Information, Warning, Error).
+			If no log file path is provided, it automatically creates one in C:\Temp with the calling function's name.
+
+		.PARAMETER Message
+			The message to write to the log file
+
+		.PARAMETER LogFilePath
+			The full path to the log file. If not specified, creates a log file in C:\Temp named after the calling function
+
+		.PARAMETER Severity
+			The severity level of the message. Valid values are 'Information', 'Warning', or 'Error'. Default is 'Information'
 
 		.EXAMPLE
-			Write-LogFile
+			Write-LogFile -Message "Process completed successfully"
+
+			Writes an informational message to the default log file location
+
+		.EXAMPLE
+			Write-LogFile -Message "Configuration file not found" -Severity Warning -LogFilePath "C:\Logs\MyApp.log"
+
+			Writes a warning message to a specific log file
+
+		.EXAMPLE
+			Write-LogFile -Message "Failed to connect to database" -Severity Error
+
+			Writes an error message to the default log file location
 
 	#>
     [CmdletBinding()]

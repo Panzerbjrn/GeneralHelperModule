@@ -1,13 +1,35 @@
 Function Update-ModuleVersion {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Updates the version number of a PowerShell module based on detected changes
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function analyzes a PowerShell module's fingerprint (commands and parameters) to determine if the version should be incremented.
+			It detects breaking changes (major version), new features (minor version), or bug fixes (patch version) and updates the module manifest accordingly.
+
+		.PARAMETER ModulePath
+			The path to the module directory or manifest file that should be updated
+
+		.PARAMETER Ask
+			When specified, displays what version update would occur without making any changes
+
+		.PARAMETER Patch
+			Forces a patch version increment (0.0.X) regardless of detected changes
 
 		.EXAMPLE
-			Give an example of how to use it
+			Update-ModuleVersion -ModulePath "C:\Modules\MyModule"
+
+			Analyzes the module and updates the version based on detected changes
+
+		.EXAMPLE
+			Update-ModuleVersion -ModulePath "C:\Modules\MyModule" -Ask
+
+			Shows what version update would occur without making changes
+
+		.EXAMPLE
+			Update-ModuleVersion -ModulePath "C:\Modules\MyModule" -Patch -Confirm:$false
+
+			Forces a patch version update without confirmation
 
 	#>
 

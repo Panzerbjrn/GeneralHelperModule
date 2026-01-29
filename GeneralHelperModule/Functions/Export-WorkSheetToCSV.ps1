@@ -1,17 +1,32 @@
-Ffunction Export-WorkSheetToCSV ($Path, $ExcelFileName, $CSVLoc) {
+Function Export-WorkSheetToCSV ($Path, $ExcelFileName, $CSVLoc) {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Exports Excel worksheets to CSV files
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function opens an Excel file and exports each worksheet as a separate CSV file.
+			Each CSV file is named using the Excel filename and worksheet name.
+
+		.PARAMETER Path
+			The directory path where the Excel file is located
+
+		.PARAMETER ExcelFileName
+			The name of the Excel file to convert (including .xlsx or .xls extension)
+
+		.PARAMETER CSVLoc
+			The directory path where the CSV files should be saved
 
 		.EXAMPLE
-			Give an example of how to use it
-        .NOTES
-        #Must exist if run non-interactively:
-        #mkdir C:\Windows\SysWOW64\config\systemprofile\Desktop
-        #mkdir C:\Windows\System32\config\systemprofile\Desktop
+			Export-WorkSheetToCSV -Path "C:\Data" -ExcelFileName "Report.xlsx" -CSVLoc "C:\Export"
+
+			Exports all worksheets in Report.xlsx to separate CSV files in C:\Export
+
+		.NOTES
+			Requires Excel to be installed
+			If run non-interactively, these directories must exist:
+			- C:\Windows\SysWOW64\config\systemprofile\Desktop
+			- C:\Windows\System32\config\systemprofile\Desktop
+
 	#>
     $ExcelFile = Join-Path -Path $Path -ChildPath $ExcelFileName
     $E = New-Object -ComObject Excel.Application

@@ -1,13 +1,26 @@
 Function Get-RemoteDisk {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Gets disk information from a remote computer
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function retrieves disk size, free space, and other information for all local fixed drives on a remote computer using WMI.
+
+		.PARAMETER Name
+			The name of the remote computer to query
+
+		.PARAMETER Disk
+			Optional parameter to filter for a specific disk (not currently implemented in the function)
 
 		.EXAMPLE
-			Give an example of how to use it
+			Get-RemoteDisk -Name "SERVER01"
+
+			Retrieves disk information for all drives on SERVER01
+
+		.EXAMPLE
+			Get-RemoteDisk -Name "FILESERVER" | Where-Object {$_.DeviceID -eq "C:"}
+
+			Gets information only for the C: drive on FILESERVER
 
 	#>
     [CmdletBinding(PositionalBinding = $False)]

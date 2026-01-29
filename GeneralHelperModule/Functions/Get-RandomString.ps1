@@ -1,13 +1,38 @@
 Function Get-RandomString {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Generates a random string of specified length and type
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function generates a random string using different character sets: hexadecimal (0-9, A-H), decimal (0-9), or alphanumeric (0-9, A-Z, a-z).
+			Uses Get-Random to create cryptographically random strings.
+
+		.PARAMETER NumberOfCharacters
+			The number of characters to generate in the random string. Default is 3
+
+		.PARAMETER Hexidecimal
+			Generate a hexadecimal string (0-9, A-H)
+
+		.PARAMETER Decimal
+			Generate a decimal string (0-9)
+
+		.PARAMETER AlphaNumeric
+			Generate an alphanumeric string (0-9, A-Z, a-z)
 
 		.EXAMPLE
-			Give an example of how to use it
+			Get-RandomString -NumberOfCharacters 8 -Hexidecimal
+
+			Generates an 8-character hexadecimal string like "A4F3B201"
+
+		.EXAMPLE
+			Get-RandomString -NumberOfCharacters 10 -AlphaNumeric
+
+			Generates a 10-character alphanumeric string like "Kx3mN8zQ2p"
+
+		.EXAMPLE
+			Get-RandomString -NumberOfCharacters 6 -Decimal
+
+			Generates a 6-character decimal string like "749382"
 
 	#>
     [CmdletBinding()]

@@ -1,13 +1,21 @@
 Function Test-PendingReboot {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Tests if the system has a pending reboot
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function checks multiple registry keys and WMI to determine if Windows has a pending reboot.
+			It checks Component Based Servicing, Windows Update, Session Manager, and SCCM client if available.
 
 		.EXAMPLE
-			Give an example of how to use it
+			Test-PendingReboot
+
+			Returns $true if a reboot is pending, $false otherwise
+
+		.EXAMPLE
+			if (Test-PendingReboot) { Restart-Computer }
+
+			Restarts the computer if a reboot is pending
 
 	#>
 

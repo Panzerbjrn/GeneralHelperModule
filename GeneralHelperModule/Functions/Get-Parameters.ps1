@@ -1,4 +1,26 @@
 Function Get-Parameter {
+    <#
+		.SYNOPSIS
+			Gets parameter information for a PowerShell command
+
+		.DESCRIPTION
+			This function retrieves all parameters for a specified PowerShell command and returns their names and whether they are mandatory.
+			Useful for analyzing command structure and requirements.
+
+		.PARAMETER CommandName
+			The name of the PowerShell command to analyze
+
+		.EXAMPLE
+			Get-Parameter -CommandName "Get-Process"
+
+			Returns all parameters for Get-Process with their mandatory status
+
+		.EXAMPLE
+			Get-Parameters -CommandName "Write-Host"
+
+			Using the alias to get parameter information for Write-Host
+
+	#>
     [CmdletBinding()]
     [Alias('Get-Parameters')]
     param (

@@ -1,13 +1,16 @@
 Function Get-ServerInfo {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Retrieves comprehensive server information
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function gathers multiple pieces of information about the local server including PowerShell version, installed roles, running services, disk sizes, and IP configuration.
+			It executes multiple Get functions to provide a complete overview.
 
 		.EXAMPLE
-			Give an example of how to use it
+			Get-ServerInfo
+
+			Displays PowerShell version, installed roles, running services, local disk sizes, and network configuration
 
 	#>
 

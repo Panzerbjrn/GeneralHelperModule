@@ -1,24 +1,35 @@
 Function Set-ConsoleConfig {
     <#
-	.SYNOPSIS
-		Changes the Console Title
+		.SYNOPSIS
+			Changes the PowerShell console title
 
-	.DESCRIPTION
-		Changes the Console Title
+		.DESCRIPTION
+			This function changes the PowerShell console window title. It can either set a custom title or automatically set it based on administrator status.
 
-	.EXAMPLE
-		Give an example of how to use it
+		.PARAMETER Title
+			The custom title you would like to set for the console window
 
-	.PARAMETER Title
-		What you would like the title to be.
+		.PARAMETER AdminCheck
+			When specified, automatically sets the title based on whether the console is running as administrator
 
-	.INPUTS
-		Input is from command line.
+		.EXAMPLE
+			Set-ConsoleConfig -Title "Production Server"
 
-	.NOTES
-		Author:				Lars Panzerbjørn
-		Creation Date:		2020.01.13
-#>
+			Sets the console title to "Production Server"
+
+		.EXAMPLE
+			Set-ConsoleConfig -AdminCheck
+
+			Sets the console title to indicate admin or regular user status
+
+		.INPUTS
+			Input is from command line
+
+		.NOTES
+			Author:			Lars Panzerbjørn
+			Creation Date:	2020.01.13
+
+	#>
     [CmdletBinding(SupportsShouldProcess = $true)]
     param(
         [Parameter(Mandatory, ParameterSetName = "Title")]

@@ -1,15 +1,29 @@
 Function ConvertFrom-UnixTimestamp {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Converts Unix timestamps to DateTime objects
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function converts Unix epoch timestamps (seconds or milliseconds since January 1, 1970) to PowerShell DateTime objects.
+			Supports both seconds-based and milliseconds-based Unix timestamps.
+
+		.PARAMETER Seconds
+			Unix timestamp in seconds since January 1, 1970
+
+		.PARAMETER Milliseconds
+			Unix timestamp in milliseconds since January 1, 1970
 
 		.EXAMPLE
-			Give an example of how to use it
+			ConvertFrom-UnixTimestamp -Seconds 1609459200
 
-#>
+			Converts the Unix timestamp to a DateTime object representing 2021-01-01 00:00:00
+
+		.EXAMPLE
+			ConvertFrom-UnixTimestamp -Milliseconds 1609459200000
+
+			Converts the Unix timestamp in milliseconds to a DateTime object
+
+	#>
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, ParameterSetName = "Seconds")]

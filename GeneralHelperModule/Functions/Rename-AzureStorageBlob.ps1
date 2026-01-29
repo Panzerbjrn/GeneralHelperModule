@@ -1,34 +1,42 @@
 Function Rename-AzureStorageBlob {
     <#
-	.SYNOPSIS
-		This will "rename" azure blobs.
+		.SYNOPSIS
+			Renames Azure Storage blobs
 
-	.DESCRIPTION
-		This will "rename" azure blobs by copying them, and then deleting the original file once the copy job has been completed.
+		.DESCRIPTION
+			This function "renames" Azure blobs by copying them to a new name and then deleting the original file once the copy job has been completed.
+			Azure Storage doesn't natively support renaming, so this copy-and-delete approach is necessary.
 
-	.INPUTS
-		Command line
+		.PARAMETER Blob
+			The Azure Storage blob object to rename (accepts pipeline input)
 
-	.OUTPUTS
-		None
+		.PARAMETER NewName
+			The new name for the blob (can include folder path prefix)
 
-	.NOTES
-		There's no native way to rename files, they have to be copied and the original then deleted.
+		.EXAMPLE
+			$Blob = Get-AzStorageBlob -Container MyContainer -Context $Context -Blob TestFile.txt
+			Rename-AzureStorageBlob -Blob $Blob -NewName "Filetest.txt"
 
-	.EXAMPLE
-		This example will get an Azure blob and rename it from "TestFile.txt" to "FileTest.txt"
+			This example will get an Azure blob and rename it from "TestFile.txt" to "FileTest.txt"
 
-		$Blob = Get-AzStorageBlob -Container MyContainer -Context $Context -Blob TestFile.txt
-		Rename-AzureStorageBlob -Blob $Blob -NewName "Filetest.txt"
+		.EXAMPLE
+			Get-AzStorageBlob -Container MyContainer -Context $Context -Prefix ArchiveFiles/ | foreach {Rename-AzureStorageBlob -Blob $_ -NewName "ArchivedOld/$($_.Name.Split('/')[-1])" -Verbose}
 
-	.EXAMPLE
-		This example will get some Azure blobs, and renamed them all
+			This example will get some Azure blobs and rename them all by moving them to a different folder prefix
 
-		Get-AzStorageBlob -Container MyContainer -Context $Context -Prefix ArchiveFiles/ | foreach {Rename-AzureStorageBlob -Blob $_ -NewName "ArchivedOld/$($_.Name.Split('/')[-1])" -Verbose}
+		.INPUTS
+			Microsoft.WindowsAzure.Commands.Common.Storage.ResourceModel.AzureStorageBlob
 
-	.LINK
-		https://github.com/Panzerbjrn/
-#>
+		.OUTPUTS
+			None
+
+		.NOTES
+			There's no native way to rename files in Azure Storage; they have to be copied and the original then deleted
+
+		.LINK
+			https://github.com/Panzerbjrn/
+
+	#>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
     param(
         [Parameter(Mandatory, ValueFromPipeline = $true, Position = 0)]

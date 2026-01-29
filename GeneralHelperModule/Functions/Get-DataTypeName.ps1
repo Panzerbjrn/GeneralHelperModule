@@ -1,13 +1,30 @@
 Function Get-DataTypeName {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Gets the data type name of a value
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function returns the .NET type name of any object or value passed to it.
+			Useful for determining the actual type of variables and objects.
+
+		.PARAMETER Value
+			The value or object whose type name should be returned
 
 		.EXAMPLE
-			Give an example of how to use it
+			Get-DataTypeName -Value "Hello"
+
+			Returns "String"
+
+		.EXAMPLE
+			Get-DataTypeName -Value 42
+
+			Returns "Int32"
+
+		.EXAMPLE
+			$array = @(1,2,3)
+			Get-DataTypeName -Value $array
+
+			Returns "Object[]"
 
 	#>
     [CmdletBinding()]

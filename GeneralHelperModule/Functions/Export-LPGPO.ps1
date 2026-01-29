@@ -1,13 +1,15 @@
-Ffunction Export-GPOReport {
+Function Export-GPOReport {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Exports all Group Policy Objects to an HTML report
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function uses the GroupPolicy module to export a comprehensive HTML report of all GPOs in the domain to C:\Temp\GPOReport.HTML.
 
 		.EXAMPLE
-			Give an example of how to use it
+			Export-GPOReport
+
+			Exports all GPOs to C:\Temp\GPOReport.HTML
 
 	#>
     Import-Module GroupPolicy

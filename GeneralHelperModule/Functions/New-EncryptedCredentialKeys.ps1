@@ -1,34 +1,51 @@
 Function New-EncryptedCredentialKey {
     <#
-	.SYNOPSIS
-		Creates a new a set of encrypted credential keys
+		.SYNOPSIS
+			Creates a new set of encrypted credential keys
 
-	.DESCRIPTION
-		Creates a new a set of encrypted credential keys. Once created, they can be passed to a credentials parameter, exactly like you would a username/password combination.
+		.DESCRIPTION
+			Creates a new set of encrypted credential keys. Once created, they can be passed to a credentials parameter, exactly like you would a username/password combination.
+			Uses AES encryption with a 256-bit key to secure the password.
 
-	.PARAMETER Path
-		This is the path to where you want the Keys to be saved. Default is C:\Temp
+		.PARAMETER Account
+			The account name or username to create credentials for
 
-	.INPUTS
-		None
+		.PARAMETER Path
+			The path to where you want the Keys to be saved. Default is C:\Temp
 
-	.OUTPUTS
-		A key file and encrypted password file.
+		.PARAMETER Password
+			The password to encrypt and save
 
-	.NOTES
-		Version:			1.0
-		Author:				Lars Panzerbjrn
-		Creation Date:		2019.01.30
+		.PARAMETER Service
+			Optional service name to prefix the credential files with
 
-	.EXAMPLE
-		New-EncryptedCredentialKeys -Account "CentralIndustrial\Serv_ServiceAccount" -Path "C:\_Keys\ServAcc" -Passsword "S3kr1tVV0rd"
+		.INPUTS
+			None
 
-	.EXAMPLE
-		New-EncryptedCredentialKeys -Account "Panzerbjrn_L" -Passsword "DenmarkWillTakeBackItsColonies"
+		.OUTPUTS
+			Creates three files: AES.key, Password.txt, and Username.txt
 
-	.EXAMPLE
-		New-EncryptedCredentialKeys -Account "Panzerbjrn_L@CentralIndustrial.eu" -$Passssword "DenmarkWillTakeBackItsColonies" -Service Azure
-#>
+		.NOTES
+			Version:		1.0
+			Author:			Lars Panzerbjrn
+			Creation Date:	2019.01.30
+
+		.EXAMPLE
+			New-EncryptedCredentialKeys -Account "CentralIndustrial\Serv_ServiceAccount" -Path "C:\_Keys\ServAcc" -Password "S3kr1tVV0rd"
+
+			Creates encrypted credential files for a service account
+
+		.EXAMPLE
+			New-EncryptedCredentialKeys -Account "Panzerbjrn_L" -Password "DenmarkWillTakeBackItsColonies"
+
+			Creates encrypted credential files in the default C:\Temp location
+
+		.EXAMPLE
+			New-EncryptedCredentialKeys -Account "Panzerbjrn_L@CentralIndustrial.eu" -Password "DenmarkWillTakeBackItsColonies" -Service Azure
+
+			Creates encrypted credential files with "Azure." prefix for Azure services
+
+	#>
     [CmdletBinding(PositionalBinding = $False, SupportsShouldProcess = $true)]
     [Alias('Create-EncryptedCredentialKeys', 'New-EncryptedCredentialKeys')]
     param

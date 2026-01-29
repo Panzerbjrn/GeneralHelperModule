@@ -1,13 +1,16 @@
 Function Get-PSVersion {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Displays PowerShell version and operating system information
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function retrieves and displays the PowerShell version table, the specific PowerShell version number, and the Windows operating system caption.
+			Useful for quickly checking the PowerShell and OS versions on a system.
 
 		.EXAMPLE
-			Give an example of how to use it
+			Get-PSVersion
+
+			Displays the complete PSVersionTable, PowerShell version number, and OS caption
 
 	#>
 

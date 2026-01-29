@@ -1,13 +1,29 @@
 Function Format-DiskSize {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Formats byte sizes into human-readable strings
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function converts raw byte values into human-readable format with appropriate units (B, KB, MB, GB, TB, PB).
+			Automatically selects the most appropriate unit based on the size.
+
+		.PARAMETER size
+			The size in bytes to format
 
 		.EXAMPLE
-			Give an example of how to use it
+			Format-DiskSize -size 1073741824
+
+			Returns "1GB"
+
+		.EXAMPLE
+			Format-DiskSize -size 524288000
+
+			Returns "500MB"
+
+		.EXAMPLE
+			Get-ChildItem C:\Files | Select-Object Name, @{N="Size";E={Format-DiskSize $_.Length}}
+
+			Displays files with formatted size column
 
 	#>
     [CmdletBinding()]

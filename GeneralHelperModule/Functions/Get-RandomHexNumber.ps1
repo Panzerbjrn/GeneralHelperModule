@@ -1,33 +1,39 @@
 Function Get-RandomHexNumber {
     <#
-	.SYNOPSIS
-		This will generate a random Hex number. Either based on length or bits
+		.SYNOPSIS
+			Generates a random hexadecimal number
 
-	.DESCRIPTION
-		This will generate a random Hex number. Either based on length or bits
+		.DESCRIPTION
+			This function generates a cryptographically random hexadecimal number of specified length using the RNGCryptoServiceProvider class.
+			The output consists of characters 0-9 and A-F.
 
-	.PARAMETER Length
-		This is the length of the resulting number
+		.PARAMETER length
+			The length of the resulting hexadecimal number. Default is 20 characters
 
-	.PARAMETER Bits
-		This is the length of the resulting number in bits.
+		.PARAMETER chars
+			The character set to use for generation. Default is "0123456789ABCDEF"
 
-	.EXAMPLE
+		.EXAMPLE
+			Get-RandomHexNumber -length 8
 
+			Generates an 8-character hexadecimal string like "A3F8B2D1"
 
-	.EXAMPLE
+		.EXAMPLE
+			Get-RandomHexNumber
 
+			Generates a 20-character hexadecimal string using default length
 
-	.INPUTS
-		A number
+		.INPUTS
+			A number specifying the length
 
-	.OUTPUTS
-		A Hex number
+		.OUTPUTS
+			A hexadecimal string
 
-	.NOTES
-		Author:			Lars Panzerbjrn
-		Creation Date:	2019.08.10
-#>
+		.NOTES
+			Author:			Lars Panzerbjrn
+			Creation Date:	2019.08.10
+
+	#>
     param(
         [int] $length = 20,
         [string] $chars = "0123456789ABCDEF"

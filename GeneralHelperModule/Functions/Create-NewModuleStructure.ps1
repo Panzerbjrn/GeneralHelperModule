@@ -1,36 +1,53 @@
-function Add-NewModuleStructure {
+Function Add-NewModuleStructure {
     <#
-	.SYNOPSIS
-		Creates a new Module Tree + Files
+		.SYNOPSIS
+			Creates a new PowerShell module structure with standard folders and files
 
-	.DESCRIPTION
-		Creates a new Module Tree + Files
+		.DESCRIPTION
+			This function creates a complete PowerShell module structure including folders for Functions, Helpers, Tests, and WIP.
+			It also generates the module manifest (.psd1), module file (.psm1), and help files with proper initialization.
 
-	.PARAMETER Path
-		This is the path to where you want the Module + Tree created
+		.PARAMETER Path
+			The path to where you want the module structure created. Default is C:\Temp
 
-	.PARAMETER ModuleName
-		This is the name of the module you are creating.
+		.PARAMETER ModuleName
+			The name of the module you are creating (required)
 
-	.PARAMETER Description
-		This is the description for the module you are creating.
+		.PARAMETER Author
+			The author name for the module manifest. Default is "Lars Panzerbjørn"
 
-	.EXAMPLE
-		Create-NewModuleStructure -Path C:\Temp\ -ModuleName Test-Module -Author LarsP -Description "Test PowerShell Module"
+		.PARAMETER GitHub
+			The GitHub username for the module. Default is "Panzerbjrn"
 
-	.INPUTS
-		None
+		.PARAMETER Description
+			The description for the module you are creating. Default is 'New PowerShell module'
 
-	.OUTPUTS
-		None
+		.EXAMPLE
+			Create-NewModuleStructure -Path C:\Temp\ -ModuleName Test-Module -Author LarsP -Description "Test PowerShell Module"
 
-	.NOTES
-		Author:			Lars Panzerbjrn
-		Creation Date:	2018.11.08
+			Creates a new module structure at C:\Temp\Test-Module
 
-	.EXAMPLE
-		Create-NewModuleStructure -ModuleName ServiceNowCMDB -Path C:\Temp -Description "Helper Functions to work with ServiceNow's CMDB"
-#>
+		.EXAMPLE
+			Create-NewModuleStructure -ModuleName ServiceNowCMDB -Path C:\Temp -Description "Helper Functions to work with ServiceNow's CMDB"
+
+			Creates the ServiceNowCMDB module structure with custom description
+
+		.EXAMPLE
+			Add-NewModuleStructure -ModuleName MyModule
+
+			Creates a new module structure with default settings at C:\Temp\MyModule
+
+		.INPUTS
+			None
+
+		.OUTPUTS
+			None
+
+		.NOTES
+			Author:			Lars Panzerbjrn
+			Creation Date:	2018.11.08
+
+	#>
     [CmdletBinding(PositionalBinding = $False)]
     [Alias('Create-NewModuleStructure')]
     param(

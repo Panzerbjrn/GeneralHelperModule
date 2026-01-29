@@ -1,13 +1,16 @@
 Function Set-Prompt {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Sets a custom PowerShell prompt
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function creates a Linux-style PowerShell prompt showing username@computername and current path.
+			The prompt uses '#' for administrators and '$' for regular users, similar to bash shells.
 
 		.EXAMPLE
-			Give an example of how to use it
+			Set-Prompt
+
+			Sets the PowerShell prompt to display [username@computername path]$ or [username@computername path]# for administrators
 
 	#>
     [CmdletBinding(SupportsShouldProcess = $true)]

@@ -1,15 +1,31 @@
 Function Get-CatFact {
     <#
 		.SYNOPSIS
-			Describe the function here
+			Retrieves a random cat fact and reads it aloud using text-to-speech
 
 		.DESCRIPTION
-			Describe the function in more detail
+			This function fetches a random cat fact from catfact.ninja API and uses Windows SAPI text-to-speech to read it aloud using the Zira voice.
+
+		.PARAMETER open
+			The opening phrase to speak before the cat fact. Default is "It is now time for a cat fact...."
+
+		.PARAMETER Fact
+			The cat fact to speak. Default fetches a random fact from catfact.ninja API
+
+		.PARAMETER rate
+			The speech rate for the text-to-speech voice. Default is 2
 
 		.EXAMPLE
-			Give an example of how to use it
+			Get-CatFact
 
-  #>
+			Retrieves and speaks a random cat fact with default settings
+
+		.EXAMPLE
+			Get-CatFact -open "Here's something interesting" -rate 3
+
+			Speaks a cat fact with a custom opening phrase at a faster speech rate
+
+	#>
     [CmdletBinding()]
     param(
         [string]$open = "It is now time for a cat fact....",
