@@ -1,5 +1,5 @@
-Function Test-IsAdministrator{
-<#
+function Test-IsAdministrator {
+    <#
 	.SYNOPSIS
 	Tests if the user is an administrator
 
@@ -20,7 +20,8 @@ Function Test-IsAdministrator{
 
 	#Requires -Version 2.0
 #>
-param()
-$currentUser = [Security.Principal.WindowsIdentity]::GetCurrent()
-(New-Object Security.Principal.WindowsPrincipal $currentUser).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
+    param()
+    $currentUser = [Security.Principal.WindowsIdentity]::GetCurrent()
+    (New-Object Security.Principal.WindowsPrincipal $currentUser).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
 }
+

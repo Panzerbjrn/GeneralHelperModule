@@ -1,5 +1,5 @@
-Function Convert-ArrayToHash($a){
-	<#
+function Convert-ArrayToHash($a) {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -10,8 +10,9 @@ Function Convert-ArrayToHash($a){
 			Give an example of how to use it
 
 	#>
-	[CmdletBinding()]
+    [CmdletBinding()]
     $Hash = @{}
-    ($a | Get-Member | Where-Object {$_.Membertype -eq "NoteProperty"}).name | ForEach-Object {$Hash.$($_) = $A.$($_)}
-	$hash
+    ($a | Get-Member | Where-Object { $_.Membertype -eq "NoteProperty" }).name | ForEach-Object { $Hash.$($_) = $A.$($_) }
+    $hash
 }
+

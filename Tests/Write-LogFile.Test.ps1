@@ -26,3 +26,4 @@ Describe "Write-LogFile Test" {
         $logContent | Should -Match $expectedPattern
     }
 }
+

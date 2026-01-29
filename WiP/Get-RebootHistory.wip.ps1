@@ -1,5 +1,5 @@
-Function Get-RebootHistory { 
-	<#
+function Get-RebootHistory { 
+    <#
 		.SYNOPSIS
 			Retrieves historical information about shutdown/restart events from one or more remote computers.
 	
@@ -61,122 +61,126 @@ Function Get-RebootHistory {
 			Revision Date	: 11/26/2014
 	#>
 	
-	Param (
-		[Parameter(Mandatory = $False, Position = 0, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
-		[Alias("CN","Computer")]
-		[Array]$ComputerName = $Env:ComputerName
-		#,
+    param (
+        [Parameter(Mandatory = $False, Position = 0, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
+        [Alias("CN", "Computer")]
+        [Array]$ComputerName = $Env:ComputerName
+        #,
 
-		#[Parameter(Mandatory = $False, Position = 1, ValueFromPipeline = $False)]
-		#[Alias("Cred")]
-		#[ValidateNotNull()]
-		#[System.Management.Automation.PSCredential]$Credential = [System.Management.Automation.PSCredential]::Empty
-	)
+        #[Parameter(Mandatory = $False, Position = 1, ValueFromPipeline = $False)]
+        #[Alias("Cred")]
+        #[ValidateNotNull()]
+        #[System.Management.Automation.PSCredential]$Credential = [System.Management.Automation.PSCredential]::Empty
+    )
 	
-	Begin {
-		$i = 0
-		$RecentShutdowns = 0
-		$RecentUnexpected = 0
+    begin {
+        $i = 0
+        $RecentShutdowns = 0
+        $RecentUnexpected = 0
 		
-		$BootHistory = @()
-		$ShutdownDetail = @()
-		$UnexpectedShutdowns = @() 
+        $BootHistory = @()
+        $ShutdownDetail = @()
+        $UnexpectedShutdowns = @() 
 		
-		# Store original credential, if we attempt to make a local connection we need to 
-		# temporarily empty out the credential object.
-		$Original_Credential = $Credential
+        # Store original credential, if we attempt to make a local connection we need to 
+        # temporarily empty out the credential object.
+        $Original_Credential = $Credential
 		
-		# Select properties defined to ensure proper display order.
-		$BootInformation = @(
-			"Computer"
-			"BootHistory"
-			"RecentShutdowns"
-			"UnexpectedShutdowns"
-			"RecentUnexpected"
-			"PercentDirty"
-			"LastShutdown"
-			"LastShutdownType"
-			"LastShutdownUser"
-			"LastShutdownProcess"
-			"LastShutdownReason"
-		)
+        # Select properties defined to ensure proper display order.
+        $BootInformation = @(
+            "Computer"
+            "BootHistory"
+            "RecentShutdowns"
+            "UnexpectedShutdowns"
+            "RecentUnexpected"
+            "PercentDirty"
+            "LastShutdown"
+            "LastShutdownType"
+            "LastShutdownUser"
+            "LastShutdownProcess"
+            "LastShutdownReason"
+        )
 		
-		# Arguments to be passed to our WMI call. 
-		$Params = @{
-			ErrorAction		= 'Stop'
-			ComputerName	= $Computer
-			Credential		= $Credential
-			Class			= 'Win32_NTLogEvent'
-			Filter			= "LogFile = 'System' and EventCode = 6009 or EventCode = 6008 or EventCode = 1074"
-		}
-	}
+        # Arguments to be passed to our WMI call. 
+        $Params = @{
+            ErrorAction		= 'Stop'
+            ComputerName	= $Computer
+            Credential   = $Credential
+            Class        = 'Win32_NTLogEvent'
+            Filter       = "LogFile = 'System' and EventCode = 6009 or EventCode = 6008 or EventCode = 1074"
+        }
+    }
 
-	Process {
-		ForEach ($Computer In $ComputerName) {
-			#$Computer = $ComputerName[0]
-			$Params.ComputerName = $Computer
+    process {
+        foreach ($Computer in $ComputerName) {
+            #$Computer = $ComputerName[0]
+            $Params.ComputerName = $Computer
 			
-			# You can't use credentials when connecting to the local machine so temporarily empty out the credential object.
-			If ($Computer -eq $Env:ComputerName) { 
-				#$Params.Credential = [System.Management.Automation.PSCredential]::Empty
-				$Params.Remove('Credential')
-				$Params.Remove('ComputerName')
-			}
+            # You can't use credentials when connecting to the local machine so temporarily empty out the credential object.
+            if ($Computer -eq $Env:ComputerName) { 
+                #$Params.Credential = [System.Management.Automation.PSCredential]::Empty
+                $Params.Remove('Credential')
+                $Params.Remove('ComputerName')
+            }
 			
-			If ($ComputerName.Count -gt 1) { 
-				Write-Progress -Id 1 -Activity "Retrieving boot history." -Status ("Percent Complete: {0:N0}" -f $($i / $($ComputerName.Count)*100)) -PercentComplete (($i / $ComputerName.Count)*100); $i++
-			} Else { 
-				Write-Progress -Id 1 -Activity "Retrieving boot history." -Status "Retrieving boot history."
-			}
+            if ($ComputerName.Count -gt 1) { 
+                Write-Progress -Id 1 -Activity "Retrieving boot history." -Status ("Percent Complete: {0:N0}" -f $($i / $($ComputerName.Count) * 100)) -PercentComplete (($i / $ComputerName.Count) * 100); $i++
+            }
+            else { 
+                Write-Progress -Id 1 -Activity "Retrieving boot history." -Status "Retrieving boot history."
+            }
 
-			Try { 
-				$d = 0
-				#$Events = Get-WmiObject @Params
-				$Events = Get-CimInstance @Params
+            try { 
+                $d = 0
+                #$Events = Get-WmiObject @Params
+                $Events = Get-CimInstance @Params
 				
-				ForEach ($Event In $Events) { 
-					Write-Progress -Id 2 -ParentId 1 -Activity "Processing reboot history." -PercentComplete (($d / $Events.Count)*100) -Status "Processing reboot history."; $d++
+                foreach ($Event in $Events) { 
+                    Write-Progress -Id 2 -ParentId 1 -Activity "Processing reboot history." -PercentComplete (($d / $Events.Count) * 100) -Status "Processing reboot history."; $d++
 					
-					# Record the relevant details for the shutdown event.
-					Switch ($Event.EventCode) { 
-						6009 { $BootHistory += (Get-Date(([WMI]'').ConvertToDateTime($Event.TimeGenerated)) -Format g) }
-						6008 { $UnexpectedShutdowns += ('{0} {1}' -f ($Event.InsertionStrings[1], $Event.InsertionStrings[0])) }
-						1074 { $ShutdownDetail += $Event }
-					}
-				}
+                    # Record the relevant details for the shutdown event.
+                    switch ($Event.EventCode) { 
+                        6009 { $BootHistory += (Get-Date(([WMI]'').ConvertToDateTime($Event.TimeGenerated)) -Format g) }
+                        6008 { $UnexpectedShutdowns += ('{0} {1}' -f ($Event.InsertionStrings[1], $Event.InsertionStrings[0])) }
+                        1074 { $ShutdownDetail += $Event }
+                    }
+                }
 				
-				# We explicitly ignore exceptions originating from this process since some versions of Windows may store dates in invalid formats (e.g. ?11/?16/?2014) in the event log after an unexpected shutdown causing this calculation to fail.
-				Try { 
-					$RecentUnexpected = ($UnexpectedShutdowns | ? { ((Get-Date)-(Get-Date $_)).TotalDays -le 30 }).Count
-				} Catch { 
-					$RecentUnexpected = "Unable to calculate."
-				} 
+                # We explicitly ignore exceptions originating from this process since some versions of Windows may store dates in invalid formats (e.g. ?11/?16/?2014) in the event log after an unexpected shutdown causing this calculation to fail.
+                try { 
+                    $RecentUnexpected = ($UnexpectedShutdowns | ? { ((Get-Date) - (Get-Date $_)).TotalDays -le 30 }).Count
+                }
+                catch { 
+                    $RecentUnexpected = "Unable to calculate."
+                } 
 				
-				# Grab details about the last clean shutdown and generate our return object.
-				$ShutdownDetail | Select -First 1 | ForEach-Object { 
-					New-Object -TypeName PSObject -Property @{
-						Computer = $Computer
-						BootHistory = $BootHistory 
-						RecentUnexpected = $RecentUnexpected
-						LastShutdownUser = $_.InsertionStrings[6]
-						UnexpectedShutdowns = $UnexpectedShutdowns
-						LastShutdownProcess = $_.InsertionStrings[0]
-						PercentDirty = '{0:P0}' -f (($UnexpectedShutdowns.Count/$BootHistory.Count))
-						LastShutdownType = (Get-Culture).TextInfo.ToTitleCase($_.InsertionStrings[4])
-						LastShutdown = (Get-Date(([WMI]'').ConvertToDateTime($_.TimeGenerated)) -Format g)
-						RecentShutdowns = ($BootHistory | ? { ((Get-Date)-(Get-Date $_)).TotalDays -le 30 }).Count
-						LastShutdownReason = 'Reason Code: {0}, Reason: {1}' -f ($_.InsertionStrings[3], $_.InsertionStrings[2])
-					} | Select $BootInformation	
-				}			
-			} Catch [System.Exception] { 
-				# We explicitly ignore exceptions originating from Get-Date since some versions of Windows may store dates in invalid formats in the event log after an unexpected shutdown.
-				If ($_.CategoryInfo.Activity -ne 'Get-Date') { 
-					Write-Warning ("Unable to retrieve boot history for {0}. `nError Details: {1}" -f ($Computer, $_))
-				}
-			}
+                # Grab details about the last clean shutdown and generate our return object.
+                $ShutdownDetail | select -First 1 | ForEach-Object { 
+                    New-Object -TypeName PSObject -Property @{
+                        Computer            = $Computer
+                        BootHistory         = $BootHistory 
+                        RecentUnexpected    = $RecentUnexpected
+                        LastShutdownUser    = $_.InsertionStrings[6]
+                        UnexpectedShutdowns = $UnexpectedShutdowns
+                        LastShutdownProcess = $_.InsertionStrings[0]
+                        PercentDirty        = '{0:P0}' -f (($UnexpectedShutdowns.Count / $BootHistory.Count))
+                        LastShutdownType    = (Get-Culture).TextInfo.ToTitleCase($_.InsertionStrings[4])
+                        LastShutdown        = (Get-Date(([WMI]'').ConvertToDateTime($_.TimeGenerated)) -Format g)
+                        RecentShutdowns     = ($BootHistory | ? { ((Get-Date) - (Get-Date $_)).TotalDays -le 30 }).Count
+                        LastShutdownReason  = 'Reason Code: {0}, Reason: {1}' -f ($_.InsertionStrings[3], $_.InsertionStrings[2])
+                    } | select $BootInformation	
+                }			
+            }
+            catch [System.Exception] { 
+                # We explicitly ignore exceptions originating from Get-Date since some versions of Windows may store dates in invalid formats in the event log after an unexpected shutdown.
+                if ($_.CategoryInfo.Activity -ne 'Get-Date') { 
+                    Write-Warning ("Unable to retrieve boot history for {0}. `nError Details: {1}" -f ($Computer, $_))
+                }
+            }
 			
-			# Reset credential object since we may have temporarily overwrote it to deal with local connections.
-			$Params.Credential = $Original_Credential
-		}
-	}
+            # Reset credential object since we may have temporarily overwrote it to deal with local connections.
+            $Params.Credential = $Original_Credential
+        }
+    }
 }
+

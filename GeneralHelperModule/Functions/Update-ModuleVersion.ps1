@@ -1,5 +1,5 @@
 function Update-ModuleVersion {
-	<#
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -21,13 +21,13 @@ function Update-ModuleVersion {
         [Switch]$Patch
     )
 
-    BEGIN {
+    begin {
         Write-Verbose "#################################################################"
         Write-Verbose "Beginning $($MyInvocation.MyCommand.Name) on $($ENV:ComputerName) @ $(Get-Date -Format 'yyyy.MM.dd HH:mm:ss')"
         Write-Verbose "#################################################################"
     }
 
-    PROCESS {
+    process {
         try {
             # Ensure ModulePath is a directory
             if ((Get-Item $ModulePath).PSIsContainer -ne $True) {
@@ -40,7 +40,8 @@ function Update-ModuleVersion {
             $CurrentModule = (Get-Command -Name $MyInvocation.MyCommand.Name).Module.Name
             if ($CurrentModule -eq $ModuleName) {
                 Write-Verbose "This function is part of the module $ModuleName. Skipping module unloading."
-            } else {
+            }
+            else {
                 Write-Verbose ("Importing {0}" -f $ModuleName)
                 Import-Module -Name $ManifestPath -Force
                 $CommandList = Get-Command -Module $ModuleName
@@ -62,7 +63,7 @@ function Update-ModuleVersion {
             }
 
             ## There's a to do here to figure out a way to check for changes to txt files
-<#             # #Calculate fingerprint for .txt files
+            <#             # #Calculate fingerprint for .txt files
             $TextFiles = Get-ChildItem -Path $ModulePath -Filter '*.txt' -Recurse -File -ErrorAction Continue
             foreach ($File in $TextFiles) {
                 $FileContent = Get-Content -Path $File.FullName -Raw
@@ -80,11 +81,13 @@ function Update-ModuleVersion {
             if ($Patch) {
                 $VersionType = 'Patch'
                 [version]$NewVersion = "{0}.{1}.{2}" -f $Version.Major, $Version.Minor, ($Version.Build + 1)
-            } elseif ([string]::IsNullOrEmpty($Fingerprint)) {
+            }
+            elseif ([string]::IsNullOrEmpty($Fingerprint)) {
                 $VersionType = 'Patch'
                 [version]$NewVersion = "{0}.{1}.{2}" -f $Version.Major, $Version.Minor, ($Version.Build + 1)
-            } else {
-                $OldFingerprint = if (Test-Path -Path (Join-Path $ModulePath 'fingerprint')) {Get-Content -Path (Join-Path $ModulePath 'fingerprint')}
+            }
+            else {
+                $OldFingerprint = if (Test-Path -Path (Join-Path $ModulePath 'fingerprint')) { Get-Content -Path (Join-Path $ModulePath 'fingerprint') }
                 else {
                     Write-Verbose "No Fingerprint found, saving current fingerprint"
                     $Fingerprint
@@ -113,18 +116,22 @@ function Update-ModuleVersion {
 
             if ($Ask) {
                 Write-Output "$(Join-Path $ModulePath "$ModuleName.psd1") would have been updated by $VersionType"
-            } elseif ($VersionType) {
+            }
+            elseif ($VersionType) {
                 if ($PSCmdlet.ShouldProcess("$ModulePath\$ModuleName.psd1 will be updated by $VersionType")) {
                     Update-ModuleManifest -Path $ManifestPath -ModuleVersion $NewVersion
                 }
             }
-        } catch {
+        }
+        catch {
             Write-Error "An error occurred: $_"
         }
     }
-    END{
-        if($Version -ne $NewVersion){
+    end {
+        if ($Version -ne $NewVersion) {
             Write-Output "Module $ModuleName Updated from $Version to $NewVersion"
         }
     }
 }
+
+

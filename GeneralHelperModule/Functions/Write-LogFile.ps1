@@ -1,5 +1,5 @@
-Function Write-LogFile{
-	<#
+function Write-LogFile {
+    <#
 		.SYNOPSIS
 			Writes to a log file
 
@@ -10,42 +10,42 @@ Function Write-LogFile{
 			Write-LogFile
 
 	#>
-	[CmdletBinding()]
-	param(
-		[Parameter(Mandatory)]
-		[string]$Message,
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string]$Message,
 
-		[Parameter()]
-		[string]$LogFilePath,
+        [Parameter()]
+        [string]$LogFilePath,
 
-		[Parameter()]
-		[ValidateSet('Information','Warning','Error')]
-		[string]$Severity = 'Information'
-	)
+        [Parameter()]
+        [ValidateSet('Information', 'Warning', 'Error')]
+        [string]$Severity = 'Information'
+    )
 
-	$CaptainsLog = "$(Get-Date -UFormat "%Y.%m.%d_%R") - $($Severity): $Message"
-    if ( -not $PSBoundParameters.ContainsKey('LogFilePath') )
-      {
-		[string]$CallingFunction = $((Get-PSCallStack)[2].Command) #Going up 2 to capture the right command
+    $CaptainsLog = "$(Get-Date -UFormat "%Y.%m.%d_%R") - $($Severity): $Message"
+    if ( -not $PSBoundParameters.ContainsKey('LogFilePath') ) {
+        [string]$CallingFunction = $((Get-PSCallStack)[2].Command) #Going up 2 to capture the right command
         $Path = 'C:\Temp'
         $Filename = "$(Get-Date -Format 'yyyy-MM-dd HH')xx - $CallingFunction - ERROR.log"
         $LogFilePath = Join-Path "$Path" "$Filename"
-      }
+    }
 
-	IF (!(Test-Path $LogFilePath)) {New-Item -ItemType File -Path $LogFilePath -Force}
+    if (!(Test-Path $LogFilePath)) { New-Item -ItemType File -Path $LogFilePath -Force }
 
-	DO{
-		Try{
-			Write-Verbose $CaptainsLog
-			Add-Content -Path $LogFilePath -Value $CaptainsLog
-			$Done = $True
-		}
-		Catch{
-			$Done = $False
-		}
-		Finally{
-			Start-Sleep -Milliseconds 250
-		}
-	}
-	While ($Done -ne $True)
+    do {
+        try {
+            Write-Verbose $CaptainsLog
+            Add-Content -Path $LogFilePath -Value $CaptainsLog
+            $Done = $True
+        }
+        catch {
+            $Done = $False
+        }
+        finally {
+            Start-Sleep -Milliseconds 250
+        }
+    }
+    while ($Done -ne $True)
 }
+

@@ -1,5 +1,5 @@
-Function ConvertFrom-UnixTimestamp{
-<#
+function ConvertFrom-UnixTimestamp {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -10,23 +10,23 @@ Function ConvertFrom-UnixTimestamp{
 			Give an example of how to use it
 
 #>
-	[CmdletBinding()]
-	param(
-		[Parameter(Mandatory,ParameterSetName="Seconds")]
-		[ValidateNotNullOrEmpty()]
-		[string]$Seconds,
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory, ParameterSetName = "Seconds")]
+        [ValidateNotNullOrEmpty()]
+        [string]$Seconds,
 
-		[Parameter(Mandatory,ParameterSetName="Milliseconds")]
-		[ValidateNotNullOrEmpty()]
-		[string]$Milliseconds
-	)
+        [Parameter(Mandatory, ParameterSetName = "Milliseconds")]
+        [ValidateNotNullOrEmpty()]
+        [string]$Milliseconds
+    )
 
-	IF ($Seconds)
-	{
-		(Get-Date -Date "01/01/1970").AddSeconds($Seconds)
-	}
-	IF ($MilliSeconds)
-	{
-		(Get-Date -Date "01/01/1970").AddMilliseconds($MilliSeconds)
-	}
+    if ($Seconds) {
+        (Get-Date -Date "01/01/1970").AddSeconds($Seconds)
+    }
+    if ($MilliSeconds) {
+        (Get-Date -Date "01/01/1970").AddMilliseconds($MilliSeconds)
+    }
 }
+
+

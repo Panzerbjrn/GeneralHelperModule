@@ -29,20 +29,18 @@
 #region Functions
 #-----------------------------------------------------------[Functions]------------------------------------------------------------
 
-Try
-{
-	Import-Module D:\PowerShell.Modules\HelperModule\HelperModule.psm1 -NoClobber
+try {
+    Import-Module D:\PowerShell.Modules\HelperModule\HelperModule.psm1 -NoClobber
 }
-Catch
-{
-	EXIT
+catch {
+    exit
 }
 
 #endregion Functions
 #region Declarations
 #----------------------------------------------------------[Declarations]----------------------------------------------------------
 Write-Verbose "Declarations" -Verbose
-$LogFile = "C:\Temp\$($MyInvocation.MyCommand.Name).LogFile."+(Get-Date -Format yyyy.MM.dd_HH.mm.ss)+".txt"
+$LogFile = "C:\Temp\$($MyInvocation.MyCommand.Name).LogFile." + (Get-Date -Format yyyy.MM.dd_HH.mm.ss) + ".txt"
 Write-LogFile -LogFilePath $LogFile -Message "Starting Script Declarations @ $(Get-Date -Format yyyy.MM.dd_HH.mm.ss)"
 
 

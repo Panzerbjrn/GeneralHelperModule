@@ -1,5 +1,5 @@
-Function Get-LastReboot{
-<#
+function Get-LastReboot {
+    <#
 	.SYNOPSIS
 		Get-LastReboot is designed to return the last reboot time of a windows computer.
 	.DESCRIPTION
@@ -37,66 +37,70 @@ Function Get-LastReboot{
 				Message			[String]
 				UpTime			[TimeSpan]
 #>
-	Param(
-		[Parameter(ValueFromPipeline=$True,ValueFromPipelineByPropertyName=$True)]
-		[alias("Name","ComputerName")]
-		[string[]]$Computer = @($env:ComputerName)
-	)
-	Begin{
-		$Result = @()
-	}
-	Process{
-		ForEach($Machine in $Computer){
-			IF(-not (Test-Connection -ComputerName $Machine -Count 1 -quiet)){ #Make sure we can connect to it...
-				Write-OutPut "$([string]$Machine.toupper()) cannot be reached..."
-				Break
-			}
-			ELSE{
-				IF($Machine -ne $env:ComputerName){ #If it is a remote machine, make sure RemoteRegistry is running so we can access the logs
-					$RegServ = Get-Service remoteregistry -ComputerName $Machine
-					IF($RegServ.status -ne "Running"){
-						Set-Service remoteregistry -ComputerName $Machine -status Running
-					}
-				}
-				IF ($PSVersionTable.PSVersion.Major -eq 5){
-					$SuccessfullReboot = Get-EventLog system -ComputerName $Machine -InstanceId 2147484722 -Newest 1
-					$UnSuccessfullReboot = Get-EventLog system -ComputerName $Machine -InstanceId 41 -Newest 1
-				}
-				IF ($PSVersionTable.PSVersion.Major -eq 7){
-					$SuccessfullReboot = Get-WinEvent -FilterHashtable @{"Id"=1074;"Logname"="System"} -ComputerName $Machine -MaxEvents 1
-					$UnSuccessfullReboot = Get-WinEvent -FilterHashtable @{"Id"=41;"Logname"="System"} -ComputerName $Machine -MaxEvents 1
-				}
-				$Event = IF($SuccessfullReboot.TimeWritten -gt $UnSuccessfullReboot.Timewritten){$SuccessfullReboot;$Cleanboot = $True}ELSE{$UnSuccessfullReboot}
-				$LastRebootTime = $Event.TimeGenerated
-				$UpTime = New-TimeSpan -start $LastReboot T ime -end $(Get-Date)
-				IF($CleanBoot){
-					$Result = $Result + (New-Object PSObject -Property @{ #Build the object for return
-						"Code" = $Event.ReplacementStrings[3]
-						"Comment" = $Event.ReplacementStrings[5]
-						"ComputerName" = $Machine.toupper()
-						"LastBoot" = $LastRebootTime
-						"Message" = $Event.Message
-						"Process" = $Event.ReplacementStrings[0]
-						"Reason" = $Event.ReplacementStrings[2]
-						"Type" = $Event.ReplacementStrings[4]
-						"UpTime" = $UpTime
-						"User" = $Event.ReplacementStrings[6]
-						"CleanBoot"  =  $True
-					})
-				}
-				ELSE{
-					$Result = $Result + (New-Object PSObject -Property @{ #Build the object for return
-						"ComputerName" = $Machine.toupper()
-						"LastBoot" = $LastRebootTime
-						"Message" = $Event.Message
-						"UpTime" = $UpTime
-						"CleanBoot" = $False
-					})
-				}
-			}
-		}
-	}
-	End{
-		$Result
-	}
+    param(
+        [Parameter(ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
+        [alias("Name", "ComputerName")]
+        [string[]]$Computer = @($env:ComputerName)
+    )
+    begin {
+        $Result = @()
+    }
+    process {
+        foreach ($Machine in $Computer) {
+            if (-not (Test-Connection -ComputerName $Machine -Count 1 -Quiet)) {
+                #Make sure we can connect to it...
+                Write-Output "$([string]$Machine.toupper()) cannot be reached..."
+                break
+            }
+            else {
+                if ($Machine -ne $env:ComputerName) {
+                    #If it is a remote machine, make sure RemoteRegistry is running so we can access the logs
+                    $RegServ = Get-Service remoteregistry -ComputerName $Machine
+                    if ($RegServ.status -ne "Running") {
+                        Set-Service remoteregistry -ComputerName $Machine -status Running
+                    }
+                }
+                if ($PSVersionTable.PSVersion.Major -eq 5) {
+                    $SuccessfullReboot = Get-EventLog system -ComputerName $Machine -InstanceId 2147484722 -Newest 1
+                    $UnSuccessfullReboot = Get-EventLog system -ComputerName $Machine -InstanceId 41 -Newest 1
+                }
+                if ($PSVersionTable.PSVersion.Major -eq 7) {
+                    $SuccessfullReboot = Get-WinEvent -FilterHashtable @{"Id" = 1074; "Logname" = "System" } -ComputerName $Machine -MaxEvents 1
+                    $UnSuccessfullReboot = Get-WinEvent -FilterHashtable @{"Id" = 41; "Logname" = "System" } -ComputerName $Machine -MaxEvents 1
+                }
+                $Event = if ($SuccessfullReboot.TimeWritten -gt $UnSuccessfullReboot.Timewritten) { $SuccessfullReboot; $Cleanboot = $True }else { $UnSuccessfullReboot }
+                $LastRebootTime = $Event.TimeGenerated
+                $UpTime = New-TimeSpan -Start $LastReboot T ime -End $(Get-Date)
+                if ($CleanBoot) {
+                    $Result = $Result + (New-Object PSObject -Property @{ #Build the object for return
+                            "Code"         = $Event.ReplacementStrings[3]
+                            "Comment"      = $Event.ReplacementStrings[5]
+                            "ComputerName" = $Machine.toupper()
+                            "LastBoot"     = $LastRebootTime
+                            "Message"      = $Event.Message
+                            "Process"      = $Event.ReplacementStrings[0]
+                            "Reason"       = $Event.ReplacementStrings[2]
+                            "Type"         = $Event.ReplacementStrings[4]
+                            "UpTime"       = $UpTime
+                            "User"         = $Event.ReplacementStrings[6]
+                            "CleanBoot"    =  $True
+                        })
+                }
+                else {
+                    $Result = $Result + (New-Object PSObject -Property @{ #Build the object for return
+                            "ComputerName" = $Machine.toupper()
+                            "LastBoot"     = $LastRebootTime
+                            "Message"      = $Event.Message
+                            "UpTime"       = $UpTime
+                            "CleanBoot"    = $False
+                        })
+                }
+            }
+        }
+    }
+    end {
+        $Result
+    }
 }
+
+

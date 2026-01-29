@@ -1,5 +1,5 @@
-Function Export-GPOReport{
-	<#
+function Export-GPOReport {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -10,7 +10,8 @@ Function Export-GPOReport{
 			Give an example of how to use it
 
 	#>
-	Import-Module GroupPolicy
-	Write-Output "Exporting GPO Report to C:\Temp\GPOReport.HTML"
-	Get-GPOReport -All -ReportType HTML C:\Temp\GPOReport.HTML
+    Import-Module GroupPolicy
+    Write-Output "Exporting GPO Report to C:\Temp\GPOReport.HTML"
+    Get-GPOReport -All -ReportType HTML C:\Temp\GPOReport.HTML
 }
+

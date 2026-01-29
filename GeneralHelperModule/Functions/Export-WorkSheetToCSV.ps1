@@ -1,5 +1,5 @@
-Function Export-WorkSheetToCSV ($Path,$ExcelFileName,$CSVLoc){
-	<#
+function Export-WorkSheetToCSV ($Path, $ExcelFileName, $CSVLoc) {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -18,9 +18,11 @@ Function Export-WorkSheetToCSV ($Path,$ExcelFileName,$CSVLoc){
     $E.Visible = $False
     $E.DisplayAlerts = $False
     $WB = $E.Workbooks.Open($ExcelFile)
-    ForEach ($WS in $WB.Worksheets){
+    foreach ($WS in $WB.Worksheets) {
         $N = $ExcelFileName + "_" + $WS.Name
         $WS.SaveAs($csvLoc + $N + ".csv", 6)
     }
     $E.Quit()
 }
+
+

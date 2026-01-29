@@ -1,4 +1,4 @@
-﻿#region Script Header
+#region Script Header
 #	Thought for the day: It is a rough road that leads to the heights of greatness. - Lucius Annaeus Seneca
 #	NAME: LarsModulesGeneric.psm1
 #	AUTHOR: Lars Panzerbjørn
@@ -25,18 +25,19 @@ param()
 Write-Verbose $PSScriptRoot
 
 #Get public and private function definition files.
-$Functions  = @( Get-ChildItem -Path $PSScriptRoot\Functions\*.ps1 -ErrorAction SilentlyContinue )
+$Functions = @( Get-ChildItem -Path $PSScriptRoot\Functions\*.ps1 -ErrorAction SilentlyContinue )
 $Helpers = @( Get-ChildItem -Path $PSScriptRoot\Helpers\*.ps1 -ErrorAction SilentlyContinue )
 
 #Dot source the files
-Foreach ($Import in @($Functions + $Helpers)){
-	Try{
-		Write-Verbose "Processing $($Import.Fullname)"
-		. $Import.Fullname
-	}
-	Catch{
-		Write-Error -Message "Failed to Import function $($Import.Fullname): $_"
-	}
+foreach ($Import in @($Functions + $Helpers)) {
+    try {
+        Write-Verbose "Processing $($Import.Fullname)"
+        . $Import.Fullname
+    }
+    catch {
+        Write-Error -Message "Failed to Import function $($Import.Fullname): $_"
+    }
 }
 
 Export-ModuleMember -Function $Functions.Basename
+

@@ -1,5 +1,5 @@
-Function Test-JobLoop{
-	<#
+function Test-JobLoop {
+    <#
 	.SYNOPSIS
 		This function will loop through a job and return to the console when the job is done.
 
@@ -27,17 +27,18 @@ Function Test-JobLoop{
 	.EXAMPLE
 		Test-JobLoop -JobID $StartJob.id
 	#>
-	[CmdletBinding()]
-	Param(
-		[Parameter(Mandatory=$True,ValueFrompipeline=$True)][string]$JobID
-	)
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $True, ValueFrompipeline = $True)][string]$JobID
+    )
 
-	DO {
-		$JobLoop = Get-Job -ID $JobID
-		Write-Verbose "$($JobLoop)"
-		IF($JobLoop.State -eq "Running") {"Cogitating";Sleep 5}
-	}
-	While ($JobLoop.State -eq "Running")
-	"Done"
-	$JobLoop
+    do {
+        $JobLoop = Get-Job -Id $JobID
+        Write-Verbose "$($JobLoop)"
+        if ($JobLoop.State -eq "Running") { "Cogitating"; Sleep 5 }
+    }
+    while ($JobLoop.State -eq "Running")
+    "Done"
+    $JobLoop
 }
+

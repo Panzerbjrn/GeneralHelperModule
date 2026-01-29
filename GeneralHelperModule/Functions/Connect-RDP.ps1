@@ -1,5 +1,5 @@
-Function Connect-RDP {
-	<#
+function Connect-RDP {
+    <#
 		.SYNOPSIS
 			Describe the function here
 
@@ -10,9 +10,10 @@ Function Connect-RDP {
 			Give an example of how to use it
 
 	#>
-	[CmdletBinding(PositionalBinding=$False)]
-	Param(
-		[Parameter(Mandatory=$True)][string]$Server
-	)
-		MSTSC /v:$Server /ADMIN /F
+    [CmdletBinding(PositionalBinding = $False)]
+    param(
+        [Parameter(Mandatory = $True)][string]$Server
+    )
+    MSTSC /v:$Server /ADMIN /F
 }
+
