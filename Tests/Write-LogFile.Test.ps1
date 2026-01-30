@@ -1,3 +1,7 @@
+BeforeAll {
+    Import-Module "$PSScriptRoot\..\GeneralHelperModule\GeneralHelperModule.psd1" -Force
+}
+
 Describe "Write-LogFile Test" {
     $logFilePath = (Join-Path $TestDrive 'File.txt')
 

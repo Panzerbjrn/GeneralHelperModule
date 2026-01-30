@@ -53,7 +53,7 @@ Function Get-LastReboot {
         $Result = @()
     }
     PROCESS {
-        foreach ($Machine in $Computer) {
+        ForEach ($Machine in $Computer) {
             if (-not (Test-Connection -ComputerName $Machine -Count 1 -Quiet)) {
                 #Make sure we can connect to it...
                 Write-Output "$([string]$Machine.toupper()) cannot be reached..."

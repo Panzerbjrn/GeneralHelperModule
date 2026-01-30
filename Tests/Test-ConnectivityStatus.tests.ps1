@@ -1,12 +1,16 @@
-describe 'Test-ConnectivityStatus' {
+BeforeAll {
+    Import-Module "$PSScriptRoot\..\GeneralHelperModule\GeneralHelperModule.psd1" -Force
+}
 
-    it 'should return $true when the computer is online' {
-        mock 'Test-ConnectivityStatus' -MockWith {	$True }
-        Test-ConnectivityStatus -ComputerName GMPR-WIKAPP01 | should be $true
+Describe 'Test-ConnectivityStatus' {
+
+    It 'should return $true when the computer is online' {
+        Mock 'Test-ConnectivityStatus' -MockWith { $True }
+        Test-ConnectivityStatus -ComputerName GMPR-WIKAPP01 | Should -Be $true
     }
 
-    it 'should	return $False when the computer is offline' {
-        mock 'Test-ConnectivityStatus' -MockWith {	$False }
-        Test-ConnectivityStatus -ComputerName GMPR-WIKAPP011234 | should be $true
+    It 'should return $False when the computer is offline' {
+        Mock 'Test-ConnectivityStatus' -MockWith { $False }
+        Test-ConnectivityStatus -ComputerName GMPR-WIKAPP011234 | Should -Be $false
     }
 }

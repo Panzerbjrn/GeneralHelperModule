@@ -1,3 +1,7 @@
+BeforeAll {
+    Import-Module "$PSScriptRoot\..\GeneralHelperModule\GeneralHelperModule.psd1" -Force
+}
+
 $BufferSize = 4
 $DataTypeName = [System.Byte[]]::new($BufferSize)
 $RandomSeed = [System.Random]::new()
@@ -20,8 +24,8 @@ $TestData =	@(
         "TestValue" = Get-Date
         "TestType"  = "DateTime"
     }
-) 
-	
+)
+
 Describe "Test some Values" {
     It "Test if <TestValue> is a <TestType> Object"	-TestCase $TestData {
         param($TestValue, $TestType)

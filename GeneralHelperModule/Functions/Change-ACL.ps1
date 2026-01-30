@@ -71,7 +71,7 @@ Function Set-FolderACL {
             if ($TestedPath -eq $False) { Write-Verbose "$($Path) Doesn't exist; thank you please come again"; break }
             $ACL = (Get-Item $Path).GetAccessControl('Access')
 
-            foreach ($UserName in $UserNames) {
+            ForEach ($UserName in $UserNames) {
                 $USR = Get-ADUser -Filter { SamAccountName -like $UserName } -Properties *
                 $Usrname = "CentralIndustrial\" + $USR.SamaccountName
                 $Inherit = [system.security.accesscontrol.InheritanceFlags]"ContainerInherit, ObjectInherit"

@@ -29,7 +29,7 @@ $Functions = @( Get-ChildItem -Path $PSScriptRoot\Functions\*.ps1 -ErrorAction S
 $Helpers = @( Get-ChildItem -Path $PSScriptRoot\Helpers\*.ps1 -ErrorAction SilentlyContinue )
 
 #Dot source the files
-foreach ($Import in @($Functions + $Helpers)) {
+ForEach ($Import in @($Functions + $Helpers)) {
     try {
         Write-Verbose "Processing $($Import.Fullname)"
         . $Import.Fullname

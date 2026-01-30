@@ -102,7 +102,7 @@ Describe "Validating commands are viable" -Tag 'Command_Validation' {
     Context 'Private helpers should be viable' {
 
         #Write-Host 'Context: Private helpers should be viable'
-        $AllHelpers = Get-ChildItem -Path $Functions -Include *.ps1 -Recurse
+        $AllHelpers = Get-ChildItem -Path $Helpers -Include *.ps1 -Recurse
         $TestCase = $AllHelpers | ForEach-Object { @{file = $_ } }
         #Write-Host "Test cases generated: $($TestCase | Out-String)"
 

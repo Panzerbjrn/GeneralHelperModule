@@ -54,7 +54,7 @@ function Do-Something {
     PROCESS {
         Write-Verbose "Processing $($MyInvocation.Mycommand)"
 
-        foreach ($Computer in $ComputerName) {
+        ForEach ($Computer in $ComputerName) {
             Write-Verbose "Processing $Computer"
             if ($pscmdlet.ShouldProcess($Computer)) {
                 # use $Computer here

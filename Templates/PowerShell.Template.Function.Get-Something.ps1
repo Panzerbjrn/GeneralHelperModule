@@ -53,7 +53,7 @@ Function Get-Something {
     PROCESS {
         Write-Verbose "Processing $($MyInvocation.Mycommand)"
 
-        foreach ($Computer in $ComputerName) {
+        ForEach ($Computer in $ComputerName) {
             Write-Verbose "Processing $Computer"
             # use $Computer to target a single Computer
 

@@ -21,7 +21,7 @@ $AllFunctions
 "AllHelpers"
 $AllHelpers
 $AllHelpers.Fullname
-#$AllFunctions | Foreach-Object {@{file=$_}}
+#$AllFunctions | ForEach-Object {@{file=$_}}
 $AllFunctions | ForEach-Object { @{file = $_ } }
 $AllHelpers | ForEach-Object { @{file = $_ } }
 

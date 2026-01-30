@@ -75,8 +75,8 @@ Function Update-ModuleVersion {
             $Fingerprint = @()
 
             # Calculate fingerprint for commands and parameters
-            foreach ($Command in $CommandList) {
-                foreach ($Parameter in $Command.Parameters.Keys) {
+            ForEach ($Command in $CommandList) {
+                ForEach ($Parameter in $Command.Parameters.Keys) {
                     $Fingerprint += '{0}:{1}' -f $Command.Name, $Command.Parameters[$Parameter].Name
                     $Command.Parameters[$Parameter].Aliases | ForEach-Object {
                         $Fingerprint += '{0}:{1}' -f $Command.Name, $_
@@ -87,7 +87,7 @@ Function Update-ModuleVersion {
             ## There's a to do here to figure out a way to check for changes to txt files
             <#             # #Calculate fingerprint for .txt files
             $TextFiles = Get-ChildItem -Path $ModulePath -Filter '*.txt' -Recurse -File -ErrorAction Continue
-            foreach ($File in $TextFiles) {
+            ForEach ($File in $TextFiles) {
                 $FileContent = Get-Content -Path $File.FullName -Raw
                 $FileHash = [System.BitConverter]::ToString((New-Object System.Security.Cryptography.SHA256Managed).ComputeHash([System.Text.Encoding]::UTF8.GetBytes($FileContent))).Replace("-", "")
                 $txtFingerprint += '{0}:{1}' -f $File.Name, $FileHash

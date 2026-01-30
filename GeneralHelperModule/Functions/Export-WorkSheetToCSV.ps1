@@ -33,7 +33,7 @@ Function Export-WorkSheetToCSV ($Path, $ExcelFileName, $CSVLoc) {
     $E.Visible = $False
     $E.DisplayAlerts = $False
     $WB = $E.Workbooks.Open($ExcelFile)
-    foreach ($WS in $WB.Worksheets) {
+    ForEach ($WS in $WB.Worksheets) {
         $N = $ExcelFileName + "_" + $WS.Name
         $WS.SaveAs($csvLoc + $N + ".csv", 6)
     }

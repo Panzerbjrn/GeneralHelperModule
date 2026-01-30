@@ -1,3 +1,7 @@
+BeforeAll {
+    Import-Module "$PSScriptRoot\..\GeneralHelperModule\GeneralHelperModule.psd1" -Force
+}
+
 Describe "Format-DiskSize" {
     Context "When size is greater than or equal to 1PB" {
         It "Formats size correctly" {

@@ -32,7 +32,7 @@ Function Get-Parameter {
     $command = Get-Command -Name $CommandName -ErrorAction Stop
 
     # Process each parameter
-    $parameters = foreach ($key in $command.Parameters.Keys) {
+    $parameters = ForEach ($key in $command.Parameters.Keys) {
         $parameter = $command.Parameters[$key]
         $MandatoryAttribute = $parameter.Attributes | Where-Object { $_ -is [System.Management.Automation.ParameterAttribute] }
         [PSCustomObject]@{

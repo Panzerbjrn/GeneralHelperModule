@@ -112,7 +112,7 @@ Function Get-RebootHistory {
     }
 
     PROCESS {
-        foreach ($Computer in $ComputerName) {
+        ForEach ($Computer in $ComputerName) {
             #$Computer = $ComputerName[0]
             $Params.ComputerName = $Computer
 
@@ -135,7 +135,7 @@ Function Get-RebootHistory {
                 #$Events = Get-WmiObject @Params
                 $Events = Get-CimInstance @Params
 
-                foreach ($Event in $Events) {
+                ForEach ($Event in $Events) {
                     Write-Progress -Id 2 -ParentId 1 -Activity "Processing reboot history." -PercentComplete (($d / $Events.Count) * 100) -Status "Processing reboot history."; $d++
 
                     # Record the relevant details for the shutdown event.

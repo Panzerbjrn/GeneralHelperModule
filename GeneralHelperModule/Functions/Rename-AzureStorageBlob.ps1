@@ -20,7 +20,7 @@ Function Rename-AzureStorageBlob {
 			This example will get an Azure blob and rename it from "TestFile.txt" to "FileTest.txt"
 
 		.EXAMPLE
-			Get-AzStorageBlob -Container MyContainer -Context $Context -Prefix ArchiveFiles/ | foreach {Rename-AzureStorageBlob -Blob $_ -NewName "ArchivedOld/$($_.Name.Split('/')[-1])" -Verbose}
+			Get-AzStorageBlob -Container MyContainer -Context $Context -Prefix ArchiveFiles/ | ForEach {Rename-AzureStorageBlob -Blob $_ -NewName "ArchivedOld/$($_.Name.Split('/')[-1])" -Verbose}
 
 			This example will get some Azure blobs and rename them all by moving them to a different folder prefix
 
