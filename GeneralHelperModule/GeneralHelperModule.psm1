@@ -1,23 +1,13 @@
 #region Script Header
 #	Thought for the day: It is a rough road that leads to the heights of greatness. - Lucius Annaeus Seneca
-#	NAME: LarsModulesGeneric.psm1
+#	NAME: GeneralHelperModule.psm1
 #	AUTHOR: Lars Panzerbjørn
-#	CONTACT: GitHub: Panzerbjrn / Twitter: Panzerbjrn
+#	GitHub: Panzerbjrn
 #	DATE: 2018.11.01
-#	VERSION: 0.7 - 2018.11.01 - Slowly getting started
-#	VERSION: 1.0 - 2018.11.23 - Manifest and Module files created
-#
-#	SYNOPSIS:
-#
-#
-#	#DESCRIPTION:
-#
-#
-#	REQUIREMENTS:
 #
 #endregion Script Header
 
-#Requires -Version 3.0
+#Requires -Version 5.0
 
 [cmdletbinding()]
 param()
@@ -41,3 +31,5 @@ ForEach ($Import in @($Functions + $Helpers)) {
 
 Export-ModuleMember -Function $Functions.Basename
 
+Set-Alias -Name Trust-PSRepository -Value Set-PSRepositoryTrust
+Export-ModuleMember -Function Set-PSRepositoryTrust -Alias Trust-PSRepository
