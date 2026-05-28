@@ -1,0 +1,191 @@
+# =========================
+# ArchModule .gitignore
+# =========================
+
+# -----------------------------
+# PowerShell Module Artifacts
+# -----------------------------
+*.ps1xml
+*.psc1
+
+# Build outputs
+/Output/
+/bin/
+/obj/
+/publish/
+
+# -----------------------------
+# Temporary & Cache Files
+# -----------------------------
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Error/Debug files
+*.error
+*.error-file.txt
+*Error-file.txt
+*.NEW.Error-file.txt
+
+# -----------------------------
+# Local Data Files
+# -----------------------------
+# Note: ArchFiles.csv is intentionally tracked
+# Exclude other generated CSVs that are created locally
+#**/FilesToDel.*.csv
+#**/Test-NewFiles.csv
+#**/Test-NewFiles.tmp.csv
+#Remove-Stuffs.local.csv
+#Replace-Replacements.local.csv
+
+# -----------------------------
+# Credentials & Secrets
+# -----------------------------
+*.credentials
+*.secret
+**/secrets/
+.env
+.env.local
+appsettings.json
+appsettings.*.json
+**/Config/*.local.psd1
+**/Config/*.user.psd1
+
+# Azure credentials
+.azure/
+*.publishsettings
+*.azureProfile
+
+# AWS credentials
+.aws/
+credentials
+
+# -----------------------------
+# User-Specific Paths
+# -----------------------------
+# Exclude local path configurations
+**/Local/**
+**/Temp/**
+**/__local__/**
+
+# -----------------------------
+# IDE & Editor Files
+# -----------------------------
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json.example
+!.vscode/extensions.json
+*.code-workspace
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# JetBrains IDEs (Rider, IntelliJ, etc.)
+.idea/
+*.iml
+
+# PowerShell ISE
+*.ISEAutoSave*
+
+# Cursor IDE
+.cursor/
+
+# -----------------------------
+# Testing & Coverage
+# -----------------------------
+# Pester test results
+TestResults/
+*TestResults*.xml
+coverage.xml
+*.coverage
+
+# Code coverage
+.coverage/
+coverage/
+
+# -----------------------------
+# Package Management
+# -----------------------------
+# PSDepend
+.psdepend/
+
+# Paket
+.paket/
+paket-files/
+
+# NuGet
+*.nupkg
+packages/
+!packages/repositories.config
+
+# -----------------------------
+# Documentation Build
+# -----------------------------
+docs/_site/
+docs/.cache/
+mkdocs/site/
+
+# -----------------------------
+# Operating System Files
+# -----------------------------
+# Windows
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+*.stackdump
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# -----------------------------
+# Archive/Backup Files
+# -----------------------------
+*.zip
+*.tar
+*.gz
+*.7z
+*.rar
+!**/Examples/*.zip
+
+# Old/archived versions
+*.old
+*.orig
+**/*.backup
+
+# -----------------------------
+# Project-Specific
+# -----------------------------
+# WIP folder (if you want to ignore it)
+# Uncomment the line below if WIP files shouldn't be tracked
+# WIP/
+
+# Archive folder - keeping old versions
+# Archive/
+
+# Local test directories
+**/TestData/
+**/SampleFiles/
+
+# Generated directory trees
+**/DirTree.txt
+**/TorrentDirTree.txt
+
