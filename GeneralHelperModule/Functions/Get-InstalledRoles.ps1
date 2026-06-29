@@ -1,4 +1,4 @@
-Function Get-InstalledRole {
+Function Get-InstalledRoles {
     <#
 		.SYNOPSIS
 			Exports installed Windows Features and Roles to a CSV file
@@ -13,8 +13,7 @@ Function Get-InstalledRole {
 			Exports all installed roles and features to C:\Temp\Roles.CSV and opens it in Notepad
 
 	#>
-    [Alias('Get-InstalledRoles')]
-    $TempPath = Test-Path "C:\Temp\"
+	$TempPath = Test-Path "C:\Temp\"
     if ($TempPath -eq $False) { New-Item -ItemType "Directory" -Path C:\TEMP -Force }
     else {}
     Import-Module Servermanager -Verbose

@@ -15,7 +15,7 @@ Function Get-ServerInfo {
 	#>
 
     Get-PSVersion
-    Get-LPInstalledRoles
+    Get-InstalledRoles
     Get-RunningServices
     Get-LocalDiskSize
     $IPC = ipconfig
