@@ -24,6 +24,7 @@ Function New-TempDir {
     BEGIN {}
     PROCESS {
         if ($pscmdlet.ShouldProcess("location C:\Temp")) {
+			# .NET alternative: if (-not [System.IO.Directory]::Exists('C:\Temp')) { [System.IO.Directory]::CreateDirectory('C:\Temp') }
             if (!(Test-Path -Path C:\Temp)) { New-Item -ItemType "Directory" -Path C:\Temp -Force }
         }
     }

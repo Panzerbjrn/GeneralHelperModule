@@ -51,13 +51,16 @@ Function Write-LogFile {
         $Path = 'C:\Temp'
         $Filename = "$(Get-Date -Format 'yyyy-MM-dd HH')xx - $CallingFunction - ERROR.log"
         $LogFilePath = Join-Path "$Path" "$Filename"
+        # .NET alternative: $LogFilePath = [System.IO.Path]::Combine($Path, $Filename)
     }
 
+    # .NET alternative for a file-specific check: if (-not [System.IO.File]::Exists($LogFilePath)) { [System.IO.File]::Create($LogFilePath).Dispose() }
     if (!(Test-Path $LogFilePath)) { New-Item -ItemType File -Path $LogFilePath -Force }
 
     do {
         try {
             Write-Verbose $CaptainsLog
+            # .NET alternative: [System.IO.File]::AppendAllText($LogFilePath, $CaptainsLog + [Environment]::NewLine)
             Add-Content -Path $LogFilePath -Value $CaptainsLog
             $Done = $True
         }

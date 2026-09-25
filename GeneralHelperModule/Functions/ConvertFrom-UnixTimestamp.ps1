@@ -36,9 +36,11 @@ Function ConvertFrom-UnixTimestamp {
     )
 
     if ($Seconds) {
+		# .NET alternative: [DateTimeOffset]::FromUnixTimeSeconds([int64]$Seconds).DateTime
         (Get-Date -Date "01/01/1970").AddSeconds($Seconds)
     }
     if ($MilliSeconds) {
+		# .NET alternative: [DateTimeOffset]::FromUnixTimeMilliseconds([int64]$MilliSeconds).DateTime
         (Get-Date -Date "01/01/1970").AddMilliseconds($MilliSeconds)
     }
 }

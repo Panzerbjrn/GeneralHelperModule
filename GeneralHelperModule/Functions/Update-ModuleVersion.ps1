@@ -109,6 +109,8 @@ Function Update-ModuleVersion {
                 [version]$NewVersion = "{0}.{1}.{2}" -f $Version.Major, $Version.Minor, ($Version.Build + 1)
             }
             else {
+                # .NET alternative: $FingerprintPath = [System.IO.Path]::Combine($ModulePath, 'fingerprint')
+                # .NET alternative: $OldFingerprint = if ([System.IO.File]::Exists($FingerprintPath)) { [System.IO.File]::ReadAllLines($FingerprintPath) }
                 $OldFingerprint = if (Test-Path -Path (Join-Path $ModulePath 'fingerprint')) { Get-Content -Path (Join-Path $ModulePath 'fingerprint') }
                 else {
                     Write-Verbose "No Fingerprint found, saving current fingerprint"
@@ -132,6 +134,7 @@ Function Update-ModuleVersion {
                 }
 
                 if ($PSCmdlet.ShouldProcess("Fingerprint will be saved")) {
+                    # .NET alternative: [System.IO.File]::WriteAllLines($FingerprintPath, $Fingerprint)
                     Set-Content -Path (Join-Path $ModulePath 'fingerprint') -Value $Fingerprint
                 }
             }

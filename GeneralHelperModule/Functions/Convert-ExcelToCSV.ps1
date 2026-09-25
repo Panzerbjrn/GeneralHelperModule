@@ -31,6 +31,7 @@ Function Convert-ExcelToCSV ($Path, $ExcelFileName, $CSVLoc) {
 	#>
     [CmdletBinding()]
     $ExcelFile = Join-Path -Path $Path -ChildPath $ExcelFileName
+	# .NET alternative: $ExcelFile = [System.IO.Path]::Combine($Path, $ExcelFileName)
     $E = New-Object -ComObject Excel.Application
     $E.Visible = $False
     $E.DisplayAlerts = $False
@@ -38,6 +39,7 @@ Function Convert-ExcelToCSV ($Path, $ExcelFileName, $CSVLoc) {
     ForEach ($WS in $WB.Worksheets) {
         $N = $ExcelFileName.Replace('.xlsx', '').Replace('.xls', '') + "_" + $WS.Name
         $SaveAs = $(Join-Path -Path $csvLoc -ChildPath $N) + ".csv"
+		# .NET alternative: $SaveAs = [System.IO.Path]::Combine($csvLoc, "$N.csv")
         $WS.SaveAs($SaveAs, 6)
     }
     $E.Quit()

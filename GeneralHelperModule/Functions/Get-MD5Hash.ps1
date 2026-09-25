@@ -22,10 +22,12 @@ Function Get-MD5Hash {
     )
 
     if (Test-Path -Path $Path) {
+        # .NET alternative for a file-specific check: [System.IO.File]::Exists($Path)
         try {
             # Create the hasher and get the content
             $crypto = [System.Security.Cryptography.MD5]::Create()
             $content = Get-Content -Path $Path -Encoding byte
+            # .NET alternative: $content = [System.IO.File]::ReadAllBytes($Path)
             $hash = [System.Convert]::ToBase64String($crypto.ComputeHash($content))
         }
         catch {

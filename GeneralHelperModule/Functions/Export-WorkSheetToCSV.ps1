@@ -29,12 +29,14 @@ Function Export-WorkSheetToCSV ($Path, $ExcelFileName, $CSVLoc) {
 
 	#>
     $ExcelFile = Join-Path -Path $Path -ChildPath $ExcelFileName
+		# .NET alternative: $ExcelFile = [System.IO.Path]::Combine($Path, $ExcelFileName)
     $E = New-Object -ComObject Excel.Application
     $E.Visible = $False
     $E.DisplayAlerts = $False
     $WB = $E.Workbooks.Open($ExcelFile)
     ForEach ($WS in $WB.Worksheets) {
         $N = $ExcelFileName + "_" + $WS.Name
+			# .NET alternative: $WS.SaveAs([System.IO.Path]::Combine($csvLoc, "$N.csv"), 6)
         $WS.SaveAs($csvLoc + $N + ".csv", 6)
     }
     $E.Quit()

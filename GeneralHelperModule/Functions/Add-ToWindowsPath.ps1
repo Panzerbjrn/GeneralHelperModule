@@ -23,6 +23,7 @@ Function Add-ToWindowsPath {
     )
 
     if (Test-Path $Path) {
+        # .NET alternative for a directory-specific check: [System.IO.Directory]::Exists($Path)
         if (-not (Test-IsAdministrator)) {
             return "You are not root. Root permissions are needed."
         }

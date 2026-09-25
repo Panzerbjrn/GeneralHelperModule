@@ -60,6 +60,7 @@ Function New-EncryptedCredentialKey {
         $Path = $Path.TrimEnd('\')
 
         if (!(Test-Path -Path $Path)) {
+            # .NET alternative for directory checks: if (-not [System.IO.Directory]::Exists($Path)) { [System.IO.Directory]::CreateDirectory($Path) }
             try { New-Item -ItemType "Directory" -Path $Path -Force }
             catch { "$($Path) doesn't exist, and couldn't be created" }
             break
@@ -87,6 +88,7 @@ Function New-EncryptedCredentialKey {
 
             #Creating Username File:
             $USRNameFile = $Path + "Username.txt"
+            # .NET alternative: [System.IO.File]::WriteAllText($USRNameFile, $Account)
             $Account | Out-File $USRNameFile
             Write-Verbose "Keys created."
         }

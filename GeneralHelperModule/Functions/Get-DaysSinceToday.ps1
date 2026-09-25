@@ -34,6 +34,7 @@ Function Get-DaysSinceToday {
         [Parameter(Mandatory = $True)][string]$Month,
         [Parameter(Mandatory = $True)][string]$Day
     )
+	# .NET alternative: (Get-Date).Date.Subtract([datetime]::new([int]$Year, [int]$Month, [int]$Day)).Days
     (Get-Date).Date.Subtract((New-Object DateTime($Year, $Month, $Day))).Days
 }
 
