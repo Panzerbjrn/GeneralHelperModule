@@ -29,8 +29,7 @@ Function Test-PendingReboot {
         $util = [wmiclass]"\\.\root\ccm\clientsdk:CCM_ClientUtilities"
         $status = $util.DetermineIfRebootPending()
         IF(($status -ne $Null) -and $status.RebootPending) { return $True }
-    }
-    CATCH{ Write-Error "" }
+    }CATCH{ Write-Error "" }
     return $False
 }
 

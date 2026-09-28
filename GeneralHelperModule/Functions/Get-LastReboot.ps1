@@ -58,8 +58,7 @@ Function Get-LastReboot {
                 #Make sure we can connect to it...
                 Write-Output "$([string]$Machine.toupper()) cannot be reached..."
                 break
-            }
-            else {
+            }ELSE {
                 IF($Machine -ne $env:ComputerName) {
                     #If it is a remote machine, make sure RemoteRegistry is running so we can access the logs
                     $RegServ = Get-Service remoteregistry -ComputerName $Machine
@@ -92,8 +91,7 @@ Function Get-LastReboot {
                             "User"         = $Event.ReplacementStrings[6]
                             "CleanBoot"    =  $True
                         })
-                }
-                else {
+                }ELSE {
                     $Result = $Result + (New-Object PSObject -Property @{ #Build the object for return
                             "ComputerName" = $Machine.toupper()
                             "LastBoot"     = $LastRebootTime

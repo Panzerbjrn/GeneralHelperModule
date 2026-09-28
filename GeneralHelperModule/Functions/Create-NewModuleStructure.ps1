@@ -93,8 +93,7 @@ Write-Verbose `$PSScriptRoot
 ForEach (`$Import in @(`$Functions + `$Helpers)){
 	TRY{
 		. `$Import.Fullname
-	}
-	CATCH{
+	}{
 		Write-Error -Message `"Failed to Import function `$(`$Import.Fullname): `$_`"
 	}
 }

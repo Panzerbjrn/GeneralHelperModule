@@ -63,8 +63,7 @@ Function Write-LogFile {
             # .NET alternative: [System.IO.File]::AppendAllText($LogFilePath, $CaptainsLog + [Environment]::NewLine)
             Add-Content -Path $LogFilePath -Value $CaptainsLog
             $Done = $True
-        }
-        CATCH{
+        }CATCH{
             $Done = $False
         }
         finally {

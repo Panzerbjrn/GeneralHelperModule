@@ -29,12 +29,10 @@ Function Get-MD5Hash {
             $content = Get-Content -Path $Path -Encoding byte
             # .NET alternative: $content = [System.IO.File]::ReadAllBytes($Path)
             $hash = [System.Convert]::ToBase64String($crypto.ComputeHash($content))
-        }
-        CATCH{
+        }CATCH{
             $hash = $Null
         }
-    }
-    else {
+    }ELSE {
         # File doesn't exist, can't calculate hash
         $hash = $Null
     }

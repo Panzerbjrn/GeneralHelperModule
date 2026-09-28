@@ -40,7 +40,7 @@ Function Get-CombinedFileSize {
     }
 
     PROCESS{
-        foreach ($File in $Files) {
+        ForEach ($File in $Files) {
             IF($File -is [System.IO.FileInfo]) {
                 $TotalSize += $File.Length
                 $FileCount++

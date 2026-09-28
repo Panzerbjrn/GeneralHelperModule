@@ -62,8 +62,7 @@ Function Update-ModuleVersion {
             $CurrentModule = (Get-Command -Name $MyInvocation.MyCommand.Name).Module.Name
             IF($CurrentModule -eq $ModuleName) {
                 Write-Verbose "This function is part of the module $ModuleName. Skipping module unloading."
-            }
-            else {
+            }ELSE {
                 Write-Verbose ("Importing {0}" -f $ModuleName)
                 Import-Module -Name $ManifestPath -Force
                 $CommandList = Get-Command -Module $ModuleName
@@ -103,16 +102,13 @@ Function Update-ModuleVersion {
             IF($Patch) {
                 $VersionType = 'Patch'
                 [version]$NewVersion = "{0}.{1}.{2}" -f $Version.Major, $Version.Minor, ($Version.Build + 1)
-            }
-            ELSEIF([string]::IsNullOrEmpty($Fingerprint)) {
+            }ELSEIF([string]::IsNullOrEmpty($Fingerprint)) {
                 $VersionType = 'Patch'
                 [version]$NewVersion = "{0}.{1}.{2}" -f $Version.Major, $Version.Minor, ($Version.Build + 1)
-            }
-            else {
+            }ELSE {
                 # .NET alternative: $FingerprintPath = [System.IO.Path]::Combine($ModulePath, 'fingerprint')
                 # .NET alternative: $OldFingerprint = IF([System.IO.File]::Exists($FingerprintPath)) { [System.IO.File]::ReadAllLines($FingerprintPath) }
-                $OldFingerprint = IF(Test-Path -Path (Join-Path $ModulePath 'fingerprint')) { Get-Content -Path (Join-Path $ModulePath 'fingerprint') }
-                else {
+                $OldFingerprint = IF(Test-Path -Path (Join-Path $ModulePath 'fingerprint')) { Get-Content -Path (Join-Path $ModulePath 'fingerprint') }ELSE {
                     Write-Verbose "No Fingerprint found, saving current fingerprint"
                     $Fingerprint
                 }
@@ -141,14 +137,12 @@ Function Update-ModuleVersion {
 
             IF($Ask) {
                 Write-Output "$(Join-Path $ModulePath "$ModuleName.psd1") would have been updated by $VersionType"
-            }
-            ELSEIF($VersionType) {
+            }ELSEIF($VersionType) {
                 IF($PSCmdlet.ShouldProcess("$ModulePath\$ModuleName.psd1 will be updated by $VersionType")) {
                     Update-ModuleManifest -Path $ManifestPath -ModuleVersion $NewVersion
                 }
             }
-        }
-        CATCH{
+        }CATCH{
             Write-Error "An error occurred: $_"
         }
     }

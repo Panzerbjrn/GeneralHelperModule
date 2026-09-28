@@ -28,8 +28,7 @@ Function Test-ChocoUpdate {
         IF($Status) {
             $Current, $Available, $Pinned = $Status.Split('|')[1, 2, 3]
             Write-Output "$App : Update available ($Current → $Available)"
-        }
-        else {
+        }ELSE {
             Write-Output "$App : Up to date"
         }
     }

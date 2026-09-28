@@ -45,7 +45,7 @@ Describe 'Set-FolderACL' -Tag 'Set-FolderACL', 'Unit' {
     It 'Should validate AccessLevel parameter with valid values' {
 
       $validLevels = @("Read", "Write", "Modify", "FullControl")
-      foreach ($level in $validLevels) {
+      ForEach ($level in $validLevels) {
         { Set-FolderACL -Directory $TestDrive -UserNames "TestUser" -AccessLevel $level -Add -WhatIf -ErrorAction SilentlyContinue } | Should -Not -Throw
       }
     }

@@ -21,15 +21,13 @@ Function Set-Prompt {
             # Determine Admin; set Symbol variable.
             IF([bool](([System.Security.Principal.WindowsIdentity]::GetCurrent()).Groups -match 'S-1-5-32-544')) {
                 $Symbol = '#'
-            }
-            else {
+            }ELSE {
                 $Symbol = '$'
             }
 
             IF((Get-Location).Path -eq $env:USERPROFILE) {
                 $Path = '~'
-            }
-            else {
+            }ELSE {
                 $Path = (Get-Location).Path
             }
 

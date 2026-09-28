@@ -28,8 +28,7 @@ Function Test-EventLogSource {
     )
     IF($True -eq (Test-IsAdministrator)) {
         [System.Diagnostics.EventLog]::SourceExists($LogName)
-    }
-    else {
+    }ELSE {
         Write-Error "You need elevated privileges to run this command"
     }
 }

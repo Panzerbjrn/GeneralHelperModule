@@ -61,15 +61,13 @@ Function New-EncryptedCredentialKey {
 
         IF(!(Test-Path -Path $Path)) {
             # .NET alternative for directory checks: IF(-not [System.IO.Directory]::Exists($Path)) { [System.IO.Directory]::CreateDirectory($Path) }
-            TRY{ New-Item -ItemType "Directory" -Path $Path -Force }
-            CATCH{ "$($Path) doesn't exist, and couldn't be created" }
+            TRY{ New-Item -ItemType "Directory" -Path $Path -Force }CATCH{ "$($Path) doesn't exist, and couldn't be created" }
             break
         }
 
         IF(!([string]::IsNullOrEmpty($Service))) {
             $Path = ($Path + "\" + $Service + ".")
-        }
-        else {
+        }ELSE {
             $Path = ($Path + "\")
         }
     }

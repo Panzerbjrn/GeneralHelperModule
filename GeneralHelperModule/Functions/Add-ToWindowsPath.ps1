@@ -33,8 +33,7 @@ Function Add-ToWindowsPath {
             Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $NewPath
             Write-Verbose "New Windows Environment Path is $((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).Path)"
         }
-    }
-    else {
+    }ELSE {
         throw "Path $Path not found. Please check and try again"
     }
 }

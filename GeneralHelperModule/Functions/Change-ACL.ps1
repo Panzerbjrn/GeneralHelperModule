@@ -80,8 +80,7 @@ Function Set-FolderACL {
                 IF($Add) { $ACL.AddAccessRule($AccessRule) }
                 IF($Remove) { $ACL.RemoveAccessRuleAll($AccessRule) }
             }
-            IF(($Add) -or ($Remove)) { Set-Acl -path $Path -AclObject $Acl }
-            else { Write-Verbose "No Add or Remove action was specified" }
+            IF(($Add) -or ($Remove)) { Set-Acl -path $Path -AclObject $Acl }ELSE { Write-Verbose "No Add or Remove action was specified" }
         }
     }
     END{}
