@@ -46,24 +46,24 @@ Function Rename-AzureStorageBlob {
         [string]$NewName
     )
 
-    BEGIN {
+    BEGIN{
         Write-Verbose "Beginning $($MyInvocation.Mycommand)"
-        if (-not $PSBoundParameters.ContainsKey('Confirm')) {
+        IF(-not $PSBoundParameters.ContainsKey('Confirm')) {
             $ConfirmPreference = $PSCmdlet.SessionState.PSVariable.GetValue('ConfirmPreference')
         }
-        if (-not $PSBoundParameters.ContainsKey('WhatIf')) {
+        IF(-not $PSBoundParameters.ContainsKey('WhatIf')) {
             $WhatIfPreference = $PSCmdlet.SessionState.PSVariable.GetValue('WhatIfPreference')
         }
     }
 
-    PROCESS {
+    PROCESS{
         $StartAzStorageBlobCopySplat = @{
             ICloudBlob    = $Blob.ICloudBlob
             DestBlob      = $NewName
             Context       = $Blob.Context
             DestContainer = $Blob.ICloudBlob.Container.Name
         }
-        if ($PSBoundParameters.ContainsKey('Force')) {
+        IF($PSBoundParameters.ContainsKey('Force')) {
             $StartAzStorageBlobCopySplat.Force = $True
         }
 

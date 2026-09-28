@@ -15,18 +15,18 @@ Function Set-Prompt {
 	#>
     [CmdletBinding(SupportsShouldProcess = $true)]
     param()
-    BEGIN {}
-    PROCESS {
-        if ($pscmdlet.ShouldProcess("console")) {
+    BEGIN{}
+    PROCESS{
+        IF($pscmdlet.ShouldProcess("console")) {
             # Determine Admin; set Symbol variable.
-            if ([bool](([System.Security.Principal.WindowsIdentity]::GetCurrent()).Groups -match 'S-1-5-32-544')) {
+            IF([bool](([System.Security.Principal.WindowsIdentity]::GetCurrent()).Groups -match 'S-1-5-32-544')) {
                 $Symbol = '#'
             }
             else {
                 $Symbol = '$'
             }
 
-            if ((Get-Location).Path -eq $env:USERPROFILE) {
+            IF((Get-Location).Path -eq $env:USERPROFILE) {
                 $Path = '~'
             }
             else {
@@ -37,7 +37,7 @@ Function Set-Prompt {
             "[$($env:USERNAME.ToLower())@$($env:COMPUTERNAME.ToLower()) $Path]$Symbol "
         }
     }
-    END {}
+    END{}
 } # End Function: prompt.
 
 

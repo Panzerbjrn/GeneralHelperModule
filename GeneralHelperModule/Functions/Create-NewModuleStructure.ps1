@@ -58,7 +58,7 @@ Function Add-NewModuleStructure {
         [Parameter()][string]$Description = 'New PowerShell module'
     )
 
-    BEGIN {
+    BEGIN{
         $Date = Get-Date -f yyyy.MM.dd
         Write-Verbose "Path is $Path"
         $PSMContent = "#region Script Header
@@ -91,10 +91,10 @@ Write-Verbose `$PSScriptRoot
 
 #Dot source the files
 ForEach (`$Import in @(`$Functions + `$Helpers)){
-	Try{
+	TRY{
 		. `$Import.Fullname
 	}
-	Catch{
+	CATCH{
 		Write-Error -Message `"Failed to Import function `$(`$Import.Fullname): `$_`"
 	}
 }
@@ -121,21 +121,21 @@ SEE ALSO
 "
     }
 
-    PROCESS {
+    PROCESS{
         $Path = Join-Path $Path $ModuleName
         Write-Verbose "Creating the module and function directories"
-        if (!(Test-Path -Path ($Path))) { New-Item ($Path) -ItemType Directory -Force }
-        if (!(Test-Path -Path ($Path + "\Helpers"))) { New-Item ($Path + "\Helpers") -ItemType Directory -Force } # For private/Helper functions that should not be exposed to end users
-        if (!(Test-Path -Path ($Path + "\Functions"))) { New-Item ($Path + "\Functions") -ItemType Directory -Force } # For public/exported functions
-        if (!(Test-Path -Path ($Path + "\en-GB"))) { New-Item ($Path + "\en-GB") -ItemType Directory -Force } # For English about_Help files
-        if (!(Test-Path -Path ($Path + "\WIP"))) { New-Item ($Path + "\WIP") -ItemType Directory -Force } # For Functions that are Works in Progress
-        if (!(Test-Path -Path ($Path + "\Tests"))) { New-Item ($Path + "\Tests") -ItemType Directory -Force } # For Pester tests
+        IF(!(Test-Path -Path ($Path))) { New-Item ($Path) -ItemType Directory -Force }
+        IF(!(Test-Path -Path ($Path + "\Helpers"))) { New-Item ($Path + "\Helpers") -ItemType Directory -Force } # For private/Helper functions that should not be exposed to end users
+        IF(!(Test-Path -Path ($Path + "\Functions"))) { New-Item ($Path + "\Functions") -ItemType Directory -Force } # For public/exported functions
+        IF(!(Test-Path -Path ($Path + "\en-GB"))) { New-Item ($Path + "\en-GB") -ItemType Directory -Force } # For English about_Help files
+        IF(!(Test-Path -Path ($Path + "\WIP"))) { New-Item ($Path + "\WIP") -ItemType Directory -Force } # For Functions that are Works in Progress
+        IF(!(Test-Path -Path ($Path + "\Tests"))) { New-Item ($Path + "\Tests") -ItemType Directory -Force } # For Pester tests
 
         #Create the module and related files
         Write-Verbose "Creating the module and function files"
-        if (!(Test-Path -Path "$Path\$ModuleName.psm1")) { New-Item "$Path\$ModuleName.psm1" -ItemType File }
-        if (!(Test-Path -Path "$Path\en-GB\about_$ModuleName.help.txt")) { New-Item "$Path\en-GB\about_$ModuleName.help.txt" -ItemType File }
-        if (!(Test-Path -Path "$Path\Tests\$ModuleName.Tests.ps1")) { New-Item "$Path\Tests\$ModuleName.Tests.ps1" -ItemType File }
+        IF(!(Test-Path -Path "$Path\$ModuleName.psm1")) { New-Item "$Path\$ModuleName.psm1" -ItemType File }
+        IF(!(Test-Path -Path "$Path\en-GB\about_$ModuleName.help.txt")) { New-Item "$Path\en-GB\about_$ModuleName.help.txt" -ItemType File }
+        IF(!(Test-Path -Path "$Path\Tests\$ModuleName.Tests.ps1")) { New-Item "$Path\Tests\$ModuleName.Tests.ps1" -ItemType File }
 
         Write-Verbose "Creating the module manifest"
         Write-Verbose "Path is $($Path+"\"+$ModuleName+".psd1")"

@@ -43,16 +43,16 @@ Function Update-ModuleVersion {
         [Switch]$Patch
     )
 
-    BEGIN {
+    BEGIN{
         Write-Verbose "#################################################################"
         Write-Verbose "Beginning $($MyInvocation.MyCommand.Name) on $($ENV:ComputerName) @ $(Get-Date -Format 'yyyy.MM.dd HH:mm:ss')"
         Write-Verbose "#################################################################"
     }
 
-    PROCESS {
-        try {
+    PROCESS{
+        TRY{
             # Ensure ModulePath is a directory
-            if ((Get-Item $ModulePath).PSIsContainer -ne $True) {
+            IF((Get-Item $ModulePath).PSIsContainer -ne $True) {
                 $ModulePath = (Get-Item $ModulePath).DirectoryName
             }
             $ModuleName = $ModulePath.TrimEnd('\').Split('\')[-1]
@@ -60,7 +60,7 @@ Function Update-ModuleVersion {
 
             # Check if this function is part of the module being updated
             $CurrentModule = (Get-Command -Name $MyInvocation.MyCommand.Name).Module.Name
-            if ($CurrentModule -eq $ModuleName) {
+            IF($CurrentModule -eq $ModuleName) {
                 Write-Verbose "This function is part of the module $ModuleName. Skipping module unloading."
             }
             else {
@@ -100,60 +100,60 @@ Function Update-ModuleVersion {
             $MajorFeature = 0
             $VersionType = $Null
 
-            if ($Patch) {
+            IF($Patch) {
                 $VersionType = 'Patch'
                 [version]$NewVersion = "{0}.{1}.{2}" -f $Version.Major, $Version.Minor, ($Version.Build + 1)
             }
-            elseif ([string]::IsNullOrEmpty($Fingerprint)) {
+            ELSEIF([string]::IsNullOrEmpty($Fingerprint)) {
                 $VersionType = 'Patch'
                 [version]$NewVersion = "{0}.{1}.{2}" -f $Version.Major, $Version.Minor, ($Version.Build + 1)
             }
             else {
                 # .NET alternative: $FingerprintPath = [System.IO.Path]::Combine($ModulePath, 'fingerprint')
-                # .NET alternative: $OldFingerprint = if ([System.IO.File]::Exists($FingerprintPath)) { [System.IO.File]::ReadAllLines($FingerprintPath) }
-                $OldFingerprint = if (Test-Path -Path (Join-Path $ModulePath 'fingerprint')) { Get-Content -Path (Join-Path $ModulePath 'fingerprint') }
+                # .NET alternative: $OldFingerprint = IF([System.IO.File]::Exists($FingerprintPath)) { [System.IO.File]::ReadAllLines($FingerprintPath) }
+                $OldFingerprint = IF(Test-Path -Path (Join-Path $ModulePath 'fingerprint')) { Get-Content -Path (Join-Path $ModulePath 'fingerprint') }
                 else {
                     Write-Verbose "No Fingerprint found, saving current fingerprint"
                     $Fingerprint
                 }
 
-                if (Compare-Object -ReferenceObject $OldFingerprint -DifferenceObject $Fingerprint) {
+                IF(Compare-Object -ReferenceObject $OldFingerprint -DifferenceObject $Fingerprint) {
                     Write-Output 'Detecting new features'
                     $Fingerprint | Where-Object { $_ -notin $OldFingerprint } | ForEach-Object { $MinorFeature++ }
-                    if ($MinorFeature -ge 1) {
+                    IF($MinorFeature -ge 1) {
                         $VersionType = 'Minor'
                         [version]$NewVersion = "{0}.{1}.{2}" -f $Version.Major, ($Version.Minor + 1), 0
                     }
 
                     Write-Output 'Detecting breaking changes'
                     $OldFingerprint | Where-Object { $_ -notin $Fingerprint } | ForEach-Object { $MajorFeature++ }
-                    if ($MajorFeature -ge 1) {
+                    IF($MajorFeature -ge 1) {
                         $VersionType = 'Major'
                         [version]$NewVersion = "{0}.{1}.{2}" -f ($Version.Major + 1), 0, 0
                     }
                 }
 
-                if ($PSCmdlet.ShouldProcess("Fingerprint will be saved")) {
+                IF($PSCmdlet.ShouldProcess("Fingerprint will be saved")) {
                     # .NET alternative: [System.IO.File]::WriteAllLines($FingerprintPath, $Fingerprint)
                     Set-Content -Path (Join-Path $ModulePath 'fingerprint') -Value $Fingerprint
                 }
             }
 
-            if ($Ask) {
+            IF($Ask) {
                 Write-Output "$(Join-Path $ModulePath "$ModuleName.psd1") would have been updated by $VersionType"
             }
-            elseif ($VersionType) {
-                if ($PSCmdlet.ShouldProcess("$ModulePath\$ModuleName.psd1 will be updated by $VersionType")) {
+            ELSEIF($VersionType) {
+                IF($PSCmdlet.ShouldProcess("$ModulePath\$ModuleName.psd1 will be updated by $VersionType")) {
                     Update-ModuleManifest -Path $ManifestPath -ModuleVersion $NewVersion
                 }
             }
         }
-        catch {
+        CATCH{
             Write-Error "An error occurred: $_"
         }
     }
-    END {
-        if ($Version -ne $NewVersion) {
+    END{
+        IF($Version -ne $NewVersion) {
             Write-Output "Module $ModuleName Updated from $Version to $NewVersion"
         }
     }

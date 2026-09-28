@@ -49,36 +49,36 @@ Function Get-LastReboot {
         [alias("Name", "ComputerName")]
         [string[]]$Computer = @($env:ComputerName)
     )
-    BEGIN {
+    BEGIN{
         $Result = @()
     }
-    PROCESS {
+    PROCESS{
         ForEach ($Machine in $Computer) {
-            if (-not (Test-Connection -ComputerName $Machine -Count 1 -Quiet)) {
+            IF(-not (Test-Connection -ComputerName $Machine -Count 1 -Quiet)) {
                 #Make sure we can connect to it...
                 Write-Output "$([string]$Machine.toupper()) cannot be reached..."
                 break
             }
             else {
-                if ($Machine -ne $env:ComputerName) {
+                IF($Machine -ne $env:ComputerName) {
                     #If it is a remote machine, make sure RemoteRegistry is running so we can access the logs
                     $RegServ = Get-Service remoteregistry -ComputerName $Machine
-                    if ($RegServ.status -ne "Running") {
+                    IF($RegServ.status -ne "Running") {
                         Set-Service remoteregistry -ComputerName $Machine -status Running
                     }
                 }
-                if ($PSVersionTable.PSVersion.Major -eq 5) {
+                IF($PSVersionTable.PSVersion.Major -eq 5) {
                     $SuccessfullReboot = Get-EventLog system -ComputerName $Machine -InstanceId 2147484722 -Newest 1
                     $UnSuccessfullReboot = Get-EventLog system -ComputerName $Machine -InstanceId 41 -Newest 1
                 }
-                if ($PSVersionTable.PSVersion.Major -eq 7) {
+                IF($PSVersionTable.PSVersion.Major -eq 7) {
                     $SuccessfullReboot = Get-WinEvent -FilterHashtable @{"Id" = 1074; "Logname" = "System" } -ComputerName $Machine -MaxEvents 1
                     $UnSuccessfullReboot = Get-WinEvent -FilterHashtable @{"Id" = 41; "Logname" = "System" } -ComputerName $Machine -MaxEvents 1
                 }
-                $Event = if ($SuccessfullReboot.TimeWritten -gt $UnSuccessfullReboot.Timewritten) { $SuccessfullReboot; $Cleanboot = $True }else { $UnSuccessfullReboot }
+                $Event = IF($SuccessfullReboot.TimeWritten -gt $UnSuccessfullReboot.Timewritten) { $SuccessfullReboot; $Cleanboot = $True }else { $UnSuccessfullReboot }
                 $LastRebootTime = $Event.TimeGenerated
                 $UpTime = New-TimeSpan -Start $LastRebootTime -End $(Get-Date)
-                if ($CleanBoot) {
+                IF($CleanBoot) {
                     $Result = $Result + (New-Object PSObject -Property @{ #Build the object for return
                             "Code"         = $Event.ReplacementStrings[3]
                             "Comment"      = $Event.ReplacementStrings[5]
@@ -105,7 +105,7 @@ Function Get-LastReboot {
             }
         }
     }
-    END {
+    END{
         $Result
     }
 }

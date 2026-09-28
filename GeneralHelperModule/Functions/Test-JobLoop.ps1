@@ -40,7 +40,7 @@ Function Test-JobLoop {
     do {
         $JobLoop = Get-Job -Id $JobID
         Write-Verbose "$($JobLoop)"
-        if ($JobLoop.State -eq "Running") { "Cogitating"; Sleep 5 }
+        IF($JobLoop.State -eq "Running") { "Cogitating"; Sleep 5 }
     }
     while ($JobLoop.State -eq "Running")
     "Done"

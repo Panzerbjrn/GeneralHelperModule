@@ -13,7 +13,7 @@ Function Test-PendingReboot {
 			Returns $true if a reboot is pending, $false otherwise
 
 		.EXAMPLE
-			if (Test-PendingReboot) { Restart-Computer }
+			IF(Test-PendingReboot) { Restart-Computer }
 
 			Restarts the computer if a reboot is pending
 
@@ -21,16 +21,16 @@ Function Test-PendingReboot {
 
 
 	# .NET alternative: [Microsoft.Win32.Registry]::LocalMachine.OpenSubKey('Software\Microsoft\Windows\CurrentVersion\Component Based Servicing\RebootPending')
-    if (Get-ChildItem "HKLM:\Software\Microsoft\Windows\CurrentVersion\Component Based Servicing\RebootPending" -ErrorAction SilentlyContinue) { return $True }
+    IF(Get-ChildItem "HKLM:\Software\Microsoft\Windows\CurrentVersion\Component Based Servicing\RebootPending" -ErrorAction SilentlyContinue) { return $True }
 	# .NET alternative: [Microsoft.Win32.Registry]::LocalMachine.OpenSubKey('SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\RebootRequired')
-    if (Get-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\RebootRequired" -ErrorAction SilentlyContinue) { return $True }
-    if (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager" -Name PendingFileRenameOperations -ErrorAction SilentlyContinue) { return $True }
-    try {
+    IF(Get-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\RebootRequired" -ErrorAction SilentlyContinue) { return $True }
+    IF(Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager" -Name PendingFileRenameOperations -ErrorAction SilentlyContinue) { return $True }
+    TRY{
         $util = [wmiclass]"\\.\root\ccm\clientsdk:CCM_ClientUtilities"
         $status = $util.DetermineIfRebootPending()
-        if (($status -ne $Null) -and $status.RebootPending) { return $True }
+        IF(($status -ne $Null) -and $status.RebootPending) { return $True }
     }
-    catch { Write-Error "" }
+    CATCH{ Write-Error "" }
     return $False
 }
 

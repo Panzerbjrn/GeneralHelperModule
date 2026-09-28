@@ -22,12 +22,12 @@ Function Add-ToWindowsPath {
         [string]$Path
     )
 
-    if (Test-Path $Path) {
+    IF(Test-Path $Path) {
         # .NET alternative for a directory-specific check: [System.IO.Directory]::Exists($Path)
-        if (-not (Test-IsAdministrator)) {
+        IF(-not (Test-IsAdministrator)) {
             return "You are not root. Root permissions are needed."
         }
-        if (Test-IsAdministrator) {
+        IF(Test-IsAdministrator) {
             $OldPath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).Path
             $NewPath = $OldPath + ';' + $Path
             Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $NewPath

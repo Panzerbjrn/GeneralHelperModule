@@ -20,11 +20,11 @@ $Helpers = @( Get-ChildItem -Path $PSScriptRoot\Helpers\*.ps1 -ErrorAction Silen
 
 #Dot source the files
 ForEach ($Import in @($Functions + $Helpers)) {
-    try {
+    TRY{
         Write-Verbose "Processing $($Import.Fullname)"
         . $Import.Fullname
     }
-    catch {
+    CATCH{
         Write-Error -Message "Failed to Import function $($Import.Fullname): $_"
     }
 }

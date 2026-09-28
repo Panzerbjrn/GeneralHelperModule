@@ -11,7 +11,7 @@ Describe 'Test-ChocoUpdate' -Tag 'Test-ChocoUpdate', 'Unit' {
     It 'Should have alias Test-ChocoUpdates' {
 
       $aliases = Get-Alias -Definition Test-ChocoUpdate -ErrorAction SilentlyContinue
-      if ($aliases) {
+      IF($aliases) {
         $aliases.Name | Should -Contain 'Test-ChocoUpdates'
       }
       else {

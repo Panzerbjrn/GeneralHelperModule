@@ -15,7 +15,7 @@ Describe 'Write-LogFile' -Tag 'Write-LogFile', 'Unit' {
 
     AfterAll {
 
-      if (Test-Path $logFilePath) {
+      IF(Test-Path $logFilePath) {
         Remove-Item -Path $logFilePath -Force -ErrorAction SilentlyContinue
       }
     }
@@ -51,7 +51,7 @@ Describe 'Write-LogFile' -Tag 'Write-LogFile', 'Unit' {
 
     AfterAll {
 
-      if (Test-Path $logFilePath) {
+      IF(Test-Path $logFilePath) {
         Remove-Item -Path $logFilePath -Force -ErrorAction SilentlyContinue
       }
     }
@@ -88,7 +88,7 @@ Describe 'Write-LogFile' -Tag 'Write-LogFile', 'Unit' {
 
     AfterAll {
 
-      if (Test-Path $logFilePath) {
+      IF(Test-Path $logFilePath) {
         Remove-Item -Path $logFilePath -Force -ErrorAction SilentlyContinue
       }
     }

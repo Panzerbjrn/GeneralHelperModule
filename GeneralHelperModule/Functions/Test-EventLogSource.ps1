@@ -26,7 +26,7 @@ Function Test-EventLogSource {
         [Parameter(Mandatory = $True)]
         [string]$LogName
     )
-    if ($True -eq (Test-IsAdministrator)) {
+    IF($True -eq (Test-IsAdministrator)) {
         [System.Diagnostics.EventLog]::SourceExists($LogName)
     }
     else {

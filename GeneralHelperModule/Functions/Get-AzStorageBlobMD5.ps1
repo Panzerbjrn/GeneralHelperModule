@@ -27,15 +27,15 @@ Function Get-AzStorageBlobMD5 {
         [Parameter(Mandatory, ValueFromPipeline = $true, Position = 0)]
         [Microsoft.WindowsAzure.Commands.Common.Storage.ResourceModel.AzureStorageBlob]$Blob
     )
-    BEGIN {
+    BEGIN{
         Write-Verbose "Beginning $($MyInvocation.Mycommand)"
     }
-    PROCESS {
+    PROCESS{
         #$Blob.ICloudBlob.Properties.ContentMD5
         $MD5Sum = [convert]::FromBase64String($Blob.ICloudBlob.Properties.ContentMD5)
         $hdhash = [BitConverter]::ToString($MD5Sum).Replace('-', '')
     }
-    END {
+    END{
         $hdhash
     }
 }

@@ -52,7 +52,7 @@ Describe 'Add-NewModuleStructure' -Tag 'Add-NewModuleStructure', 'Unit' {
 
     AfterAll {
 
-      if (Test-Path $testModulePath) {
+      IF(Test-Path $testModulePath) {
         Remove-Item -Path $testModulePath -Recurse -Force -ErrorAction SilentlyContinue
       }
     }

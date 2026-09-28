@@ -52,13 +52,13 @@ Function Get-RandomString {
         [switch]$AlphaNumeric
     )
     $PSCmdlet.ParameterSetName
-    if ($Hexidecimal) {
+    IF($Hexidecimal) {
         -join ((48..57) + (65..72) | Get-Random -Count $NumberOfCharacters | ForEach-Object { [char]$_ })
     }
-    if ($Decimal) {
+    IF($Decimal) {
         -join ((0..9) | Get-Random -Count $NumberOfCharacters | ForEach-Object { $_ })
     }
-    if ($AlphaNumeric) {
+    IF($AlphaNumeric) {
         -join ((48..57) + (65..90) + (97..122) | Get-Random -Count $NumberOfCharacters | ForEach-Object { [char]$_ })
     }
 }

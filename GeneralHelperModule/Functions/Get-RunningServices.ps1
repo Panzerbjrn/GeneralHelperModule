@@ -15,7 +15,7 @@ Function Get-RunningService {
 	#>
     [Alias('Get-RunningServices')]
     $TempPath = Test-Path "C:\Temp\"
-    if ($TempPath -eq $False) { New-Item -ItemType "Directory" -Path C:\TEMP -Force }
+    IF($TempPath -eq $False) { New-Item -ItemType "Directory" -Path C:\TEMP -Force }
     else {}
     Write-Output "Exporting Windows Services to C:\TEMP\Services.Running.csv"
     Get-Service | Where-Object { $_.Status -eq "Running" } | Sort-Object DisplayName | Select-Object Name, Displayname, status | Export-Csv C:\TEMP\Services.Running.csv -NoTypeInformation -Delimiter "`t"

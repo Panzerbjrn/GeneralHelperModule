@@ -29,10 +29,10 @@
 #region Functions
 #-----------------------------------------------------------[Functions]------------------------------------------------------------
 
-try {
+TRY{
     Import-Module D:\PowerShell.Modules\HelperModule\HelperModule.psm1 -NoClobber
 }
-catch {
+CATCH{
     exit
 }
 

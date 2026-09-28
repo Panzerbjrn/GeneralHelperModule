@@ -63,12 +63,12 @@ Function Set-FolderACL {
         [Parameter(ParameterSetName = "Remove")]
         [switch]$Remove
     )
-    BEGIN {}
-    PROCESS {
-        if ($pscmdlet.ShouldProcess("directory:$Directory by $(if($add){"adding"}else{"removing"}) $($AccessLevel -join ',') permission(s) for $($Usernames -join ',') user(s)")) {
+    BEGIN{}
+    PROCESS{
+        IF($pscmdlet.ShouldProcess("directory:$Directory by $(if($add){"adding"}else{"removing"}) $($AccessLevel -join ',') permission(s) for $($Usernames -join ',') user(s)")) {
             $Path = $Directory
             $TestedPath = Test-Path $Path
-            if ($TestedPath -eq $False) { Write-Verbose "$($Path) Doesn't exist; thank you please come again"; break }
+            IF($TestedPath -eq $False) { Write-Verbose "$($Path) Doesn't exist; thank you please come again"; break }
             $ACL = (Get-Item $Path).GetAccessControl('Access')
 
             ForEach ($UserName in $UserNames) {
@@ -77,13 +77,13 @@ Function Set-FolderACL {
                 $Inherit = [system.security.accesscontrol.InheritanceFlags]"ContainerInherit, ObjectInherit"
                 $Propagation = [system.security.accesscontrol.PropagationFlags]"None"
                 $AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule($Usrname, $AccessLevel, $Inherit, $Propagation, "Allow")
-                if ($Add) { $ACL.AddAccessRule($AccessRule) }
-                if ($Remove) { $ACL.RemoveAccessRuleAll($AccessRule) }
+                IF($Add) { $ACL.AddAccessRule($AccessRule) }
+                IF($Remove) { $ACL.RemoveAccessRuleAll($AccessRule) }
             }
-            if (($Add) -or ($Remove)) { Set-Acl -path $Path -AclObject $Acl }
+            IF(($Add) -or ($Remove)) { Set-Acl -path $Path -AclObject $Acl }
             else { Write-Verbose "No Add or Remove action was specified" }
         }
     }
-    END {}
+    END{}
 }
 

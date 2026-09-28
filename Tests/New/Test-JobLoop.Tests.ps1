@@ -15,7 +15,7 @@ Describe 'Test-JobLoop' -Tag 'Test-JobLoop', 'Unit' {
 
     AfterAll {
 
-      if ($testJob) {
+      IF($testJob) {
         Remove-Job -Id $testJob.Id -Force -ErrorAction SilentlyContinue
       }
     }
@@ -42,7 +42,7 @@ Describe 'Test-JobLoop' -Tag 'Test-JobLoop', 'Unit' {
 
     AfterAll {
 
-      if ($testJob2) {
+      IF($testJob2) {
         Remove-Job -Id $testJob2.Id -Force -ErrorAction SilentlyContinue
       }
     }

@@ -10,10 +10,10 @@ Describe 'Get-ErrorInfo' -Tag 'Get-ErrorInfo', 'Unit' {
 
     BeforeAll {
 
-      try {
+      TRY{
         Get-Item "C:\NonExistent\TestFile.txt" -ErrorAction Stop
       }
-      catch {
+      CATCH{
         $script:testError = $_
       }
     }
@@ -60,10 +60,10 @@ Describe 'Get-ErrorInfo' -Tag 'Get-ErrorInfo', 'Unit' {
 
     It 'Should accept ErrorRecord from pipeline' {
 
-      try {
+      TRY{
         Get-Item "C:\NonExistent\File.txt" -ErrorAction Stop
       }
-      catch {
+      CATCH{
         $result = $_ | Get-ErrorInfo
         $result | Should -Not -BeNullOrEmpty
       }

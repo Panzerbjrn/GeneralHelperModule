@@ -44,13 +44,13 @@ Function Get-Something {
         [string]$LogName = 'Errors.txt'
     )
 
-    BEGIN {
+    BEGIN{
         Write-Verbose "Beginning $($MyInvocation.Mycommand)"
         Write-Verbose "Deleting $LogName"
         Remove-Item $LogName -ErrorActionSilentlyContinue
     }
 
-    PROCESS {
+    PROCESS{
         Write-Verbose "Processing $($MyInvocation.Mycommand)"
 
         ForEach ($Computer in $ComputerName) {
@@ -67,7 +67,7 @@ Function Get-Something {
             Write-Output (New-Object -TypeName PSObject -Property $Info)
         }
     }
-    END {
+    END{
         Write-Verbose "Ending $($MyInvocation.Mycommand)"
     }
 }

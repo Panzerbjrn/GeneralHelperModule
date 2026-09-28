@@ -16,7 +16,7 @@ Describe 'Get-MD5Hash' -Tag 'Get-MD5Hash', 'Unit' {
 
     AfterAll {
 
-      if (Test-Path $testFile) {
+      IF(Test-Path $testFile) {
         Remove-Item -Path $testFile -Force -ErrorAction SilentlyContinue
       }
     }

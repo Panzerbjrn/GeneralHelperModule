@@ -46,7 +46,7 @@ Function Write-LogFile {
     )
 
     $CaptainsLog = "$(Get-Date -UFormat "%Y.%m.%d_%R") - $($Severity): $Message"
-    if ( -not $PSBoundParameters.ContainsKey('LogFilePath') ) {
+    IF( -not $PSBoundParameters.ContainsKey('LogFilePath') ) {
         [string]$CallingFunction = $((Get-PSCallStack)[2].Command) #Going up 2 to capture the right command
         $Path = 'C:\Temp'
         $Filename = "$(Get-Date -Format 'yyyy-MM-dd HH')xx - $CallingFunction - ERROR.log"
@@ -54,17 +54,17 @@ Function Write-LogFile {
         # .NET alternative: $LogFilePath = [System.IO.Path]::Combine($Path, $Filename)
     }
 
-    # .NET alternative for a file-specific check: if (-not [System.IO.File]::Exists($LogFilePath)) { [System.IO.File]::Create($LogFilePath).Dispose() }
-    if (!(Test-Path $LogFilePath)) { New-Item -ItemType File -Path $LogFilePath -Force }
+    # .NET alternative for a file-specific check: IF(-not [System.IO.File]::Exists($LogFilePath)) { [System.IO.File]::Create($LogFilePath).Dispose() }
+    IF(!(Test-Path $LogFilePath)) { New-Item -ItemType File -Path $LogFilePath -Force }
 
     do {
-        try {
+        TRY{
             Write-Verbose $CaptainsLog
             # .NET alternative: [System.IO.File]::AppendAllText($LogFilePath, $CaptainsLog + [Environment]::NewLine)
             Add-Content -Path $LogFilePath -Value $CaptainsLog
             $Done = $True
         }
-        catch {
+        CATCH{
             $Done = $False
         }
         finally {

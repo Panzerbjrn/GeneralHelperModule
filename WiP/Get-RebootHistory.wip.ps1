@@ -73,7 +73,7 @@ Function Get-RebootHistory {
         #[System.Management.Automation.PSCredential]$Credential = [System.Management.Automation.PSCredential]::Empty
     )
 
-    BEGIN {
+    BEGIN{
         $i = 0
         $RecentShutdowns = 0
         $RecentUnexpected = 0
@@ -111,26 +111,26 @@ Function Get-RebootHistory {
         }
     }
 
-    PROCESS {
+    PROCESS{
         ForEach ($Computer in $ComputerName) {
             #$Computer = $ComputerName[0]
             $Params.ComputerName = $Computer
 
             # You can't use credentials when connecting to the local machine so temporarily empty out the credential object.
-            if ($Computer -eq $Env:ComputerName) {
+            IF($Computer -eq $Env:ComputerName) {
                 #$Params.Credential = [System.Management.Automation.PSCredential]::Empty
                 $Params.Remove('Credential')
                 $Params.Remove('ComputerName')
             }
 
-            if ($ComputerName.Count -gt 1) {
+            IF($ComputerName.Count -gt 1) {
                 Write-Progress -Id 1 -Activity "Retrieving boot history." -Status ("Percent Complete: {0:N0}" -f $($i / $($ComputerName.Count) * 100)) -PercentComplete (($i / $ComputerName.Count) * 100); $i++
             }
             else {
                 Write-Progress -Id 1 -Activity "Retrieving boot history." -Status "Retrieving boot history."
             }
 
-            try {
+            TRY{
                 $d = 0
                 #$Events = Get-WmiObject @Params
                 $Events = Get-CimInstance @Params
@@ -147,10 +147,10 @@ Function Get-RebootHistory {
                 }
 
                 # We explicitly ignore exceptions originating from this process since some versions of Windows may store dates in invalid formats (e.g. ?11/?16/?2014) in the event log after an unexpected shutdown causing this calculation to fail.
-                try {
+                TRY{
                     $RecentUnexpected = ($UnexpectedShutdowns | ? { ((Get-Date) - (Get-Date $_)).TotalDays -le 30 }).Count
                 }
-                catch {
+                CATCH{
                     $RecentUnexpected = "Unable to calculate."
                 }
 
@@ -173,7 +173,7 @@ Function Get-RebootHistory {
             }
             catch [System.Exception] {
                 # We explicitly ignore exceptions originating from Get-Date since some versions of Windows may store dates in invalid formats in the event log after an unexpected shutdown.
-                if ($_.CategoryInfo.Activity -ne 'Get-Date') {
+                IF($_.CategoryInfo.Activity -ne 'Get-Date') {
                     Write-Warning ("Unable to retrieve boot history for {0}. `nError Details: {1}" -f ($Computer, $_))
                 }
             }

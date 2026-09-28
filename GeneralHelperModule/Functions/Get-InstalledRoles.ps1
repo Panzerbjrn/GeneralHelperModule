@@ -14,7 +14,7 @@ Function Get-InstalledRoles {
 
 	#>
 	$TempPath = Test-Path "C:\Temp\"
-    if ($TempPath -eq $False) { New-Item -ItemType "Directory" -Path C:\TEMP -Force }
+    IF($TempPath -eq $False) { New-Item -ItemType "Directory" -Path C:\TEMP -Force }
     else {}
     Import-Module Servermanager -Verbose
     Write-Output "Exporting Windows Features & Roles to C:\TEMP\Roles.CSV"

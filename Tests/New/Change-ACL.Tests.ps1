@@ -11,7 +11,7 @@ Describe 'Set-FolderACL' -Tag 'Set-FolderACL', 'Unit' {
     It 'Should have alias Change-ACL' {
 
       $aliases = Get-Alias -Definition Set-FolderACL -ErrorAction SilentlyContinue
-      if ($aliases) {
+      IF($aliases) {
         $aliases.Name | Should -Contain 'Change-ACL'
       }
       else {

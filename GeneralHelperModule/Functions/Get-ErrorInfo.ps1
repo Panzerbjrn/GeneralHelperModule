@@ -16,7 +16,7 @@ Function Get-ErrorInfo {
 			Extracts detailed information from the most recent error
 
 		.EXAMPLE
-			try { Get-Item "C:\NonExistent" } catch { $_ | Get-ErrorInfo }
+			TRY{ Get-Item "C:\NonExistent" } CATCH{ $_ | Get-ErrorInfo }
 
 			Captures and parses error information from a try-catch block
 
@@ -29,7 +29,7 @@ Function Get-ErrorInfo {
         [Parameter(ValueFrompipeline)]
         [Management.Automation.ErrorRecord]$ErrorRecord
     )
-    PROCESS {
+    PROCESS{
         $Info = [PSCustomObject]@{
             Exception = $ErrorRecord.Exception.Message
             Testing   = $ErrorRecord.Exception.Message

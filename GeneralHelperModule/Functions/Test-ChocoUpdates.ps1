@@ -25,7 +25,7 @@ Function Test-ChocoUpdate {
     param([string[]]$Apps)
     ForEach ($App in $Apps) {
         $Status = choco outdated --ignore-pinned --limit-output | Where-Object { $_ -like "$App|*" }
-        if ($Status) {
+        IF($Status) {
             $Current, $Available, $Pinned = $Status.Split('|')[1, 2, 3]
             Write-Output "$App : Update available ($Current → $Available)"
         }

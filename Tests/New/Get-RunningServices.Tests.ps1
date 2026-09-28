@@ -11,7 +11,7 @@ Describe 'Get-RunningService' -Tag 'Get-RunningService', 'Unit' {
     It 'Should have alias Get-RunningServices' {
 
       $aliases = Get-Alias -Definition Get-RunningService -ErrorAction SilentlyContinue
-      if ($aliases) {
+      IF($aliases) {
         $aliases.Name | Should -Contain 'Get-RunningServices'
       }
       else {

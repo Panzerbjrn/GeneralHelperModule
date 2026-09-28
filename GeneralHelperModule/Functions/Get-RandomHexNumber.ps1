@@ -38,7 +38,7 @@ Function Get-RandomHexNumber {
         [int] $length = 20,
         [string] $chars = "0123456789ABCDEF"
     )
-    #IF ("Length" -eq $PSCmdlet.ParameterSetName)
+    #IF("Length" -eq $PSCmdlet.ParameterSetName)
     #{
     $bytes = New-Object "System.Byte[]" $length
     $rnd = New-Object System.Security.Cryptography.RNGCryptoServiceProvider

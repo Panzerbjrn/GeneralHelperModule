@@ -11,7 +11,7 @@ Describe 'Get-InstalledRole' -Tag 'Get-InstalledRole', 'Unit' {
     It 'Should have alias Get-InstalledRoles' {
 
       $aliases = Get-Alias -Definition Get-InstalledRole -ErrorAction SilentlyContinue
-      if ($aliases) {
+      IF($aliases) {
         $aliases.Name | Should -Contain 'Get-InstalledRoles'
       }
       else {

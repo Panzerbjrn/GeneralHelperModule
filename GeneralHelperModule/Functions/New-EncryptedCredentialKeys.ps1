@@ -56,25 +56,25 @@ Function New-EncryptedCredentialKey {
         [Parameter()][string]$Service
     )
 
-    BEGIN {
+    BEGIN{
         $Path = $Path.TrimEnd('\')
 
-        if (!(Test-Path -Path $Path)) {
-            # .NET alternative for directory checks: if (-not [System.IO.Directory]::Exists($Path)) { [System.IO.Directory]::CreateDirectory($Path) }
-            try { New-Item -ItemType "Directory" -Path $Path -Force }
-            catch { "$($Path) doesn't exist, and couldn't be created" }
+        IF(!(Test-Path -Path $Path)) {
+            # .NET alternative for directory checks: IF(-not [System.IO.Directory]::Exists($Path)) { [System.IO.Directory]::CreateDirectory($Path) }
+            TRY{ New-Item -ItemType "Directory" -Path $Path -Force }
+            CATCH{ "$($Path) doesn't exist, and couldn't be created" }
             break
         }
 
-        if (!([string]::IsNullOrEmpty($Service))) {
+        IF(!([string]::IsNullOrEmpty($Service))) {
             $Path = ($Path + "\" + $Service + ".")
         }
         else {
             $Path = ($Path + "\")
         }
     }
-    PROCESS {
-        if ($pscmdlet.ShouldProcess("system")) {
+    PROCESS{
+        IF($pscmdlet.ShouldProcess("system")) {
             #Creating Key File:
             $KeyFile = $Path + "AES.key"
             $Key = New-Object Byte[] 32
@@ -93,7 +93,7 @@ Function New-EncryptedCredentialKey {
             Write-Verbose "Keys created."
         }
     }
-    END {
+    END{
         Write-Verbose "
 		Files created:
 		$($PWDFile)

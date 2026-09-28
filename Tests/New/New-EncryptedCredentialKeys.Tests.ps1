@@ -15,7 +15,7 @@ Describe 'New-EncryptedCredentialKey' -Tag 'New-EncryptedCredentialKey', 'Unit' 
 
     AfterAll {
 
-      if (Test-Path $testPath) {
+      IF(Test-Path $testPath) {
         Remove-Item -Path $testPath -Recurse -Force -ErrorAction SilentlyContinue
       }
     }
@@ -54,7 +54,7 @@ Describe 'New-EncryptedCredentialKey' -Tag 'New-EncryptedCredentialKey', 'Unit' 
 
     AfterAll {
 
-      if (Test-Path $testPath) {
+      IF(Test-Path $testPath) {
         Remove-Item -Path $testPath -Recurse -Force -ErrorAction SilentlyContinue
       }
     }

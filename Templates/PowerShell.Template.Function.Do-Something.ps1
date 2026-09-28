@@ -45,23 +45,23 @@ function Do-Something {
         [string]$Logname = 'errors.txt'
     )
 
-    BEGIN {
+    BEGIN{
         Write-Verbose "Beginning $($MyInvocation.Mycommand)"
         Write-Verbose "Deleting $Logname"
         Remove-Item $LogName -ErrorActionSilentlyContinue
     }
 
-    PROCESS {
+    PROCESS{
         Write-Verbose "Processing $($MyInvocation.Mycommand)"
 
         ForEach ($Computer in $ComputerName) {
             Write-Verbose "Processing $Computer"
-            if ($pscmdlet.ShouldProcess($Computer)) {
+            IF($pscmdlet.ShouldProcess($Computer)) {
                 # use $Computer here
             }
         }
     }
-    END {
+    END{
         Write-Verbose "Ending $($MyInvocation.Mycommand)"
     }
 }

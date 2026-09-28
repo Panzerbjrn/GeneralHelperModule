@@ -34,21 +34,21 @@ Function Get-CombinedFileSize {
         [System.IO.FileSystemInfo[]]$Files
     )
 
-    begin {
+    BEGIN{
         [long]$TotalSize = 0
         [int]$FileCount = 0
     }
 
-    process {
+    PROCESS{
         foreach ($File in $Files) {
-            if ($File -is [System.IO.FileInfo]) {
+            IF($File -is [System.IO.FileInfo]) {
                 $TotalSize += $File.Length
                 $FileCount++
             }
         }
     }
 
-    end {
+    END{
         [PSCustomObject]@{
             FileCount     = $FileCount
             TotalSizeRaw  = $TotalSize

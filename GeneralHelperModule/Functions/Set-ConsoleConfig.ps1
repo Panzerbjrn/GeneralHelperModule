@@ -39,23 +39,23 @@ Function Set-ConsoleConfig {
         [Parameter()]
         [switch]$AdminCheck
     )
-    BEGIN {}
-    PROCESS {
-        if ($pscmdlet.ShouldProcess("PowerShell Console")) {
-            if ($PSCmdlet.ParameterSetName -eq "Title") {
+    BEGIN{}
+    PROCESS{
+        IF($pscmdlet.ShouldProcess("PowerShell Console")) {
+            IF($PSCmdlet.ParameterSetName -eq "Title") {
                 $Host.UI.RawUI.WindowTitle = "$Title"
             }
 
-            if ($PSCmdlet.ParameterSetName -eq "AdminCheck") {
-                if (-not (Test-IsAdministrator)) {
+            IF($PSCmdlet.ParameterSetName -eq "AdminCheck") {
+                IF(-not (Test-IsAdministrator)) {
                     $Host.UI.RawUI.WindowTitle = "Regular PowerShell Operations Console"
                 }
-                if (Test-IsAdministrator) {
+                IF(Test-IsAdministrator) {
                     $Host.UI.RawUI.WindowTitle = "***ROOT PowerShell Operations Console ROOT***"
                 }
             }
         }
     }
-    END {}
+    END{}
 }
 
