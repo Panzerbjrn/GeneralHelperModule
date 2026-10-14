@@ -1,2 +1,21 @@
+# Auto-detect text files and normalize line endings to LF on commit
+* text=auto
+
+# Explicitly declare text files
+*.json text
+*.yml text
+*.yaml text
+
+# Ensure shell scripts always use LF, even on Windows
 *.sh text eol=lf
 *.bash text eol=lf
+
+# Windows-specific scripts should keep CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary files should never be modified
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary
